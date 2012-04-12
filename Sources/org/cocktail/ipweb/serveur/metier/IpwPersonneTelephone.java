@@ -6,11 +6,9 @@ package org.cocktail.ipweb.serveur.metier;
 
 
 
-import com.webobjects.foundation.*;
-import com.webobjects.eocontrol.*;
-import java.math.BigDecimal;
-import java.util.*;
+import com.webobjects.foundation.NSTimestamp;
 
+@SuppressWarnings("serial")
 public class IpwPersonneTelephone extends _IpwPersonneTelephone
 {
     public IpwPersonneTelephone() {

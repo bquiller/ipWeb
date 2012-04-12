@@ -1,0 +1,27 @@
+{
+    attributes = (
+        {
+            columnName = "FANN_KEY"; 
+            externalType = NUMBER; 
+            name = fannKey; 
+            precision = 4; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = "MUE_KEY"; 
+            externalType = NUMBER; 
+            name = mueKey; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (fannKey, mueKey); 
+    className = "org.cocktail.ipweb.serveur.metier.IpUeFermee"; 
+    classProperties = (fannKey, mueKey); 
+    externalName = "IP_UE_FERMEES"; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {"_clientClassPropertyNames" = (fannKey, mueKey); }; 
+    name = IpUeFermees; 
+    primaryKeyAttributes = (fannKey, mueKey); 
+}

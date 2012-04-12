@@ -107,9 +107,17 @@
             name = nbhTp; 
             valueClassName = NSNumber; 
             valueType = d; 
+        }, 
+        {
+            definition = "toEcSeuil.seuil"; 
+            externalType = NUMBER; 
+            name = "toEcSeuil_seuil"; 
+            userInfo = {"_EntityModeler" = {documentation = EOGenericRecord; }; }; 
+            valueClassName = NSNumber; 
+            valueType = i; 
         }
     ); 
-    attributesUsedForLocking = (mrecKey); 
+    attributesUsedForLocking = (mrecKey, "toEcSeuil_seuil"); 
     className = EOGenericRecord; 
     classProperties = (
         fannKey, 
@@ -125,6 +133,8 @@
         nbhCm, 
         nbhTd, 
         nbhTp, 
+        toEcSeuil, 
+        "toEcSeuil_seuil", 
         toRepartEcComment
     ); 
     externalName = "V_MAQ_EC_CHOIX"; 
@@ -149,6 +159,15 @@
     name = VMaqEcChoix; 
     primaryKeyAttributes = (mrecKey); 
     relationships = (
+        {
+            deleteRule = EODeleteRuleNoAction; 
+            destination = IpUeEcSeuil; 
+            isToMany = N; 
+            joinSemantic = EOLeftOuterJoin; 
+            joins = ({destinationAttribute = mrecKey; sourceAttribute = mrecKey; }); 
+            name = toEcSeuil; 
+            propagatesPrimaryKey = Y; 
+        }, 
         {
             deleteRule = EODeleteRuleNoAction; 
             destination = RepartEcComment; 

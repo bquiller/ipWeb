@@ -30,6 +30,7 @@ import com.webobjects.foundation.NSTimestamp;
 import com.webobjects.foundation.NSTimestampFormatter;
 
 
+@SuppressWarnings("serial")
 public class MyLogin extends CktlWebComponent {
 	public Responder loginResponder;
     

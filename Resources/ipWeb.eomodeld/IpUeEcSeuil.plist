@@ -1,0 +1,29 @@
+{
+    attributes = (
+        {
+            columnName = "MREC_KEY"; 
+            externalType = NUMBER; 
+            name = mrecKey; 
+            precision = 6; 
+            userInfo = {"_EntityModeler" = {commonClassProperty = YES; }; }; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            columnName = SEUIL; 
+            externalType = NUMBER; 
+            name = seuil; 
+            userInfo = {"_EntityModeler" = {documentation = EOGenericRecord; }; }; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }
+    ); 
+    attributesUsedForLocking = (mrecKey, seuil); 
+    className = EOGenericRecord; 
+    classProperties = (mrecKey, seuil); 
+    externalName = "IP_UE_EC_SEUIL"; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {"_clientClassPropertyNames" = (mrecKey); }; 
+    name = IpUeEcSeuil; 
+    primaryKeyAttributes = (mrecKey); 
+}

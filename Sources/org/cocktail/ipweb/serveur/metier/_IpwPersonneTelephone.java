@@ -6,11 +6,10 @@ package org.cocktail.ipweb.serveur.metier;
 // DO NOT EDIT.  Make changes to PersonneTelephone.java instead.
 
 
-import com.webobjects.foundation.*;
-import com.webobjects.eocontrol.*;
-import java.math.BigDecimal;
-import java.util.*;
+import com.webobjects.eocontrol.EOGenericRecord;
+import com.webobjects.foundation.NSTimestamp;
 
+@SuppressWarnings("serial")
 public abstract class _IpwPersonneTelephone extends EOGenericRecord {
 
     public _IpwPersonneTelephone() {

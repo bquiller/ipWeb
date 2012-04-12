@@ -6,11 +6,9 @@ package org.cocktail.ipweb.serveur.metier;
 // DO NOT EDIT.  Make changes to IpDiplSansRn.java instead.
 
 
-import com.webobjects.foundation.*;
-import com.webobjects.eocontrol.*;
-import java.math.BigDecimal;
-import java.util.*;
+import com.webobjects.eocontrol.EOGenericRecord;
 
+@SuppressWarnings("serial")
 public abstract class _IpDiplSansRn extends EOGenericRecord {
 
     public _IpDiplSansRn() {

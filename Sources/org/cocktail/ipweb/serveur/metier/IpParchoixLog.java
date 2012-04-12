@@ -2,11 +2,10 @@ package org.cocktail.ipweb.serveur.metier;
 // IpParchoixLog.java
 // Created on Mon Jul 16 05:21:28  2007 by Apple EOModeler Version 5.2
 
-import com.webobjects.foundation.*;
-import com.webobjects.eocontrol.*;
-import java.math.BigDecimal;
-import java.util.*;
+import com.webobjects.eocontrol.EOGenericRecord;
+import com.webobjects.foundation.NSTimestamp;
 
+@SuppressWarnings("serial")
 public class IpParchoixLog extends EOGenericRecord {
 
     public IpParchoixLog() {

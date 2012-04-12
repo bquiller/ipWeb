@@ -2,11 +2,10 @@ package org.cocktail.ipweb.serveur.metier;
 // IpSemStat.java
 // Created on Mon Jul 23 22:40:52  2007 by Apple EOModeler Version 5.2
 
-import com.webobjects.foundation.*;
-import com.webobjects.eocontrol.*;
-import java.math.BigDecimal;
-import java.util.*;
+import com.webobjects.eocontrol.EOGenericRecord;
+import com.webobjects.foundation.NSTimestamp;
 
+@SuppressWarnings("serial")
 public class IpSemStat extends EOGenericRecord {
 
     public IpSemStat() {

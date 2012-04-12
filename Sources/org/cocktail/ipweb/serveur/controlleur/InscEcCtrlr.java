@@ -5,7 +5,10 @@ import org.cocktail.ipweb.serveur.Session;
 import org.cocktail.ipweb.serveur.metier.IpChoixEc;
 
 import com.webobjects.eocontrol.EOEditingContext;
+import com.webobjects.eocontrol.EOFetchSpecification;
 import com.webobjects.eocontrol.EOGenericRecord;
+import com.webobjects.eocontrol.EOQualifier;
+import com.webobjects.eocontrol.EOSortOrdering;
 import com.webobjects.foundation.*;
 
 /**
@@ -161,6 +164,28 @@ public class InscEcCtrlr implements ElementAnalyse {
 	// renvoit VRAI si cet EC est Facultatif (pouvant être choisi mais sans ects derrière)
 	public boolean ecFacultatif()	{	 
 		return (((String)monEcMaquette.valueForKey("mtecCode")).compareToIgnoreCase("F") == 0);
+	}
+	
+
+	// renvoit VRAI si cet EC est Pleine (seuil défini ET atteint)
+	public boolean ecPlein() {
+		// Seuil non défini 
+		if (monEcMaquette.valueForKey("toEcSeuil_seuil") == null) return false;
+		
+		NSArray<Integer> bindings = new NSArray<Integer>(new Integer[] {mrecKey});
+		EOQualifier qualifier = EOQualifier.qualifierWithQualifierFormat("mrecKey = %@", bindings);
+
+		EOFetchSpecification fetchSpec = new EOFetchSpecification("IpChoixEc",qualifier, null);
+		fetchSpec.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS déjà fetchés si besoin
+
+		EOEditingContext ec = maSession.defaultEditingContext();
+
+		NSArray listeInscEc = ec.objectsWithFetchSpecification(fetchSpec);
+			
+		int count = listeInscEc.size();
+		int nbRestant = (Integer)monEcMaquette.valueForKey("toEcSeuil_seuil") - count;
+		
+		return nbRestant <= 0;
 	}
 	
 	// init externe de la remarque...

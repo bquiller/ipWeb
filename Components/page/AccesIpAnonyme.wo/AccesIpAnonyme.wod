@@ -7,12 +7,6 @@ CRIHTMLFooter1: CktlHTMLFooter {
 	useDefaultMail = true;
 }
 
-Image0: WOImage {
-	border = 0;
-	height = "4";
-	src = application.srcLigneJauneULR;
-	width = "80%";
-}
 
 Image1: WOImage {
 	border = 0;

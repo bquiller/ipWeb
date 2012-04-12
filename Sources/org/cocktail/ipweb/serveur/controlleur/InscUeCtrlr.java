@@ -14,6 +14,8 @@ import com.webobjects.foundation.NSComparator.ComparisonException;
 import com.webobjects.foundation.NSLog;
 import com.webobjects.foundation.NSMutableArray;
 
+import er.extensions.eof.qualifiers.ERXInQualifier;
+
 /**
  * @author olive
  * Créé le 2 oct. 2006
@@ -47,7 +49,7 @@ public class InscUeCtrlr {
 	private int numOrdreUe, etatRetour = 0, ecEnPlus;	// n� d'ordre de l'UE dans la liste des UE de ce semestre...
 	private int nbreEcAChoix,oldNbreEcAChoix;			// nombre d'EC � choix ratach�es dans la maquette � cette UE
 	
-	private String mueKey;		// le code interne de l'UE (pour l'acc�s via une Ancre) + msemKey
+	private Integer mueKey;		// le code interne de l'UE (pour l'acc�s via une Ancre) + msemKey
 	private String libUEsansChoix, remUE;
 	private Integer msemKey;
 	
@@ -74,7 +76,7 @@ public class InscUeCtrlr {
 		
 		maSession = sess;
 		monUe = ue;
-		mueKey = ((Integer)monUe.valueForKey("mueKey")).toString();
+		mueKey = (Integer)monUe.valueForKey("mueKey");
 		msemKey = (Integer)monUe.valueForKey("msemKey");
 		inscSemCt = inscSem;
 		pointsUe = ((Number)monUe.valueForKey("muePoints")).doubleValue();
@@ -296,7 +298,7 @@ public class InscUeCtrlr {
 		return (String)monUe.valueForKey("mueCode");
 	}
 	
-	public String getUeKey() {
+	public Integer getUeKey() {
 		return mueKey;
 	}
 	
@@ -432,6 +434,22 @@ public class InscUeCtrlr {
 		if ((listeEcIpCt == null || listeEcIpCt.count()==0) && !maSession.modifEnCours()) return true;
 		//if ((cumulEctsUeChoix + cumulEctsUeBloques)==0.0 && !maSession.modifEnCours()) return true;
 		return false;
+	}
+
+	/**
+	 * 
+	 * @return true si l'UE est fermée
+	 */
+	public boolean ueOuverte() {
+		EOEditingContext ec = maSession.defaultEditingContext();
+
+		EOQualifier qualifier = EOQualifier.qualifierWithQualifierFormat("mueKey = %@", new NSArray(new Object[] {mueKey}));
+
+		// la liste des UE fermées
+		EOFetchSpecification fs = new EOFetchSpecification("IpUeFermees",qualifier, null);
+		NSArray listeIpUeFermees = ec.objectsWithFetchSpecification(fs);  
+
+		return listeIpUeFermees.isEmpty();
 	}
 	
 	public double cumulEctsUe() {

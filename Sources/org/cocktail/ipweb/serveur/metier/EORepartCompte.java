@@ -2,11 +2,10 @@ package org.cocktail.ipweb.serveur.metier;
 // EORepartCompte.java
 // Created on Fri Sep 29 01:06:45  2006 by Apple EOModeler Version 5.2
 
-import com.webobjects.foundation.*;
-import com.webobjects.eocontrol.*;
-import java.math.BigDecimal;
-import java.util.*;
+import com.webobjects.eocontrol.EOGenericRecord;
+import com.webobjects.foundation.NSTimestamp;
 
+@SuppressWarnings("serial")
 public class EORepartCompte extends EOGenericRecord {
 
     public EORepartCompte() {

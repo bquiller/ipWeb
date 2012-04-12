@@ -17,7 +17,6 @@ import org.cocktail.fwkcktlwebapp.server.CktlWebApplication;
 import org.cocktail.fwkcktlwebapp.server.components.CktlAlertPage;
 import org.cocktail.ipweb.serveur.controlleur.ImprJasper;
 
-import com.webobjects.appserver.WOApplication;
 import com.webobjects.appserver.WOComponent;
 import com.webobjects.appserver.WOContext;
 import com.webobjects.appserver.WOResponse;
@@ -70,6 +69,9 @@ public class Application extends CktlWebApplication {
 	public static final String OM_RN_AUTORISE="RN_AUTORISE";	// Autorise RN par diplômes
 	public static final String OM_RN_LISTEDIPL="RN_LISTEDIPL";		// gestion des diplomes pour lesquels l'accés aux RN Web est autorisé
 	public static final String OM_ENVOI_MAIL="MAIL_INSCRITS";		// envoi de mail aux inscrits
+
+	public static final String OM_PARAM_SEUIL="PARAM_SEUIL";	// Définition d'un seuil par EC
+	public static final String OM_PARAM_UE="PARAM_UE";		// Ouverture / fermeture d'UE
 	
 	
 	private static String jdbcUrlBase;		/// Pour pouvoir afficher les infos de connexion...

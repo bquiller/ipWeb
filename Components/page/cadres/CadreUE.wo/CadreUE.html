@@ -22,22 +22,26 @@
           </b>
         </td>
         <td width = "30" align = "CENTER">
-          <webobject name = "CChoixAFaireUE"> <webobject name = "ImageUEincomplete" /> </webobject>
-          <webobject name = "CChoixOkUE"> <webobject name = "ImageUeOK" /> </webobject>
+          <webobject name = "CPasUneUeFermee">
+            <webobject name = "CChoixAFaireUE"> <webobject name = "ImageUEincomplete" /> </webobject>
+            <webobject name = "CChoixOkUE"> <webobject name = "ImageUeOK" /> </webobject>
+          </webobject>
         </td>
         <td width = "300" align = "LEFT">
-          <webobject name = "CUeAvecChoix">
-            <webobject name = "CPasEnModeModif">
-              <webobject name = "lienVersModifUEavecPbEcts">
+          <webobject name = "CPasUneUeFermee">
+            <webobject name = "CUeAvecChoix">
+              <webobject name = "CPasEnModeModif">
+                <webobject name = "lienVersModifUEavecPbEcts">
+                  <webobject name = "cssUE"> <webobject name = "SMsgEctsUE" /> </webobject>
+                </webobject>
+              </webobject>
+              <webobject name = "CEnModeModif">
                 <webobject name = "cssUE"> <webobject name = "SMsgEctsUE" /> </webobject>
               </webobject>
             </webobject>
-            <webobject name = "CEnModeModif">
+            <webobject name = "CUeSansChoix">
               <webobject name = "cssUE"> <webobject name = "SMsgEctsUE" /> </webobject>
             </webobject>
-          </webobject>
-          <webobject name = "CUeSansChoix">
-            <webobject name = "cssUE"> <webobject name = "SMsgEctsUE" /> </webobject>
           </webobject>
         </td>
       </webobject>
@@ -90,6 +94,9 @@
                 </font>
               </td>
               <td width = "360">
+                <webobject name = "EcPlein">
+                  <b>Le nombre de place pour cet EC est limit&eacute; et atteint.&nbsp;</b>
+                </webobject>
                 <webobject name = "Generic1">
                   <webobject name = "CEcEnErreurSansConseil"> <webobject name = "SMsgStatutEc" /> </webobject>
                   <webobject name = "CEcEnErreurAvecConseil">
@@ -103,14 +110,16 @@
         <table border = "0" cellspacing = "1" cellpadding = "0">
           <tr>
             <td align = "LEFT" width = "320" height = "30">
-              <webobject name = "CUeAvecChoix">
-                <webobject name = "CEnModeModif">
-                  <webobject name = "SBValiderModif" />&nbsp;&nbsp;&nbsp;&nbsp; 
-                  <webobject name = "SBannulerModif" />
-                </webobject>
-                <webobject name = "CPasEnModeModif">
-                  <webobject name = "CUeNonFacultative"> <webobject name = "SBdemanderModif" /> </webobject>
-                  <webobject name = "CUeFacultativeEtChoixPossible"> <webobject name = "SBdemanderModif" /> </webobject>
+          	  <webobject name = "CPasUneUeFermee">
+                <webobject name = "CUeAvecChoix">
+                  <webobject name = "CEnModeModif">
+                    <webobject name = "SBValiderModif" />&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <webobject name = "SBannulerModif" />
+                  </webobject>
+                  <webobject name = "CPasEnModeModif">
+                    <webobject name = "CUeNonFacultative"> <webobject name = "SBdemanderModif" /> </webobject>
+                    <webobject name = "CUeFacultativeEtChoixPossible"> <webobject name = "SBdemanderModif" /> </webobject>
+                  </webobject>
                 </webobject>
               </webobject>
             </td>
@@ -139,11 +148,16 @@
       </webobject>
       <webobject name = "CAucuneIpAuxEc">
         <b>
-          <i>
+          <i><webobject name = "CPasUneUeFermee">
             <webobject name = "AncreUE"> Aucune inscription&nbsp;prise pour cette UE pour l'instant... </webobject>
-          </i>
+          </webobject></i>
         </b>
-        <webobject name = "CPasEnModeModif">&nbsp;:&nbsp; <webobject name = "SBAjouterChoix" /> </webobject>
+        <webobject name = "CPasUneUeFermee"><webobject name = "CPasEnModeModif">&nbsp;:&nbsp; 
+        	<webobject name = "SBAjouterChoix" /> 
+        </webobject></webobject>
+        <webobject name = "CUneUeFermee">
+        	<b>Aucune inscription ne peut être effectu&eacute;e en ligne pour cette UE.</b>
+        </webobject>
       </webobject>
     </webobject>
   </p>

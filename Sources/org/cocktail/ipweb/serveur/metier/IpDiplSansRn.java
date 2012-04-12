@@ -6,11 +6,8 @@ package org.cocktail.ipweb.serveur.metier;
 
 
 
-import com.webobjects.foundation.*;
-import com.webobjects.eocontrol.*;
-import java.math.BigDecimal;
-import java.util.*;
 
+@SuppressWarnings("serial")
 public class IpDiplSansRn extends _IpDiplSansRn
 {
     public IpDiplSansRn() {

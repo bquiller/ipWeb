@@ -1,17 +1,17 @@
 package org.cocktail.ipweb.serveur.metier;
 
-// _IpBilanrnOk.java
+// _IpDiplSansRn.java
 // 
 // Created by eogenerator
-// DO NOT EDIT.  Make changes to IpBilanrnOk.java instead.
+// DO NOT EDIT.  Make changes to IpDiplSansRn.java instead.
 
 
 import com.webobjects.eocontrol.EOGenericRecord;
 
 @SuppressWarnings("serial")
-public abstract class _IpBilanrnOk extends EOGenericRecord {
+public abstract class _IpUeFermee extends EOGenericRecord {
 
-    public _IpBilanrnOk() {
+    public _IpUeFermee() {
         super();
     }
 
@@ -35,19 +35,11 @@ public abstract class _IpBilanrnOk extends EOGenericRecord {
         takeStoredValueForKey(aValue, "fannKey");
     }
 
-    public Number mrsemKey() {
-        return (Number)storedValueForKey("mrsemKey");
+    public Number mueKey() {
+        return (Number)storedValueForKey("mueKey");
     }
 
-    public void setMrsemKey(Number aValue) {
-        takeStoredValueForKey(aValue, "mrsemKey");
-    }
-
-    public Number rnaffEtat() {
-        return (Number)storedValueForKey("rnaffEtat");
-    }
-
-    public void setRnaffEtat(Number aValue) {
-        takeStoredValueForKey(aValue, "rnaffEtat");
+    public void setMueKey(Number aValue) {
+        takeStoredValueForKey(aValue, "mueKey");
     }
 }

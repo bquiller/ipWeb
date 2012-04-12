@@ -264,9 +264,9 @@ public class InscSemestreCtrlr {
 				EOGenericRecord ueMaq = (EOGenericRecord)enumerator.nextElement();
 				InscUeCtrlr ueCt = new InscUeCtrlr(maSession,ueMaq,this,inscFormCt.modifPossible(),inscFormCt.semestreIntegre());
 				ueCt.cumulCasesCochee();
-				if (ueCt.compareCumulEcts()<0) {
+				if (ueCt.ueOuverte() && ueCt.compareCumulEcts()<0) {
 					nbUeIncompletes++;
-					derniereUeIncomplete = ueCt.getUeKey();
+					derniereUeIncomplete = ueCt.getUeKey().toString();
 				}
 				cumECTS += ueCt.cumulEctsUe();	// cumul des points ECTS du dipl�me...
 				lesUeCt.addObject(ueCt);
@@ -616,7 +616,7 @@ public class InscSemestreCtrlr {
 				ueCt.cumulCasesCochee();	// valeurs temporaires pour la vérif...
 				if (ueCt.compareCumulEcts()==1) {	// trop d'EC pour cette UE !
 					yaPasDeProb = false;
-					derniereUeAvecErreur = ueCt.getUeKey();
+					derniereUeAvecErreur = ueCt.getUeKey().toString();
 					ueCt.afficherDetails();	// au cas ou ce serait masqué...
 				}
 			}
@@ -696,9 +696,9 @@ public class InscSemestreCtrlr {
 				cumECTS += ueCt.cumulEctsUe();	// cumul des points ECTS du dipl�me...
 				if (ueCt.ueAvecChoix()) {
 					ueCt.extraireListeEcIp();
-					if (ueCt.compareCumulEcts()<0) {
+					if (ueCt.ueOuverte() && ueCt.compareCumulEcts()<0) {
 						nbUeIncompletes++;
-						derniereUeIncomplete = ueCt.getUeKey();
+						derniereUeIncomplete = ueCt.getUeKey().toString();
 					}
 				}
 			}

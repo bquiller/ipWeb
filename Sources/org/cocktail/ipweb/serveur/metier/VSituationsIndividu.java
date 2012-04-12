@@ -2,11 +2,9 @@ package org.cocktail.ipweb.serveur.metier;
 // VSituationsIndividu.java
 // Created on Sat Oct 28 02:41:04  2006 by Apple EOModeler Version 5.2
 
-import com.webobjects.foundation.*;
-import com.webobjects.eocontrol.*;
-import java.math.BigDecimal;
-import java.util.*;
+import com.webobjects.eocontrol.EOGenericRecord;
 
+@SuppressWarnings("serial")
 public class VSituationsIndividu extends EOGenericRecord {
 
     public VSituationsIndividu() {

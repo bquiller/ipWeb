@@ -5,20 +5,18 @@ package org.cocktail.ipweb.serveur.components;
 
 import org.cocktail.fwkcktlwebapp.server.CktlMailBus;
 import org.cocktail.fwkcktlwebapp.server.components.CktlWebComponent;
-import org.cocktail.fwkcktlwebapp.server.components.CktlWebPage;
 import org.cocktail.ipweb.serveur.Application;
 import org.cocktail.ipweb.serveur.Session;
 import org.cocktail.ipweb.serveur.components.onglets.OngletsCtrlr;
-import org.cocktail.ipweb.serveur.components.page.IPWebDefaultPage;
 import org.cocktail.ipweb.serveur.controlleur.IndividuCtrlr;
 
 import com.webobjects.appserver.WOComponent;
 import com.webobjects.appserver.WOContext;
-import com.webobjects.eocontrol.EOEditingContext;
 
 /* ATTENTE
 import org.cocktail.scolarix.serveur.metier.eos.EOPreEtudiant;
 */
+@SuppressWarnings("serial")
 public class Main extends CktlWebComponent {
     public String login;
     public String unCoucou = "Salut le monde !";
@@ -39,7 +37,6 @@ public class Main extends CktlWebComponent {
 		
 		// Initialize your component here
 		Session session = (Session)session();
-		EOEditingContext ec = session.defaultEditingContext();
 		
 		// init dates IP pour cette ann�e..
 		((Application)this.application()).initDatesIP(session.getAnneeEnCours());

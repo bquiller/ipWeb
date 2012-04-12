@@ -153,6 +153,7 @@
         }, 
         {className = "org.cocktail.ipweb.serveur.metier.IpSemStat"; name = IpSemStat; }, 
         {className = EOGenericRecord; name = IpUeEcComment; }, 
+        {className = EOGenericRecord; name = IpUeEcSeuil; }, 
         {className = EOGenericRecord; name = IpwDroits; }, 
         {className = EOGenericRecord; name = IpwDroitsScolpeda; }, 
         {className = EOGenericRecord; name = IpwModules; }, 
@@ -242,8 +243,13 @@
         {
             className = "org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteResponsableEc"; 
             name = ScolMaquetteResponsableEc; 
+        }, 
+        {
+            className = "org.cocktail.ipweb.serveur.metier.IpUeFermee"; 
+            name = IpUeFermees; 
         }
     ); 
+    internalInfo = {"_deletedEntityNamesInObjectStore" = (IpUeEcSeuil); }; 
     storedProcedures = (
         pIpwInsIsemestre, 
         pIpwIntegreSem, 

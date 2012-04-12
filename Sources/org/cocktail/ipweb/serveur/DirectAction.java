@@ -34,7 +34,6 @@ package org.cocktail.ipweb.serveur;
 
 import org.cocktail.fwkcktlwebapp.common.database.CktlUserInfoDB;
 import org.cocktail.fwkcktlwebapp.server.CktlWebAction;
-import org.cocktail.ipweb.serveur.controlleur.Compte;
 import org.cocktail.ipweb.serveur.controlleur.CompteCtrlr;
 import org.cocktail.ipweb.serveur.controlleur.PhotoCtrlr;
 
@@ -77,7 +76,6 @@ public class DirectAction extends CktlWebAction {
 
 		CompteCtrlr monCC;
 		monCC = new CompteCtrlr((Session)session(),netId);
-		Compte cpte = monCC.compteCourant();
 		maSession.setCtrlrCompte(monCC);
 		maSession.setPhotoCtrlr(new PhotoCtrlr(maSession));
         	

@@ -10,9 +10,13 @@ AncreUE2: WOGenericContainer {
 
 CBEcEnCours: WOCheckBox {
 	checked = ecEnCours.caseCochee;
-	disabled = consultEnCours;
+	disabled = ecDisabled;
 	id = ecEnCours.idCaseACoche;
 	onClick = ecEnCours.appelJSCocheLigne;
+}
+
+EcPlein: WOConditional {
+	condition = ecEnCours.ecPlein;
 }
 
 CEcBloque: WOConditional {
@@ -59,6 +63,14 @@ CEcNonBloque: WOConditional {
 
 CPasEnModeModif: WOConditional {
 	condition = modeModif;
+	negate = true;
+}
+
+CPasUneUeFermee: WOConditional {
+	condition = ueOuverte;
+}
+CUneUeFermee: WOConditional {
+	condition = ueOuverte;
 	negate = true;
 }
 

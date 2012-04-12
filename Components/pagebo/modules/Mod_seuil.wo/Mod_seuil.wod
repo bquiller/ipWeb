@@ -1,0 +1,176 @@
+Browser1: WOBrowser {
+	displayString = detailEcSeuil;
+	escapeHTML = false;
+	item = ecEnCours;
+	list = listeEc;
+	size = 7;
+	onChange = fctSubmitChoix;
+	selections = ecChoisie;
+	disabled = dialogueModifEnCours;
+}
+
+
+Conditional1: WOConditional {
+	condition = isUeChoisi;
+}
+
+Conditional10: WOConditional {
+	condition = debugEnCours;
+}
+
+Conditional2: WOConditional {
+	condition = monCtSeuil.isModifAutorisee;
+}
+
+Conditional3: WOConditional {
+	condition = afficherDialGestionSeuil;
+}
+
+Conditional4: WOConditional {
+	condition = afficherDialGestionSeuil;
+	negate = true;
+}
+
+Conditional5: WOConditional {
+	condition = monCtSeuil.isModifAutorisee;
+}
+
+Conditional6: WOConditional {
+	condition = dialogueModifEnCours;
+}
+
+Conditional7: WOConditional {
+	condition = supprSeuil;
+}
+
+Conditional9: WOConditional {
+	condition = monCtSeuil.isModifAutorisee;
+	negate = true;
+}
+
+Form1: WOForm {
+}
+
+Form2: WOForm {
+	action = choixEcSeuilAGerer;
+	name = nomFormWOBrowser;
+}
+
+Form3: WOForm {
+	multipleSubmit = true;
+}
+
+Hyperlink1: WOHyperlink {
+	action = gestionSeuilAction;
+}
+
+PopUpMultiDiplSemUe1: PopUpMultiDiplSemUe {
+	action = selectUE;
+	anneeSuivie = monCtSeuil.anneeSuivie;
+	disabled = dialogueModifEnCours;
+	eoSelectionne = monCtSeuil.eoDiplSelected;
+	fspnKey = monCtSeuil.fspnKey;
+	mueKey = monCtSeuil.mueKey;
+	typeSelection = 3;
+}
+
+Repetition1: WORepetition {
+	item = ecEnCours;
+	list = listeEc;
+}
+
+String1: WOString {
+	value = monCtSeuil.libCompletUeChoisie;
+}
+
+String2: WOString {
+	value = ecEnCours.mecCode;	// VALID
+}
+
+String3: WOString {
+	value = ecEnCours.mecLibelle;	// VALID
+}
+
+String4: WOString {
+	value = seuils;
+}
+
+String5: WOString {
+	value = refEcAEditer;
+}
+
+String6: WOString {
+	value = ecEnCours.mecLibelle;	// VALID
+}
+
+String7: WOString {
+	value = ecEnCours.mrecKey;	// VALID
+}
+
+SubmitButton1: WOSubmitButton {
+	action = clickBtChoixDial;
+	value = texteBtChoixDial;
+	disabled = dialogueModifEnCours;
+}
+
+SubmitButton2: WOSubmitButton {
+	action = actionSupprSeuil;
+	value = "Supprimer";
+}
+
+SubmitButton4: WOSubmitButton {
+	action = nouveauSeuilAction;
+	value = "Définir un seuil ...";
+}
+
+SubmitButton5: WOSubmitButton {
+	action = validerAction;
+	value = "Valider";
+}
+
+SubmitButton6: WOSubmitButton {
+	action = annulerModifSeuil;
+	value = "Annuler";
+}
+
+Text1: WOTextField {
+	value = SeuilEcAEditer;
+	numberformat = "0";
+}
+
+affBtModif : WOConditional {
+	condition = affBtModifier;
+}
+affBtNouveau : WOConditional {
+	condition = affBtNouveau;
+}
+affBtSuppr : WOConditional {
+	condition = affBtSupprimer;
+}
+
+btModif: WOSubmitButton {
+	action = lancerModifSeuil;
+	value = "Modifier";
+}
+
+isAffModif: WOConditional {
+	condition = saisieSeuil;
+}
+
+
+isAffSimple: WOConditional {
+	condition = affSimpleSeuil;
+}
+
+phaseChoix : WOConditional {
+	condition = dialogueModifEnCours;
+	negate = true;
+}
+
+strSeuil: WOString {
+	value = SeuilEcAEditer;
+}
+
+strSeuil2: WOString {
+	value = SeuilEcAEditer;
+}

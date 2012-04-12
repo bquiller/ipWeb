@@ -1,16 +1,15 @@
 package org.cocktail.ipweb.serveur.metier;
 
 
-// IpBilanrnOk.java
 // 
 
 
 
 
 @SuppressWarnings("serial")
-public class IpBilanrnOk extends _IpBilanrnOk
+public class IpUeFermee extends _IpUeFermee
 {
-    public IpBilanrnOk() {
+    public IpUeFermee() {
         super();
     }
 

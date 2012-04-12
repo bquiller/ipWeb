@@ -1,23 +1,17 @@
 package org.cocktail.ipweb.serveur.controlleur;
-import java.util.Enumeration;
-
 import org.cocktail.ipweb.serveur.Session;
 import org.cocktail.ipweb.serveur.components.onglets.Droit;
 import org.cocktail.ipweb.serveur.components.onglets.FonctionsCtrlr;
 import org.cocktail.ipweb.serveur.components.onglets.OngletsCtrlr;
 
+import com.webobjects.eocontrol.EOClassDescription;
 import com.webobjects.eocontrol.EOEditingContext;
 import com.webobjects.eocontrol.EOEnterpriseObject;
 import com.webobjects.eocontrol.EOFetchSpecification;
 import com.webobjects.eocontrol.EOGenericRecord;
 import com.webobjects.eocontrol.EOQualifier;
 import com.webobjects.eocontrol.EOSortOrdering;
-import com.webobjects.eocontrol.EOClassDescription;
 import com.webobjects.foundation.NSArray;
-import com.webobjects.foundation.NSKeyValueCoding;
-import com.webobjects.foundation.NSLog;
-import com.webobjects.foundation.NSMutableArray;
-import com.webobjects.foundation.NSTimestamp;
 
 import er.extensions.eof.ERXEC;
 

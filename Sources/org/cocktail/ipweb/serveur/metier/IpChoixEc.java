@@ -2,11 +2,10 @@ package org.cocktail.ipweb.serveur.metier;
 // IpChoixEc.java
 // Created on Sat Nov 25 06:22:47  2006 by Apple EOModeler Version 5.2
 
-import com.webobjects.foundation.*;
-import com.webobjects.eocontrol.*;
-import java.math.BigDecimal;
-import java.util.*;
+import com.webobjects.eocontrol.EOGenericRecord;
+import com.webobjects.foundation.NSTimestamp;
 
+@SuppressWarnings("serial")
 public class IpChoixEc extends EOGenericRecord {
 
     public IpChoixEc() {

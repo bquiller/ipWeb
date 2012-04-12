@@ -32,6 +32,7 @@ import com.webobjects.foundation.NSDictionary;
 import com.webobjects.foundation.NSNotificationCenter;
 import com.webobjects.foundation.NSTimestamp;
 
+@SuppressWarnings("serial")
 public class Session extends CktlWebSession {
 
 	private CompteCtrlr monCC;

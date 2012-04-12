@@ -54,8 +54,10 @@ public class CadreUE extends UncWebComponent {
     	
     }
     
-    public boolean consultEnCours() { return !modeModif(); }
-    
+    public boolean ecDisabled() { 
+    	return !modeModif() || ecEnCours.ecPlein(); 
+    }
+   
     // les appels Javascripts pour afficher ou masquer les diff�rentes Zones (Span et DIV) en fonction
     // de le demande (d�tails ou non) - sauf pour l'UE qui a le focus (forc�ment en mode modif) ...
     
@@ -92,8 +94,11 @@ public class CadreUE extends UncWebComponent {
 //    	if (monSemCt == null) monSemCt = ((Session)this.session()).getCtlrSemestreEnCours();
     	return monSemCt.modeModif(); 
     	}
-    
-    
+
+    public boolean ueOuverte() {
+    	return monUeCtrlr.ueOuverte(); 
+    }
+
     // dialogue modal d�ja en cours ?
     public boolean dmec() {
 	return ((Session)session()).dmec();

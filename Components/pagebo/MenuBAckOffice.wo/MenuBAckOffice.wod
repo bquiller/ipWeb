@@ -39,6 +39,14 @@ Conditional8: WOConditional {
 	condition = compChoisiListeInscDipl;
 }
 
+Conditional9: WOConditional {
+	condition = compChoisiParamSeuil;
+}
+
+Conditional10: WOConditional {
+	condition = compChoisiParamUE;
+}
+
 CondEnvoiMail : WOConditional {
 	condition = compChoisiEnvoiMail;
 }
@@ -118,6 +126,11 @@ Mod_diplAvecRN: Mod_diplAvecRN {
 }
 
 Mod_listeInscDipl: Mod_listeInscDipl {
+}
+
+Mod_seuil: Mod_seuil{
+}
+Mod_fermeture: Mod_fermeture{
 }
 
 Mod_EnvoiMail : Mod_envoiMail {	

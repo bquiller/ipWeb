@@ -1,0 +1,53 @@
+
+Browser2: WOBrowser {
+	item = eoUEouverte;
+	list = monCtFermeture.listeUEouvertes;
+	displayString = displayUE;
+	selections = selectionUEouverte;
+	value = eoUEouverte.mueKey;	// VALID
+	size = 15;
+	style = "width:300px;";
+	multiple = true;
+}
+Browser3: WOBrowser {
+	item = eoUEouverte;
+	list = monCtFermeture.listeUEfermees;
+	displayString = displayUE;
+	multiple = true;
+	selections = selectionUEfermee;
+	value = eoUEouverte.mueKey;	// VALID
+	size = 15;
+	style = "width:300px;";
+}
+
+
+ajoutDiplAvecRN: WOSubmitButton {
+	action = ajoutUEfermee;
+	title = "Ajouter UE(s) avec accès aux RN/Web";
+	value = "<==";
+}
+
+supprDiplAvecRN: WOSubmitButton {
+	action = supprUEfermee;
+	title = "Enlever UE(s) avec accès aux RN/Web";
+	value = "==>";
+}
+
+FueFermees: WOForm {
+	multipleSubmit = true;
+}
+
+Conditional1: WOConditional {
+	condition = isDiplChoisi;
+}
+
+PopUpMultiDiplSemUe1: PopUpMultiDiplSemUe {
+	action = selectDipl;
+	anneeSuivie = anneeSuivie;
+	disabled = dialogueModifEnCours;
+	eoSelectionne = eoDiplSelected;
+	fspnKey = fspnKey;
+	mueKey = mueKey;
+	typeSelection = 1;
+}
+

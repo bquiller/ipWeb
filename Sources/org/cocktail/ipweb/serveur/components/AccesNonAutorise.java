@@ -6,6 +6,7 @@ import org.cocktail.ipweb.serveur.components.page.IPWebDefaultPage;
 import com.webobjects.appserver.WOContext;
 
 
+@SuppressWarnings("serial")
 public class AccesNonAutorise extends IPWebDefaultPage {
 
     public AccesNonAutorise(WOContext context) {
