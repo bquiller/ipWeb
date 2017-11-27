@@ -15,7 +15,7 @@ public class IpwPersonneTelephone extends _IpwPersonneTelephone
         super();
     }
 
-    public void completeInit(Number persId,String noTel,String typeNo,String typeTel,NSTimestamp dateCreate) {
+    public void completeInit(Integer persId,String noTel,String typeNo,String typeTel,NSTimestamp dateCreate) {
         
         setPersId(persId);
         

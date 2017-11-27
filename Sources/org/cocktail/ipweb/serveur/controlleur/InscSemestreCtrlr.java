@@ -7,6 +7,10 @@ import org.cocktail.ipweb.serveur.Session;
 import org.cocktail.ipweb.serveur.metier.IpChoixEc;
 import org.cocktail.ipweb.serveur.metier.IpRelationChoixEc;
 
+import com.webobjects.eoaccess.EOEntity;
+import com.webobjects.eoaccess.EOSQLQualifier;
+import com.webobjects.eoaccess.EOUtilities;
+import com.webobjects.eocontrol.EOAndQualifier;
 import com.webobjects.eocontrol.EOEditingContext;
 import com.webobjects.eocontrol.EOFetchSpecification;
 import com.webobjects.eocontrol.EOGenericRecord;
@@ -36,7 +40,7 @@ public class InscSemestreCtrlr {
 	private NSArray listeUeCt;		// les controleurs a créer pour les différentes UE de ce semestre
 	private InscFormationCtrlr inscFormCt;	// le ctrlr du niveau supérieur...
 	private Integer semImpair;		// 1 si impair, 0 si pair
-	
+
 	private int nbreMaxEcFacultatifsAChoisir;	// va indiquer combien d'EC facultatifs peuvent encore être choisis...
 
 	private double cumECTS;			// les ECTS cumulés des EC avec IP ou choix pour ce semestre
@@ -51,7 +55,7 @@ public class InscSemestreCtrlr {
 
 	private NSMutableArray listeEcCTaChoix;	// liste des ctrl d'EC a choix non bloqué...
 	private NSMutableArray listeEcCTFacultatifs;	// liste des ctrl d'EC Facultatifs...	
-	
+
 	// afin de retrouver rapidement par MREC_KEY
 	private int nbUeIncompletes;	// nbre d'UE ou il y a encore des choix pédagogiques a faire...
 	private String derniereUeAvecErreur;	// le code mueKey de l'UE contenant un EC en erreur
@@ -61,8 +65,8 @@ public class InscSemestreCtrlr {
 	private boolean aucunChoixAFaire;	// vrai si on est dans les dates d'inscr° mais que le redoublant a déjà validé toutes les UE à choix
 
 	private boolean validationChoixParEtudiant;	// Vrai si l'étudiant a "confirmé" ses choix (signature électronique, en gros)
-												// repasse à faux s'il y a une modif à faire !
-	
+	// repasse à faux s'il y a une modif à faire !
+
 	private boolean consultSeule;	// permet au mode Back-Office de bloquer les modifs si droits insuffisants	
 	/**
 	 * Objectif : g�rer le semestre pour lequel on veut g�rer les IP...
@@ -75,7 +79,7 @@ public class InscSemestreCtrlr {
 		maSession = sess;
 		monSemestre = semestre;		// ref de ScolInsParcoursSemestre
 		inscFormCt = inscForm;
-		
+
 		// aller voir dans IP_SEM_STAT la valeur de Choix_valides...
 		validationChoixParEtudiant = inscFormCt.choixValides();
 
@@ -88,16 +92,16 @@ public class InscSemestreCtrlr {
 	private void initsBefore() {
 		aucunChoixAFaire = false;	// par d�faut cet �tudiant peut faire des choix...
 	}
-	
+
 	// Bascule confirmation/modification choix, avec svgde de l'état à chaque fois...
 	public void confirmerChoix(boolean confirmer) {
 		validationChoixParEtudiant = confirmer;
-		
+
 		// maj de la valeur de Choix_valides dans IP_SEM_STAT
 		inscFormCt.majIpSemStatConfChoix(confirmer);
-		
+
 		// Logguer l'action de l'étudiant (validation de ses choix OU annulation de cette validation)
- 		maSession.confirmerChoixEtudiant(inscFormCt.idiplNumero(), (Integer)((inscFormCt.eoInscEtud()).valueForKey("etudNumero")),
+		maSession.confirmerChoixEtudiant(inscFormCt.idiplNumero(), (Integer)((inscFormCt.eoInscEtud()).valueForKey("etudNumero")),
 				inscFormCt.anneeUniv(), inscFormCt.mrsemKeyPS(), inscFormCt.getMsemOrdre(), confirmer);
 	}
 
@@ -174,7 +178,7 @@ public class InscSemestreCtrlr {
 
 	// Indique si ce dipl.semestre comporte des parcours ou non...
 	public boolean isInscAParcours() { return inscFormCt.isInscAparcours(); }
-	
+
 	// Indique s'il y a une dispense complete du semestre :
 	public boolean isSemestreDejaObtenu() { return inscFormCt.semestreDejaObtenu(); }
 
@@ -236,21 +240,21 @@ public class InscSemestreCtrlr {
 
 	// chargement des UE associées à ce semestre, dans l'ordre...
 	private void chargerUe()  {
-//		NSArray bindings = new NSArray(new Object[] {(Integer)monSemestre.valueForKey("msemKey")});
+		//		NSArray bindings = new NSArray(new Object[] {(Integer)monSemestre.valueForKey("msemKey")});
 
-//		EOQualifier qualifier = EOQualifier.qualifierWithQualifierFormat(
-//		"msemKey = %@ ", bindings);
+		//		EOQualifier qualifier = EOQualifier.qualifierWithQualifierFormat(
+		//		"msemKey = %@ ", bindings);
 
-//		EOSortOrdering rueOrdre = EOSortOrdering.sortOrderingWithKey("mrueOrdre",
-//		EOSortOrdering.CompareAscending);
+		//		EOSortOrdering rueOrdre = EOSortOrdering.sortOrderingWithKey("mrueOrdre",
+		//		EOSortOrdering.CompareAscending);
 
-//		NSArray sortOrderings = new NSArray(new Object[] {rueOrdre});
+		//		NSArray sortOrderings = new NSArray(new Object[] {rueOrdre});
 
-//		EOFetchSpecification fetchSpec = new EOFetchSpecification("ScolMaqSemestreUe",qualifier, sortOrderings);
+		//		EOFetchSpecification fetchSpec = new EOFetchSpecification("ScolMaqSemestreUe",qualifier, sortOrderings);
 
-//		EOEditingContext ec = maSession.defaultEditingContext();
+		//		EOEditingContext ec = maSession.defaultEditingContext();
 
-//		listeUe = ec.objectsWithFetchSpecification(fetchSpec);
+		//		listeUe = ec.objectsWithFetchSpecification(fetchSpec);
 
 		listeUe = maSession.monApp.chargerDesUe(getMsemKey(),inscFormCt.msemKeyPC());
 		// si des UE ont bien été récupérées... générer les objets Ctrlr qui vont les gérer !
@@ -315,6 +319,7 @@ public class InscSemestreCtrlr {
 	// Création des contraintes inter EC, inventaire des contraintes par règles de gestion
 	// ajout éventuel d'une relation englobant toutes les EC facultatives (si existent)
 	public void inventaireContraintes() {
+		System.out.println("Dans inventaireContraintes ...");
 		// A présent on utilise ce dico pour créer des relations d'exclusions entre EC ayant méme code..
 		NSArray listeSameCode = dictEcSameCode.allValues();
 		NSArray sameCode;
@@ -326,15 +331,16 @@ public class InscSemestreCtrlr {
 		while (enumerator.hasMoreElements()) {
 			sameCode = (NSArray)enumerator.nextElement();
 			if (sameCode != null && sameCode.count()>=2) {
-				// cr�er une relation d'exclusion entre au moins 2 EC ayant m�me mec_key...
+				// creer une relation d'exclusion entre au moins 2 EC ayant m�me mec_key...
 				relEc = new RelationChoixEc(sameCode);
 				listeRel.addObject(relEc);
 			}
 		}
-		
+		System.out.println("    après while : " + listeRel.toString()); // Vide mais pas grave
+		System.out.println("    listeEcCTFacultatifs " + listeEcCTFacultatifs);
 		// Traiter les EC facultatifs parmi les EC à choix...
 		if (listeEcCTFacultatifs != null && listeEcCTFacultatifs.count() > 0) {
-			
+
 			// Nbre d'EC facultatifs max par niveaux
 			int nbreMaxEcFacultatifs = maSession.interrogeParamConfigInt("NBRE_MAX_EC_FACULTATIFS");
 			RelationChoixFacultatif relFac = new RelationChoixFacultatif(
@@ -348,7 +354,9 @@ public class InscSemestreCtrlr {
 			// Nbre max d'EC facultatifs à choisir
 			nbreMaxEcFacultatifsAChoisir = relFac.nbEcFacultatifsRestant();
 		}
-
+		System.out.println("    lesContraintes " + lesContraintes);
+		
+/*		
 		// traiter les formules de contraintes (équations booléennes) ...
 		if (lesContraintes != null && lesContraintes.count()>0) {
 			boolean demandeSave = false;
@@ -372,15 +380,98 @@ public class InscSemestreCtrlr {
 			if (demandeSave) {
 				maSession.commitChgt();
 			}
-
 		}
+		System.out.println("Les EC : " + dictEcSem + " stop !");
+*/		
+		
+		// BRICE : traiter les formules de contraintes (équations booléennes) ... sur le semestre précédent ...
+		// if (getMsemOrdre() > 1 && lesContraintes != null && lesContraintes.count()>0) {
+		if (getMsemOrdre() >= 1 && lesContraintes != null && lesContraintes.count()>0) {
+			System.out.println("Dans le code de BRICE !");
+			// On récupère tous les SCOL_INSCRIPTION_EC correspondant au IDIPL_NUMERO 
+			// Modif de BRICE pour gérer l'année précédente
 
+			/* 
+			NSArray bindings = new NSArray(new Object[] {inscFormCt.idiplNumero()});
+			EOQualifier qualifier = EOQualifier.qualifierWithQualifierFormat(
+					"idiplNumero = %@", bindings);
+			*/
+			EOEditingContext ec = maSession.defaultEditingContext();
+
+			Integer[] param = {inscFormCt.anneeUniv()-1, (Integer)((inscFormCt.eoInscEtud()).valueForKey("etudNumero"))};
+			EOEntity inscription = EOUtilities.entityNamed(ec,"ScolInscriptionEc");
+			EOSQLQualifier qualifier = new EOSQLQualifier(inscription,
+					"fannKey >= %@ and idiplNumero in (select IDIPL_NUMERO from IP_WEB.SCOL_INSCRIPTION_ETUDIANT where etud_numero = %@) ", param);
+			
+			EOSortOrdering mrecKey = EOSortOrdering.sortOrderingWithKey("mrecKey",
+					EOSortOrdering.CompareDescending);
+			NSArray sortOrderings = new NSArray(new Object[] {mrecKey});
+			EOFetchSpecification fetchInscEc = new EOFetchSpecification("ScolInscriptionEc",
+					qualifier, sortOrderings);
+			fetchInscEc.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS d�j� fetch�s si besoin
+
+			NSArray<EOGenericRecord> inscEc = ec.objectsWithFetchSpecification(fetchInscEc);
+			
+			NSMutableDictionary dictEcSems = new NSMutableDictionary();
+			
+			for (EOGenericRecord ecs : inscEc) {
+				System.out.println("Inscrit à " + ecs.toString());
+				Integer mrecK = (Integer)ecs.valueForKey("mrecKey");
+				InscEcCtrlr ect = new InscEcCtrlr(mrecK, true); // Le choix est forcément bloqué !
+				
+				ect.setUeKey("test"); // Il faudrait avoir un lien sur l'UE !!!
+				dictEcSems.setObjectForKey(ect,mrecK);
+			}
+			
+			// TODO faire la modif pour que la vérification se fasse aussi sur les choix non intégrés
+			NSArray bindings= new NSArray(new Object[] {inscFormCt.idiplNumero()});
+			EOQualifier qualifier2 = EOQualifier.qualifierWithQualifierFormat(
+					"idiplNumero = %@", bindings);
+			EOFetchSpecification fetchSpec = new EOFetchSpecification("IpChoixEc",qualifier2, sortOrderings);
+			fetchSpec.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS d�j� fetch�s si besoin
+
+			NSArray<IpChoixEc> voeux = ec.objectsWithFetchSpecification(fetchSpec);
+			for (IpChoixEc voeu : voeux) {
+				System.out.println("Voeu sur " + voeu.toString());
+				Integer mrecK = (Integer)voeu.valueForKey("mrecKey");
+				InscEcCtrlr ect = new InscEcCtrlr(mrecK, true); // Le choix est forcément bloqué !
+				
+				ect.setUeKey("test"); // Il faudrait avoir un lien sur l'UE !!!
+				dictEcSems.setObjectForKey(ect,mrecK);
+			}
+
+			dictEcSems.addEntriesFromDictionary((NSDictionary)dictEcSem); // On doit merger pour avoir les EC cochées ...
+			System.out.println("Les EC par BRICE : " + dictEcSems + " stop !");
+			
+			boolean demandeSave = false;
+			enumerator = lesContraintes.objectEnumerator();
+			while (enumerator.hasMoreElements()) {
+				IpRelationChoixEc ctrte = (IpRelationChoixEc)enumerator.nextElement();
+				try {
+					RelationChoixExpression relExp=new RelationChoixExpression(ctrte,
+							(NSDictionary)dictEcSems,
+							maSession.defaultEditingContext());
+					listeRel.addObject(relExp);
+					if (relExp.majExpressionCompacte()) {
+						demandeSave=true;
+					}
+				}
+				catch (Exception e) {	// on ne peut pas générer cette relation (pb avec équation booléenne)
+					System.out.println("err inscSemCtrl : "+e.getMessage());	// on signale et on passe à la suivante...
+					e.printStackTrace();
+				}	
+			}			
+			if (demandeSave) {
+				maSession.commitChgt();
+			}
+		}
+		// FIN BRICE
 
 		// Pour tester : ajoute �valuation d'une contrainte sur les ec du semestre...
-//		String equationBooleenne = "(2519|2532)&(2519|2520)";
-//		RelationChoixExpression relExp=new RelationChoixExpression(equationBooleenne,
-//		(NSDictionary) dictEcSem,true);
-//		listeRel.addObject(relExp);
+		//		String equationBooleenne = "(2519|2532)&(2519|2520)";
+		//		RelationChoixExpression relExp=new RelationChoixExpression(equationBooleenne,
+		//		(NSDictionary) dictEcSem,true);
+		//		listeRel.addObject(relExp);
 
 		lesRelationsEntreEc = (NSArray)listeRel;
 
@@ -427,11 +518,12 @@ public class InscSemestreCtrlr {
 	// charger globalement toutes les contraintes pour les EC de ce semestre...
 	// puis les int�grer aux relations � v�rifier sur les choix d'EC !
 	private NSArray chargerContraintesEc() {
-
+		System.out.println("Dans chargerContraintesEc");
 		NSArray bindings = new NSArray(new Object[] {getMsemKey(),inscFormCt.msemKeyPC()});
 		EOQualifier qualifier = EOQualifier.qualifierWithQualifierFormat("msemKey = %@ or msemKey = %@", bindings);
-
-		EOFetchSpecification fetchSpec = new EOFetchSpecification("IpRelationChoixEc",qualifier, null);
+		// BRICE: on tente de charger toutes les contraintes pour voir ... suppression du qualifier
+		// EOFetchSpecification fetchSpec = new EOFetchSpecification("IpRelationChoixEc",qualifier, null);
+		EOFetchSpecification fetchSpec = new EOFetchSpecification("IpRelationChoixEc",null, null);
 		fetchSpec.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS d�j� fetch�s si besoin
 		EOEditingContext ec = maSession.defaultEditingContext();
 
@@ -507,8 +599,8 @@ public class InscSemestreCtrlr {
 		}
 
 	}
-	
-	
+
+
 	public boolean ipSurEc(Integer mrecKey) {
 		if (dictInscEc.objectForKey(mrecKey) != null) return true;
 		else return false;
@@ -557,7 +649,7 @@ public class InscSemestreCtrlr {
 					if (ueCt.ueAvecChoix()) {	// UE avec des choix
 						if (ueCt.ueDetaillee()) toutesLesUeMasquees = false;
 						if (ueCt.ueIncomplete()) {	// UE ou il manque des choix d'EC
-//							if (pasdUEincompletes) ueCt.donnerFocus();	// donner le focus � la premi�re
+							//							if (pasdUEincompletes) ueCt.donnerFocus();	// donner le focus � la premi�re
 							pasdUEincompletes = false;
 							ueCt.afficherDetails();
 						}
@@ -736,20 +828,20 @@ public class InscSemestreCtrlr {
 				return "Vos choix pédagogiques pour ce semestre sont <b>complets <u>et confirm&eacute;s</u>.</b>";
 		}
 	}	
-	
+
 	// indic pour le WoComponents : cas ou les choix sont complets MAIS pas validés...
 	public boolean choixCompletsPasValides() {
 		return ((nbUeIncompletes==0) && !validationChoixParEtudiant);
 	}
-	
+
 	// indic pour le WoComponents : cas ou les choix sont complets ET validés...
 	public boolean choixCompletsValides() {
 		return ((nbUeIncompletes==0) && validationChoixParEtudiant);
 	}
-	
+
 	public boolean resteUeIncomplete() { 
 		return (nbUeIncompletes>0); 
-		}
+	}
 
 	public String stNbreUeIncomplete() {
 		if (modeModif) return ("<A HREF=\"#"+derniereUeIncomplete+"\">pour "+nbUeIncompletes+" UE.<A>");
@@ -780,11 +872,11 @@ public class InscSemestreCtrlr {
 	public boolean ipTerminees() {
 		return inscFormCt.ipTerminees();
 	}
-	
+
 	public boolean redoublantBloque() {
 		return inscFormCt.redoublantBloque();
 	}
-	
+
 	//	************** Gestion de l'impression de la fiche IP du semestre via JASPER...
 	// reponse au clic sur l'icone "PDF"
 	public NSData imprChoixPedag(String diplSem,int semOrdre){
@@ -822,12 +914,12 @@ public class InscSemestreCtrlr {
 	private InscUeCtrlr jrUeCt=null;
 
 	public void resetBoucle() {
-//		System.out.println("> premiere UE");
+		//		System.out.println("> premiere UE");
 		monEnum = listeUeCt.objectEnumerator();
 	}
 
 	public boolean nextElement() {
-//		System.out.println("> next UE");
+		//		System.out.println("> next UE");
 		// premier élément ?
 		boolean encoreDesElements;
 		if (jrUeCt==null) {
@@ -841,7 +933,7 @@ public class InscSemestreCtrlr {
 			encoreDesElements = jrUeCt.nextElement();
 			if (!encoreDesElements && (monEnum.hasMoreElements())) {
 				jrUeCt = (InscUeCtrlr)monEnum.nextElement();
-//				System.out.println("Passage à l'UE suivant : " + jrUeCt.getNomUe());
+				//				System.out.println("Passage à l'UE suivant : " + jrUeCt.getNomUe());
 				encoreDesElements = jrUeCt.resetBoucle();;
 			}
 		}
@@ -852,14 +944,14 @@ public class InscSemestreCtrlr {
 		Object res = null;
 		if (jrName.equals("TITRE_UE")) 
 			res = jrUeCt.getNomUe()+" ("+jrUeCt.getCodeUe()+") :"+
-			jrUeCt.getPointsUe()+" points ECTS";
+					jrUeCt.getPointsUe()+" points ECTS";
 		else if (jrName.equals("NUM_UE"))
 			res = new Integer(jrUeCt.getOrdreUe());
 		else if (jrName.equals("REM_UE"))
 			res = jrUeCt.getRemUe();
 		else res = jrUeCt.fetchJRChamp(jrName);
-//		if (res==null) System.out.println(">> "+jrName+" = NULL");
-//		else System.out.println(">> "+jrName+" = "+res.toString());
+		//		if (res==null) System.out.println(">> "+jrName+" = NULL");
+		//		else System.out.println(">> "+jrName+" = "+res.toString());
 		return res;
 	}
 
@@ -871,5 +963,5 @@ public class InscSemestreCtrlr {
 	}
 
 
-//	************** Fin Gestion de l'impression de la fiche IP du semestre via JASPER...
+	//	************** Fin Gestion de l'impression de la fiche IP du semestre via JASPER...
 }

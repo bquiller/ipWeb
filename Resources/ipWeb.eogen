@@ -1,1 +1,8 @@
- -destination src/classeMetier -extension java -java -model ipWeb.eomodeld -packagedirs -subclassDestination src/classeMetier -verbose -loadModelGroup
+ -destination Sources \
+ -extension java \
+ -java \
+ -model ipWeb.eomodeld \
+ -packagedirs \
+ -subclassDestination Sources \
+ -verbose \
+ -loadModelGroup

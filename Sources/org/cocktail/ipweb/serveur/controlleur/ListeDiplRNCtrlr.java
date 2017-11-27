@@ -122,8 +122,8 @@ public class ListeDiplRNCtrlr {
     		if (listeEOipDiplSansRn.objectForKey(fspnKey) == null) {
 
     			IpDiplSansRn eoAAjouter = new IpDiplSansRn();
-    			eoAAjouter.setFannKey((Number)diplSel.valueForKey("fannKey"));
-    			eoAAjouter.setFspnKey((Number)fspnKey);
+    			eoAAjouter.setFannKey((Integer)diplSel.valueForKey("fannKey"));
+    			eoAAjouter.setFspnKey((Integer)fspnKey);
     			travail = true;
     			ec.insertObject(eoAAjouter);
     			listeEOipDiplSansRn.setObjectForKey(eoAAjouter, fspnKey);

@@ -5,6 +5,7 @@ package org.cocktail.ipweb.serveur.components;
 
 import org.cocktail.fwkcktlwebapp.server.CktlMailBus;
 import org.cocktail.fwkcktlwebapp.server.components.CktlWebComponent;
+import org.cocktail.fwkcktlwebapp.server.components.CktlWebPage;
 import org.cocktail.ipweb.serveur.Application;
 import org.cocktail.ipweb.serveur.Session;
 import org.cocktail.ipweb.serveur.components.onglets.OngletsCtrlr;
@@ -17,7 +18,7 @@ import com.webobjects.appserver.WOContext;
 import org.cocktail.scolarix.serveur.metier.eos.EOPreEtudiant;
 */
 @SuppressWarnings("serial")
-public class Main extends CktlWebComponent {
+public class Main extends CktlWebPage {
     public String login;
     public String unCoucou = "Salut le monde !";
 
@@ -88,7 +89,7 @@ public class Main extends CktlWebComponent {
 		    String leMsg = monIndC.getUserFirstName()+ " "+ monIndC.getUserLastName() 
 		    			+ " (PERS_ID = " + monIndC.getPersId(); 
 		    leMsg = leMsg+") a essayé de se connecter à ipWeb...\nMais cette utilisateur n'est reconnu ni comme étudiant, ni comme personnel au sens large !";
-		    leBusDeMail.sendMail("ipWeb@univ-nc.nc", emailDest, null, "IPWeb: acces non autorisé", leMsg, null, null);
+		    leBusDeMail.sendMail("ipWeb@unimes.fr", emailDest, null, "IPWeb: acces non autorisé", leMsg, null, null);
 		}
 		else {
 		    System.err.println("*********** ERREUR : Pas de serveur de mail configuré et disponible...");

@@ -1,2 +1,8 @@
 /build/*
 /bin/*
+/build/
+/dist/
+/build/
+/build/
+/bin/
+/${wo.ws.docroot}/

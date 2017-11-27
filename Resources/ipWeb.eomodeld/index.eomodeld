@@ -249,7 +249,6 @@
             name = IpUeFermees; 
         }
     ); 
-    internalInfo = {"_deletedEntityNamesInObjectStore" = (IpUeEcSeuil); }; 
     storedProcedures = (
         pIpwInsIsemestre, 
         pIpwIntegreSem, 

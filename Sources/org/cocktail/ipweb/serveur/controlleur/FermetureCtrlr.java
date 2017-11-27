@@ -217,8 +217,8 @@ public class FermetureCtrlr implements NSKeyValueCoding {
 			if (listeEOipUEfermees.objectForKey(mueKey) == null) {
 
 				IpUeFermee eoAAjouter = new IpUeFermee();
-				eoAAjouter.setFannKey((Number)ueSel.valueForKey("fannKey"));
-				eoAAjouter.setMueKey((Number)mueKey);
+				eoAAjouter.setFannKey((Integer)ueSel.valueForKey("fannKey"));
+				eoAAjouter.setMueKey((Integer)mueKey);
 				travail = true;
 				ec.insertObject(eoAAjouter);
 				listeEOipUEfermees.setObjectForKey(eoAAjouter, mueKey);

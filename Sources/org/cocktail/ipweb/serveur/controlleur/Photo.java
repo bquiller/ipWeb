@@ -2,7 +2,6 @@ package org.cocktail.ipweb.serveur.controlleur;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.ByteArrayOutputStream;
-import com.sun.image.codec.jpeg.*;
 import javax.swing.ImageIcon;
 
 import com.webobjects.eocontrol.EOGenericRecord;
@@ -73,7 +72,7 @@ public class Photo {
 
 		// Commencer par ajuster la photo...
 		msgErr = "";
-		this.myPict = ajustementTaille(donneesPhoto);
+		this.myPict = donneesPhoto;
 		if (!msgErr.equals("")) return msgErr;
 		this.pictLengthKB = new Integer(this.myPict.length() / 1024);
 		NSTimestampFormatter formatter=new NSTimestampFormatter("%d/%m/%y");
@@ -84,6 +83,7 @@ public class Photo {
 	
 	// gestion de l'image tir�e des donn�es de la base 
 	//(pour adapter les dimensions � l'affichage du composant)
+	/*
     private NSData ajustementTaille(NSData donneesPhoto) {
     	NSData donneeEnRetour = donneesPhoto;
     	ImageIcon monImIcon;
@@ -166,7 +166,8 @@ public class Photo {
 		}
 		return donneeEnRetour;
     }
-    
+    */
+	
     public int largeurPTPhoto() { return largeurPTPhoto; }
     public int hauteurPTPhoto() { return hauteurPTPhoto; }
     

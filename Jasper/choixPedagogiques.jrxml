@@ -2,9 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="choixPedagogiques" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<import value="net.sf.jasperreports.engine.data.*"/>
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="DIPL_SEMESTRE" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[new String("Licence Droit, semestre 3")]]></defaultValueExpression>
 	</parameter>
@@ -39,7 +42,7 @@
 		<fieldDescription><![CDATA[nbre de points ECTS de cet EC]]></fieldDescription>
 	</field>
 	<field name="REM_EC" class="java.lang.String">
-		<fieldDescription><![CDATA[Indication sur l'obtention de cet EC 
+		<fieldDescription><![CDATA[Indication sur l'obtention de cet EC
 (dispense), avec la note...]]></fieldDescription>
 	</field>
 	<field name="LIB_TYPE_EC" class="java.lang.String">
@@ -61,7 +64,7 @@
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Roman"/>
+						<font fontName="Arial" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["UE"+$F{NUM_UE}+" - "+$F{TITRE_UE}]]></textFieldExpression>
 				</textField>
@@ -74,7 +77,7 @@
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement>
-						<font size="10" isItalic="true" pdfFontName="Helvetica-Oblique"/>
+						<font fontName="Arial" isItalic="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{REM_UE}]]></textFieldExpression>
 				</textField>
@@ -98,7 +101,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Times New Roman" size="18" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ETABLISSEMENT}]]></textFieldExpression>
 			</textField>
@@ -111,7 +114,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="18" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Année "+$P{ANNEE_UNIV}]]></textFieldExpression>
 			</textField>
@@ -131,7 +134,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="14" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{DIPL_SEMESTRE}]]></textFieldExpression>
 			</textField>
@@ -144,7 +147,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="20" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Choix pédagogiques de "+$P{NOM_PRENOM}]]></textFieldExpression>
 			</textField>
@@ -164,7 +167,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Remarque sur l'EC]]></text>
 			</staticText>
@@ -177,7 +180,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Points ECTS]]></text>
 			</staticText>
@@ -190,7 +193,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Titre de l'élément constitutif]]></text>
 			</staticText>
@@ -203,7 +206,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[TYPE EC]]></text>
 			</staticText>
@@ -228,7 +231,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LIB_TYPE_EC}]]></textFieldExpression>
 			</textField>
@@ -241,7 +244,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TITRE_EC}]]></textFieldExpression>
 			</textField>
@@ -254,7 +257,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ECTS_EC}]]></textFieldExpression>
 			</textField>
@@ -267,7 +270,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{REM_EC}]]></textFieldExpression>
 			</textField>
@@ -282,7 +285,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="8" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LIB_TYPE_EC}]]></textFieldExpression>
 			</textField>
@@ -299,7 +302,9 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Je soussigné"+$P{GENRE}+" "+$P{NOM_PRENOM}+" certifie avoir reçu la copie de cette fiche."]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
@@ -310,7 +315,9 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Signature de l'étudiant"+$P{GENRE}+" :"]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -321,7 +328,9 @@
 					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
 				<text><![CDATA[Visa du Secrétariat Pédagogique :]]></text>
 			</staticText>
 			<staticText>
@@ -332,8 +341,10 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement/>
-				<text><![CDATA[A Nouméa, le]]></text>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[A Nîmes, le]]></text>
 			</staticText>
 		</band>
 	</columnFooter>
@@ -348,9 +359,9 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " / "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
 				<reportElement key="textField" x="499" y="4" width="36" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -361,7 +372,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="10"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
@@ -377,7 +388,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>

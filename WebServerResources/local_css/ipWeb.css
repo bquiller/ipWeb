@@ -1,4 +1,4 @@
-
+// Dans le code : #E6E6E6  
 span.erreur /* pour souligner une erreur ! */    { color: #c00; font-weight: bold; text-decoration: none }
 span.erreur a:link { color: #c00; font-weight: bold; text-decoration: underline; cursor: help }
 span.UeIncomplete /* UE ou il manque des EC */  { color: #f00; font-size: inherit; font-weight: bold; text-decoration: none; background-color: #fff }
@@ -20,7 +20,7 @@ span.ChoixImpossible /* pour un choix impossible */ { color: #888; font-style: i
 span.ChoixPrisNonModif /* pour un choix pris, mais non modifiable */ { color: #F88; font-weight: bold; font-style: italic; text-decoration: none }
 span.nonselected { font-size: inherit; text-decoration: none }
 span.selected { color: #c00; font-size: inherit; font-weight: bold; text-decoration: none }
-
+fieldset { border-color: #E6E6E6; }
 /* definition integree au document des styles specifiques � IP Web ! */
  *.hide {display: none;}
  *.show {display: block;}

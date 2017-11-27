@@ -18,7 +18,7 @@
             valueType = i; 
         }
     ); 
-    attributesUsedForLocking = (mrecKey, seuil); 
+    attributesUsedForLocking = (mrecKey); 
     className = EOGenericRecord; 
     classProperties = (mrecKey, seuil); 
     externalName = "IP_UE_EC_SEUIL"; 

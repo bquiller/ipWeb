@@ -205,6 +205,7 @@ public class EspaceSolution {
 		// ATTENTION ! Etre s�r de l'ordre des variables dans la chaine de bit 
 		// (doit bien correspondre � l'ordre de la NSArray ecCtConcernes)
 		if (nbSoluces<MAX_SOLUCES) {
+			System.out.println("Ajout d'une solution ...");
 			solutionsTemp[nbSolucesTemp++] = laSoluce;
 		}
 		else throw new Exception("Trop de soluces !");

@@ -138,7 +138,7 @@ Conditional36: WOConditional {
 }
 
 Conditional37: WOConditional {
-	condition = session.modeBackOffice;
+	condition = maSession.modeBackOffice;
 	negate = true;
 }
 
@@ -159,7 +159,7 @@ Conditional40: WOConditional {
 }
 
 Conditional41: WOConditional {
-	condition = session.modeBackOffice;
+	condition = maSession.modeBackOffice;
 	negate = true;
 }
 
@@ -213,7 +213,9 @@ Conditional7: WOConditional {
 }
 
 Conditional8: WOConditional {
-	condition = modeModif;
+	condition = false;
+	// BRICE bug confirmer puis enregistrer 
+	// avant : condition = modeModif;
 }
 
 Conditional9: WOConditional {

@@ -126,7 +126,7 @@ public class ImprJasper {
 	    // encryption de tous les PDF sortis par l'appli.... le mot de passe est généré automatiquement par JRPdfExporter
 	    exporter.setParameter(JRPdfExporterParameter.IS_ENCRYPTED , new Boolean(true));
 	    exporter.setParameter(JRPdfExporterParameter.IS_128_BIT_KEY , new Boolean(true));
-	    exporter.setParameter(JRPdfExporterParameter.PERMISSIONS , new Integer(PdfWriter.ALLOW_PRINTING));
+	    exporter.setParameter(JRPdfExporterParameter.PERMISSIONS , new Integer(PdfWriter.AllowPrinting));
 	    
 	    exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, tmpStream);
 	    exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);

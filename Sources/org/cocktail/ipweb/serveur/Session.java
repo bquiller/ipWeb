@@ -80,15 +80,15 @@ public class Session extends CktlWebSession {
 		etudiantADetailler = null;
 
 		// affichage des Properties..
-//		Properties prop = System.getProperties();
-//		Enumeration enum = prop.propertyNames();
-//		while (enum.hasMoreElements()) {
-//		String ne = (String)enum.nextElement();
-//		System.out.println(ne+" = "+prop.getProperty(ne));
-//		}
+		//		Properties prop = System.getProperties();
+		//		Enumeration enum = prop.propertyNames();
+		//		while (enum.hasMoreElements()) {
+		//		String ne = (String)enum.nextElement();
+		//		System.out.println(ne+" = "+prop.getProperty(ne));
+		//		}
 
 	}
-	
+
 	// Retourne une String contenant la concaténation de toutes les adresses mail des redoublants d'une promo...
 	public String emailsRdbltPromo(Integer fannKey,Integer fspnKey,Integer msemOrdre) {
 
@@ -101,7 +101,7 @@ public class Session extends CktlWebSession {
 
 		NSArray tmp = defaultEditingContext().objectsWithFetchSpecification(fs);
 		if (tmp == null || tmp.count()==0) return null;
-		
+
 		Enumeration e = tmp.objectEnumerator();
 		boolean debut = true;
 		String res = null;
@@ -118,9 +118,9 @@ public class Session extends CktlWebSession {
 			}
 		}    
 		return res;
-		
+
 	}
-	
+
 	// Envoit d'un mail à la liste des redoublants...
 	public void prevenirParMailGroupRdbl(Integer fannKey,Integer fspnKey,Integer msemOrdre,String diplSem) {
 		// liste des destinataires :
@@ -131,12 +131,12 @@ public class Session extends CktlWebSession {
 			String leMsg="Bonjour,\n\nLe service de la scolarité vient de terminer le transferts des notes et des ECTS pour un diplôme auquel vous vous êtes réinscrit : "+diplSem;
 			leMsg += "\nVous pouvez dés à présent vous connecter sur l'application IP Web pour effectuer les choix pédagogiques qu'il vous reste éventuellement à faire.";
 			leMsg += "\n\nLien vers IP Web : "+urlAppli+"\n\n(Si vous avez déjà validé toutes les EC à choix pour ce semestre, merci de ne pas tenir compte de ce message)";
-			
+
 			envoitMailGroupe("IP par le Web ouverte en "+diplSem, listeDestinataires, leMsg );	
 		}
 	}
-	
-	
+
+
 
 	// retourner le mail complet 
 	public String emailComplet() { 
@@ -240,7 +240,7 @@ public class Session extends CktlWebSession {
 		}
 		return false;
 	}
-	
+
 
 	public void setCtrlrCompte(CompteCtrlr cc) {
 		monCC = cc;
@@ -271,14 +271,14 @@ public class Session extends CktlWebSession {
 		IpParchoixLog cnxLog = new IpParchoixLog();
 		monEc.insertObject(cnxLog);
 
-//		IpParchoixLog cnxLog = (IpParchoixLog)dataBus.newObjectInEntity("IpParchoixLog",monEc);
+		//		IpParchoixLog cnxLog = (IpParchoixLog)dataBus.newObjectInEntity("IpParchoixLog",monEc);
 		cnxLog.setEtudNumero(new Integer(noEtud));
 		cnxLog.setPclDateLog(new NSTimestamp());
 		cnxLog.setFannKey(new Integer(getAnneeEnCours()));
 		cnxLog.setTypeAction("CX");
 		commitChgt();
 	}
-	
+
 	// Si un étudiant vient de dder son RN, logguer cette action pour les stats...
 	public void logSortieRN(Integer idiplNumero,Integer rnEtudNumero,Integer rnFannKey,Integer rnMrsemKey,Integer rnMsemOrdre) {
 		if (!modeBackOffice) {
@@ -286,17 +286,17 @@ public class Session extends CktlWebSession {
 			logguerActionParChoix(idiplNumero,rnEtudNumero,rnFannKey,rnMrsemKey,rnMsemOrdre,"RN");
 		}
 	}
-	
+
 	// Si un étudiant vient de confirmer ou infirmer ses choix pédagogiques de semestre, logguer cette action pour les stats...	
 	public void confirmerChoixEtudiant(Integer idiplNumero,Integer etudNumero,Integer fannKey,Integer mrsemKey,Integer msemOrdre,boolean confirmer) {
 		// on ne loggue pas les sorties de RN par le personnel !
 		String action;
 		if (confirmer) action = "VC";
 		else action = "AV";
-		
+
 		logguerActionParChoix(idiplNumero,etudNumero,fannKey,mrsemKey,msemOrdre,action);
 	}
-	
+
 	// Si on vient de créer une inscription à un parcours commun pour un étudiant, logguer cette action pour les stats...	
 	public void creationParcoursCommunEtudiant(Integer idiplNumero,Integer etudNumero,Integer fannKey,Integer mrsemKey,Integer msemOrdre) {
 		// on ne loggue pas les sorties de RN par le personnel !
@@ -315,10 +315,10 @@ public class Session extends CktlWebSession {
 		cnxLog.setMsemOrdre(msemOrdre);
 		cnxLog.setTypeAction(action);
 		commitChgt();		
-		
+
 	}
-	
-	
+
+
 	public IndividuCtrlr getIndividuCtrlr() {
 		return monIC;
 	}
@@ -326,7 +326,7 @@ public class Session extends CktlWebSession {
 	public IndividuCtrlr getICEtudiant() {
 		return etudiantIC;
 	}
-	
+
 	// Faire en sorte dans tous les cas de répondre 
 	// (rem : quand un étudiant se logge, monIC = null..
 	public boolean estUnEnseignant() {
@@ -340,16 +340,18 @@ public class Session extends CktlWebSession {
 	}
 
 	public void signaleChgtEtud(IndividuCtrlr nouvEtud, Integer msemKey) {
+		System.out.println("Dans signaleChgtEtud ...");
 		etudiantIC = nouvEtud;
-		
+
 		etudiantSemADetailler = nouvEtud;
 		msemKeyADetailler = msemKey;
-		
+
 		NSDictionary dico = null;
+		// BRICE 
 		if (msemKey != null)
 			dico = new NSDictionary(msemKey,"msemKey");
-		
-//		Envoyer une notification à tous les observateurs :
+
+		//		Envoyer une notification à tous les observateurs :
 		NSNotificationCenter.defaultCenter().postNotification(
 				"chgtEtudiant",		// Voila ce que je veux dire !!!!
 				this,				// C'est kiki poste ! C'est moi ki poste!
@@ -357,7 +359,7 @@ public class Session extends CktlWebSession {
 	}
 
 	public void signaleChgtListeDiplAutorn() {
-//		Envoyer une notification a tous les observateurs :
+		//		Envoyer une notification a tous les observateurs :
 		NSNotificationCenter.defaultCenter().postNotification(
 				"chgtDiplAutoRN",	// Voila ce que je veux dire !!!!
 				this,				// C'est kiki poste ! C'est moi ki poste!
@@ -371,12 +373,12 @@ public class Session extends CktlWebSession {
 	public NSTimestamp[] chercherDatesDiplSem(Integer fspnKey,Integer sem) {
 		return ((Application)cktlApp).chercherDatesDiplSem(fspnKey,sem,new Integer(getAnneeEnCours()) );
 	}
-	
+
 	// Vérifer si autorisation des IP des redoublants au niveau de ce dipl/sem.
 	public boolean autoriseIpRedoublant(Integer fspnKey,Integer sem) {
 		return ((Application)cktlApp).autoriseRedoublants(fspnKey,sem,new Integer(getAnneeEnCours()) );
 	}
-	
+
 
 	// renvoyer TRUE si l'on est dans les dates d'IP pour un (fspnKey,msemOrdre)  
 	public boolean verifDatesDiplSem(Integer fspnKey, Integer msemOrdre){
@@ -414,11 +416,11 @@ public class Session extends CktlWebSession {
 	// notifier du changement de semestre demand� !
 	// ATTENTION : Il faut que le WoComp se soit enregistr� avant (marche pas pour l'init !!!)
 	public void changeSemestre(NSDictionary userInfo) {
-//		ATTENTION ! Mettre � jour les donn�es de la session (idiplNumero...etc)
+		//		ATTENTION ! Mettre � jour les donn�es de la session (idiplNumero...etc)
 		// TODO : � changer, pas propre (la session ne devrait avoir qu'un seul pointeur : le semestre en cours d'�dition)
 		initSemestreParDefaut(userInfo);
 
-//		Envoyer une notification � tous les observateurs :
+		//		Envoyer une notification � tous les observateurs :
 		NSNotificationCenter.defaultCenter().postNotification(
 				"chgtSemestre",		// Voil� ce que je veux dire !!!!
 				this,					// C�est kiki poste ! C�est moi ki poste!
@@ -439,7 +441,7 @@ public class Session extends CktlWebSession {
 	public String srcCssFile() {
 		return ((Application)cktlApp).urlImage("local_css/ipWeb.css",this.context());
 	}
-	
+
 	public String srcImgCadreBordD()
 	{
 		return monApp.urlImage("images/cadreSeul_CoteD.gif",this.context());
@@ -462,17 +464,19 @@ public class Session extends CktlWebSession {
 
 	// TODO : � revoir !!
 	public void initSemestreParDefaut(NSDictionary userInfo) {
-		inscSemParDefaut = userInfo;
-		InscFormationCtrlr formCt = (InscFormationCtrlr)userInfo.objectForKey("InscFormCtrlr");
-		idiplNumero = formCt.idiplNumero();
-//		EOGenericRecord sem = (EOGenericRecord)userInfo.objectForKey("EOSem");
-//		int msemOrdre = ((Integer)sem.valueForKey("msemOrdre")).intValue();
-		int msemOrdre = formCt.getMsemOrdre().intValue(); 
-		if (msemOrdre%2== 1) {
-			imrecSemestre = new Integer(1);
+		System.out.println("dans initSemestreParDefaut ");
+		if (userInfo != null) {
+			inscSemParDefaut = userInfo;
+			InscFormationCtrlr formCt = (InscFormationCtrlr)userInfo.objectForKey("InscFormCtrlr");
+			idiplNumero = formCt.idiplNumero();
+			//		EOGenericRecord sem = (EOGenericRecord)userInfo.objectForKey("EOSem");
+			//		int msemOrdre = ((Integer)sem.valueForKey("msemOrdre")).intValue();
+			int msemOrdre = formCt.getMsemOrdre().intValue(); 
+			if (msemOrdre%2== 1) {
+				imrecSemestre = new Integer(1);
+			}
+			else imrecSemestre = new Integer(0);
 		}
-		else imrecSemestre = new Integer(0);
-
 	}
 
 	public NSDictionary getInscSemestreParDefaut() {
@@ -506,21 +510,21 @@ public class Session extends CktlWebSession {
 		else return res.doubleValue();
 	}
 
-//	public void demanderModif() {
-//	semCtEnCours.demanderModif();
-//	}
+	//	public void demanderModif() {
+	//	semCtEnCours.demanderModif();
+	//	}
 
-//	public void validerModif() {
-//	semCtEnCours.validerModif();
-//	}
+	//	public void validerModif() {
+	//	semCtEnCours.validerModif();
+	//	}
 
 	public boolean modifEnCours() { 
 		return (semCtEnCours!=null && semCtEnCours.modeModif()); }
 
 	public IpChoixEc ajouteChoixEc(Integer mrecKey,Integer msemKey,Integer mrueKey) {
 		// cr�ation d'un nouvel enreg. de choix d'EC
-//		IpChoixEc choixEc = new IpChoixEc();
-//		monEc.insertObject(choixEc);
+		//		IpChoixEc choixEc = new IpChoixEc();
+		//		monEc.insertObject(choixEc);
 
 		IpChoixEc choixEc = (IpChoixEc)dataBus.newObjectInEntity("IpChoixEc",monEc);
 
@@ -539,7 +543,7 @@ public class Session extends CktlWebSession {
 	}
 
 	public void supprimeChoixEc(IpChoixEc choixEc,Integer mrecKey,Integer msemKey) {
-//		monEc.deleteObject(choixEc);
+		//		monEc.deleteObject(choixEc);
 		NSArray bindings = new NSArray(new Object[] {choixEc.idiplNumero(),
 				mrecKey,
 				msemKey});
@@ -553,8 +557,8 @@ public class Session extends CktlWebSession {
 	}
 
 	private void ajouteLogChoix(Integer mrecKey,Integer msemKey,String typeLog) {
-//		IpChoixLog choixLog = new IpChoixLog();
-//		monEc.insertObject(choixLog);
+		//		IpChoixLog choixLog = new IpChoixLog();
+		//		monEc.insertObject(choixLog);
 
 		IpChoixLog choixLog = (IpChoixLog)dataBus.newObjectInEntity("IpChoixLog",monEc);
 		choixLog.setIdiplNumero(idiplNumero);
@@ -571,8 +575,8 @@ public class Session extends CktlWebSession {
 		NSArray clefs = new NSArray(new Object[] {"10_fspnkey","20_msemordre","30_fannkey","40_etat"});
 		NSArray vals = new NSArray(new Object[] {fspnKey,semOrdre,fannKey,new Integer(etat)});
 		NSDictionary dico = new NSDictionary(vals,clefs);
-//		EOUtilities.executeStoredProcedureNamed(monEc,"pIpwIntegreSem",dico);
-//		return true;
+		//		EOUtilities.executeStoredProcedureNamed(monEc,"pIpwIntegreSem",dico);
+		//		return true;
 
 		return execProc("pIpwIntegreSem",dico);
 	}
@@ -613,11 +617,11 @@ public class Session extends CktlWebSession {
 	public boolean envoitMailGroupe(String titreMail, String listeDestinataires, String leMsg ) {
 		return envoitMailSansPJ(titreMail, monApp.getConfig("EXPED_MAILS_ETUDIANT"), null, listeDestinataires, leMsg);
 	}
-	
+
 	public boolean envoitMailListe(String sujetMail, String listeDestinataires, String leMsg ) {
 		return envoitMailSansPJ(sujetMail, emailComplet(), emailComplet(), listeDestinataires, leMsg);
 	}
-	
+
 	private boolean envoitMailSansPJ(String sujetMail, String expediteur, String cc, String listeDestinataires, String leMsg ) {
 
 		// envoi d'un email sans PJ à un groupe de destinataires [si c'est autorisé : appli en exploit° seulement !]
@@ -639,30 +643,29 @@ public class Session extends CktlWebSession {
 
 		return bienPasse;
 	}
-	
+
 	// Pouvoir interroger un paramètre de config depuis n'importe où...
 	public boolean interrogeParamConfig(String nomParamConfig) {
 		return monApp.interrogeParamConfig(nomParamConfig);
 	}
-	
+
 	public int interrogeParamConfigInt(String nomParamConfig) {
 		return monApp.interrogeParamConfigInt(nomParamConfig);
 	}
-	
+
 	public NSData imprimePDF(String rapportJasper,HashMap parametres) {
 		// "choixNonFaits.jasper", new HashMap()
 		return monImprimanteJasper.jasperPdf(rapportJasper,parametres);
 	}
-	
+
 	public NSData imprimeXLS(String rapportJasper,HashMap parametres) {
 		return monImprimanteJasper.jasperXLS(rapportJasper,parametres);
 	}
-	
+
 	public NSData imprimePDFavecDataSource(String rapportJasper,HashMap parametres,Object datasource) {
 		// "choixNonFaits.jasper", new HashMap()
 		return monImprimanteJasper.jasperPdf(rapportJasper,parametres,datasource);
 	}
-
 
 	public boolean commitChgt() {
 		boolean saveOk = false;

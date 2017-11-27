@@ -109,6 +109,7 @@
             valueType = d; 
         }, 
         {
+            allowsNull = Y; 
             definition = "toEcSeuil.seuil"; 
             externalType = NUMBER; 
             name = "toEcSeuil_seuil"; 
@@ -117,7 +118,7 @@
             valueType = i; 
         }
     ); 
-    attributesUsedForLocking = (mrecKey, "toEcSeuil_seuil"); 
+    attributesUsedForLocking = (mrecKey); 
     className = EOGenericRecord; 
     classProperties = (
         fannKey, 
@@ -162,11 +163,11 @@
         {
             deleteRule = EODeleteRuleNoAction; 
             destination = IpUeEcSeuil; 
+            isMandatory = Y; 
             isToMany = N; 
             joinSemantic = EOLeftOuterJoin; 
             joins = ({destinationAttribute = mrecKey; sourceAttribute = mrecKey; }); 
             name = toEcSeuil; 
-            propagatesPrimaryKey = Y; 
         }, 
         {
             deleteRule = EODeleteRuleNoAction; 

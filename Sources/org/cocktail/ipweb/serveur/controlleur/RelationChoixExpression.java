@@ -31,6 +31,7 @@ public class RelationChoixExpression extends RelationChoixEc {
 	// l'espace de solution "interpr�t�" a �t� renseign� et il faudra faire une synchro pour l'enregistrer dans la base  
 	public RelationChoixExpression(IpRelationChoixEc eoContrainte,NSDictionary dicoEc,EOEditingContext ecSess) throws Exception {
 		super();
+		System.out.println("Dans constructeur RelationChoixExpression " + dicoEc.toString());
 		String expression = eoContrainte.rceFormuleContrainte();
 		String lesSoluces = eoContrainte.rceEspaceSolution();
 		String lesVariables = eoContrainte.rceListeVariables();
@@ -98,6 +99,8 @@ public class RelationChoixExpression extends RelationChoixEc {
 		java.util.Enumeration enumerator = relationEc.objectEnumerator();
 		while (enumerator.hasMoreElements()) {
 			InscEcCtrlr ecCt = (InscEcCtrlr)enumerator.nextElement();
+			System.out.println("    dans verifierSiConcerne : " + ecCt);
+			// TEST BRICE if (ecCt.getCaseCochee() || ecCt.ecAvecIp())  
 			if (ecCt.getCaseCochee() || ecCt.ecAvecIp()) return true;
 		}
 		return false;

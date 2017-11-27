@@ -3,15 +3,11 @@
 	<classpathentry kind="src" path="Sources"/>
 	<classpathentry kind="con" path="WOFramework/ERJars"/>
 	<classpathentry kind="con" path="WOFramework/ERExtensions"/>
-	<classpathentry kind="con" path="WOFramework/FwkCktlWebApp"/>
 	<classpathentry kind="con" path="WOFramework/Ajax"/>
-	<classpathentry kind="con" path="WOFramework/JavaWOExtensions"/>
 	<classpathentry kind="con" path="WOFramework/JavaEOAccess"/>
 	<classpathentry kind="con" path="WOFramework/JavaEOControl"/>
 	<classpathentry kind="con" path="WOFramework/JavaFoundation"/>
 	<classpathentry kind="con" path="WOFramework/JavaWebObjects"/>
-	<classpathentry kind="con" path="WOFramework/JavaXML"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="WOFramework/JavaJDBCAdaptor"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/commons-beanutils-1.7.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/commons-collections-2.1.jar"/>
@@ -19,24 +15,33 @@
 	<classpathentry kind="lib" path="Libraries/JasperLib/commons-javaflow-20060411.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/commons-logging-1.0.2.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/commons-logging-api-1.0.2.jar"/>
-	<classpathentry kind="lib" path="Libraries/JasperLib/log4j-1.2.9.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/org-netbeans-core.jar"/>
 	<classpathentry kind="var" path="NEXT_LOCAL_ROOT/Library/WebObjects/Extensions/axis-ant.jar"/>
 	<classpathentry kind="var" path="NEXT_LOCAL_ROOT/Library/WebObjects/Extensions/axis.jar"/>
-	<classpathentry kind="var" path="NEXT_LOCAL_ROOT/Library/WebObjects/Extensions/ojdbc5.jar"/>
 	<classpathentry kind="var" path="NEXT_LOCAL_ROOT/Library/WebObjects/Extensions/jaxrpc.jar"/>
 	<classpathentry kind="var" path="NEXT_LOCAL_ROOT/Library/WebObjects/Extensions/saaj.jar"/>
-	<classpathentry kind="var" path="NEXT_LOCAL_ROOT/Library/WebObjects/Extensions/wsdl4j.jar"/>
-	<classpathentry kind="lib" path="/Users/atual/Documents/Dev/workspace/FwkCktlWebApp/Libraries/activation.jar"/>
-	<classpathentry kind="lib" path="/Users/atual/Documents/Dev/workspace/FwkCktlWebApp/Libraries/mail.jar"/>
-	<classpathentry kind="lib" path="Libraries/JasperLib/jasperreports-4.1.1.jar"/>
-	<classpathentry kind="lib" path="Libraries/JasperLib/jasperreports-fonts-4.1.1.jar"/>
-	<classpathentry kind="lib" path="Libraries/JasperLib/jasperreports-fonts-arial.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/poi-3.7-20101029.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/itext-2.1.7.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/bcmail-jdk14-139.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/bcprov-jdk14-140.jar"/>
 	<classpathentry kind="con" path="WOFramework/FwkCktlAjaxWebExt"/>
 	<classpathentry kind="con" path="WOFramework/FwkCktlThemes"/>
+	<classpathentry kind="lib" path="C:/Apple/Jar/activation.jar"/>
+	<classpathentry kind="lib" path="C:/Apple/Jar/mail.jar"/>
+	<classpathentry kind="lib" path="C:/Apple/Jar/utilitairescri.zip"/>
+	<classpathentry kind="con" path="WOFramework/WOLips"/>
+	<classpathentry kind="con" path="WOFramework/FwkCktlWebApp"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="Libraries/ojdbc6.jar"/>
+	<classpathentry kind="con" path="WOFramework/JavaXML"/>
+	<classpathentry kind="lib" path="C:/Apple/System/Library/Frameworks/woinject-1.2/lib/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Apple/System/Library/Frameworks/woinject-1.2/lib/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Apple/System/Library/Frameworks/woinject-1.2/lib/javassist-3.19.0-GA.jar"/>
+	<classpathentry kind="lib" path="C:/Apple/System/Library/Frameworks/woinject-1.2/lib/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="C:/Apple/System/Library/Frameworks/woinject-1.2/woinject-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bquiller/Desktop/JavaWOExtensions-5.5.1.cktl.jar"/>
+	<classpathentry kind="lib" path="Libraries/JasperLib/jasperreports-4.1.1.jar"/>
+	<classpathentry kind="lib" path="Libraries/JasperLib/jasperreports-fonts-4.1.1.jar"/>
+	<classpathentry kind="lib" path="Libraries/JasperLib/jasperreports-fonts-arial.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

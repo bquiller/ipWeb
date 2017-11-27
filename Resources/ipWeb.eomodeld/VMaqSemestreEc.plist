@@ -10,7 +10,7 @@
             valueType = i; 
         }, 
         {
-            columnName = "FDSC_KEY"; 
+            columnName = "FDSC_CODE"; 
             externalType = VARCHAR2; 
             name = fdscCode; 
             userInfo = {"_EntityModeler" = {generateSource = NO; }; }; 

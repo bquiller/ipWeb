@@ -1,6 +1,14 @@
 {
     attributes = (
         {
+            columnName = "FANN_KEY"; 
+            externalType = NUMBER; 
+            name = fannKey; 
+            precision = 4; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
             allowsNull = Y; 
             columnName = "MREC_KEY_CIBLE"; 
             externalType = NUMBER; 
@@ -57,6 +65,7 @@
             columnName = "RCE_ORDRE"; 
             externalType = NUMBER; 
             name = rceOrdre; 
+            precision = 6; 
             valueClassName = NSNumber; 
             valueType = i; 
         }, 
@@ -70,15 +79,17 @@
             width = 1; 
         }
     ); 
-    attributesUsedForLocking = (mrecKeyCible, msemKey, rceOrdre); 
+    attributesUsedForLocking = (fannKey, mrecKeyCible, msemKey, rceOrdre); 
     className = "org.cocktail.ipweb.serveur.metier.IpRelationChoixEc"; 
     classProperties = (
+        fannKey, 
         mrecKeyCible, 
         msemKey, 
         rceCommentaireContrainte, 
         rceEspaceSolution, 
         rceFormuleContrainte, 
         rceListeVariables, 
+        rceOrdre, 
         rceTypeRelation
     ); 
     externalName = "IP_RELATION_CHOIX_EC"; 

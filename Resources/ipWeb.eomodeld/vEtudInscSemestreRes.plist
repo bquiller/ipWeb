@@ -53,7 +53,7 @@
             columnName = "FSPN_KEY"; 
             externalType = NUMBER; 
             name = fspnKey; 
-            precision = 6; 
+            precision = 12; 
             userInfo = {"_EntityModeler" = {generateSource = NO; }; }; 
             valueClassName = NSNumber; 
             valueType = i; 
@@ -62,6 +62,7 @@
             columnName = "IDIPL_NUMERO"; 
             externalType = NUMBER; 
             name = idiplNumero; 
+            precision = 6; 
             userInfo = {"_EntityModeler" = {generateSource = NO; }; }; 
             valueClassName = NSNumber; 
             valueType = i; 
@@ -97,11 +98,11 @@
         }, 
         {
             columnName = "IMRSEM_POINTS1"; 
-            externalType = NUMBER; 
+            externalType = VARCHAR2; 
             name = imrsemPoints1; 
             userInfo = {"_EntityModeler" = {generateSource = NO; }; }; 
-            valueClassName = NSNumber; 
-            valueType = i; 
+            valueClassName = NSString; 
+            width = 40; 
         }, 
         {
             columnName = "IMRSEM_POINTS2"; 

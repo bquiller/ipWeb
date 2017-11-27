@@ -1,13 +1,71 @@
 <project name="ipWeb" default="build" basedir=".">
 	<target name="build" depends="init.build,build.woapp,javaclient,ssdd,war,split,package" />
 
-	<target name="install" depends="init.install,build.woapp,javaclient,ssdd,war,split,package" />
+	<target name="install" depends="init.install,cleanbuild,build.woapp,javaclient,ssdd,war,split,package" />
+	
+
+	<target name="package-asso" depends="init.install">
+	<property name="wsdest.dir" value="${dest.dir}/Split" />
+	<condition property="org.cocktail.versionClass.check.failed">
+	<not>
+	<isset property="org.cocktail.versionClass" />
+	</not>
+	</condition>
+	<fail message="La propriété org.cocktail.versionClass n'est pas définie. Vérifiez le fichier build.properties." if="org.cocktail.versionClass.check.failed" />
+	<condition property="org.cocktail.sphere.check.failed">
+	<not>
+	<isset property="org.cocktail.sphere" />
+	</not>
+	</condition>
+	<fail message="La propriété org.cocktail.sphere n'est pas définie. Vérifiez le fichier build.properties." if="org.cocktail.sphere.check.failed" />
+
+	<java classname="${org.cocktail.versionClass}" fork="yes" outputproperty="_versionNum" classpath="bin" />
+	<condition property="legal-version">
+	<matches pattern="^([0-9]+(.[0-9]+)*)$" string="${_versionNum}"/>
+	</condition>
+	<fail message="Le résultat de la methode Main de la classe ${org.cocktail.versionClass} n'est pas un n° de version valide"
+	             unless="legal-version"/>
+
+	<tstamp>
+	<format property="TODAY_ASSO" pattern="yyyy.MM.dd" locale="fr,FR"/>
+	</tstamp>
+	<property name="org.cocktail.woadestfile" value="${dest.dir}/woa - ${org.cocktail.sphere} - ${TODAY_ASSO} - ${build.app.name.lowercase} v${_versionNum}.tar.gz" />
+	<property name="org.cocktail.webdestfile" value="${dest.dir}/web - ${org.cocktail.sphere} - ${TODAY_ASSO} - ${build.app.name.lowercase} v${_versionNum}.tar.gz" />
+	<delete file="${org.cocktail.woadestfile}" failonerror="false"/>
+	<delete file="${org.cocktail.webdestfile}" failonerror="false"/>
+	<tar destfile="${org.cocktail.woadestfile}"
+	               compression="gzip"
+	               longfile="gnu">
+	<tarfileset dir="${dest.dir}" mode="750">
+	<include name="${build.app.name}.woa/${build.app.name}"/>
+	</tarfileset>
+	<tarfileset dir="${dest.dir}">
+	<exclude name="${build.app.name}.woa/${build.app.name}"/>
+	<include name="${build.app.name}.woa/**"/>
+	</tarfileset>
+	</tar>
+	<tar destfile="${org.cocktail.webdestfile}"
+	               compression="gzip"
+	               basedir="${wsdest.dir}/WebObjects"
+	               longfile="gnu"
+	               includes="${build.app.name}.woa/**">
+	</tar>
+	</target>
+	
+
+	
 
 	<target name="clean" depends="init.properties">
 		<delete dir="bin" />
 		<delete dir="dist" />
 	</target>
 
+	<target name="cleanbuild" depends="init.properties">
+		<delete dir="${dest.dir}/${build.app.name}.woa" />
+		<delete file="${dest.dir}/${build.app.name}-Application.${build.app.version}.tar.gz"/>
+		<delete file="${dest.dir}/${build.app.name}-WebServerResources.${build.app.version}.tar.gz"/>
+	</target>
+	
 	<!-- basic initializations  -->
 	<target name="init.install" depends="init.properties">
 		<tstamp />
@@ -54,7 +112,7 @@
 	</target>
 
   <target name="package" unless="servletDeployment">
-    <tar destfile="${dest.dir}/${build.app.name}-Application.tar.gz"
+    <tar destfile="${dest.dir}/${build.app.name}-Application.${build.app.version}.tar.gz"
         compression="gzip"
         longfile="gnu">
       <tarfileset dir="${dest.dir}" mode="750">
@@ -65,7 +123,7 @@
         <include name="${build.app.name}.woa/**"/>
       </tarfileset>
     </tar>
-    <tar destfile="${dest.dir}/${build.app.name}-WebServerResources.tar.gz"
+    <tar destfile="${dest.dir}/${build.app.name}-WebServerResources.${build.app.version}.tar.gz"
         compression="gzip"
         basedir="${wsdest.dir}/WebObjects"
         longfile="gnu"
@@ -74,14 +132,10 @@
 	</target>
 
 	<!-- woproject tasks -->
-	<!-- <target name="build.woapp" depends="compile"> -->
-	<target name="build.woapp">
+	<target name="build.woapp" depends="compile">
 		<taskdef name="woapplication" classname="org.objectstyle.woproject.ant.WOApplication"/>
 
-		<woapplication name="${build.app.name}" frameworksBaseURL="/WebObjects/${project.name}.woa/Frameworks" 
-			destDir="${dest.dir}" customInfoPListContent="${customInfoPListContent}" principalClass="${principalClass}" 
-			webXML="${webXML}" webXML_CustomContent="${webXML_CustomContent}" 
-			servletAdaptor="com.webobjects.jspservlet.WOServletAdaptor">
+		<woapplication name="${build.app.name}" wsdestdir="${wo.ws.docroot}" frameworksBaseURL="/WebObjects/${project.name}.woa/Frameworks" destDir="${dest.dir}" customInfoPListContent="${customInfoPListContent}" principalClass="${principalClass}" webXML="${webXML}" webXML_CustomContent="${webXML_CustomContent}" servletAdaptor="com.webobjects.jspservlet.WOServletAdaptor">
 			<classes dir="${classes.dir}">
 				<includesfile name="woproject/classes.include.patternset" />
 				<excludesfile name="woproject/classes.exclude.patternset" />
@@ -105,11 +159,8 @@
 			<frameworks root="Network" embed="${embed.Network}" eclipse="true" />
 
 			<lib dir="Libraries">
-	               <!-- Add .jar's that should be copied in the woa. -->
-				<include name="**/*.jar" />
-	            <exclude name="**/*.woa/**" />
+				<include name="*.jar" />
 			</lib>
-			
 		</woapplication>
 	</target>
 	
@@ -211,7 +262,7 @@
 		<taskdef name="wocompile" classname="org.objectstyle.woproject.ant.WOCompile" />
 
 		<mkdir dir="bin" />
-		<wocompile srcdir="src" destdir="bin">
+		<wocompile srcdir="Sources" destdir="bin">
 			<frameworks root="ProjectLocal" embed="false" eclipse="true" />
 			<frameworks root="External" embed="false" eclipse="true" />
 			<frameworks root="Local" embed="false" eclipse="true" />

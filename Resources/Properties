@@ -1,0 +1,5 @@
+er.extensions.ERXModelGroup.ScolMaquetteChargesAp.persId.ignoreTypeMismatch=true
+er.extensions.ERXModelGroup.ScolMaquetteResponsableEc.persId.ignoreTypeMismatch=true
+er.extensions.ERXModelGroup.IpUeEcSeuil.mrecKey.ignoreTypeMismatch=true
+er.extensions.ERXRaiseOnMissingEditingContextDelegate=false
+er.javamail.centralize=false

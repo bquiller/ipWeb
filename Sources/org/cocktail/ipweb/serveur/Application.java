@@ -16,6 +16,7 @@ import org.cocktail.fwkcktlwebapp.server.CktlResourceManager;
 import org.cocktail.fwkcktlwebapp.server.CktlWebApplication;
 import org.cocktail.fwkcktlwebapp.server.components.CktlAlertPage;
 import org.cocktail.ipweb.serveur.controlleur.ImprJasper;
+import org.cocktail.ipweb.serveur.components.Main;
 
 import com.webobjects.appserver.WOComponent;
 import com.webobjects.appserver.WOContext;
@@ -41,6 +42,7 @@ import com.webobjects.foundation.NSTimestamp;
 import com.webobjects.foundation.NSTimestampFormatter;
 
 import er.extensions.appserver.ERXApplication;
+import er.extensions.foundation.ERXPatcher;
 import er.extensions.eof.ERXEC;
 
 public class Application extends CktlWebApplication {
@@ -72,6 +74,7 @@ public class Application extends CktlWebApplication {
 
 	public static final String OM_PARAM_SEUIL="PARAM_SEUIL";	// Définition d'un seuil par EC
 	public static final String OM_PARAM_UE="PARAM_UE";		// Ouverture / fermeture d'UE
+	public static final String OM_PARAM_LOGIQUE="PARAM_LOGIQUE";	// Définition d'une logique par semestre et par EC
 	
 	
 	private static String jdbcUrlBase;		/// Pour pouvoir afficher les infos de connexion...
@@ -106,7 +109,7 @@ public class Application extends CktlWebApplication {
 	private String emailRedirection = null;
 
 	public static void main(String argv[]) {
-		NSLog.out.appendln("<<<<<<<<<<<<<<<<<<  Debut de l'Application  >>>>>>>>>>>>>>>>\n");
+		// NSLog.out.appendln("<<<<<<<<<<<<<<<<<<  Debut de l'Application  >>>>>>>>>>>>>>>>\n");
 		ERXApplication.main(argv, Application.class);
 	}
 	
@@ -125,7 +128,7 @@ public class Application extends CktlWebApplication {
 
 	public String copyright()
 	{
-		String message = "&copy; 2006-2012 Universit\351 de la Nouvelle-Cal\351donie";
+		String message = "&copy; 2006-2017 Universit\351 de N\356mes";
 		
 		 if (debug()) 
 			message += "<BR>" + urlBase();
@@ -134,7 +137,7 @@ public class Application extends CktlWebApplication {
 	
 	public Application() {
 		super();
-		NSLog.out.appendln("et bien.. Welcome to " + this.name() + " !");
+		NSLog.out.appendln("et bien.. Welcome to " + this.name() + " ; fichier de configuration : " + configFilePath() + " !");
 		/* ** put your initialization code in here ** */
 		ecApp = ERXEC.newEditingContext();
 
@@ -191,7 +194,7 @@ public class Application extends CktlWebApplication {
 		
 		String nomTimeZone = getConfig("TIME_ZONE");
 		if (nomTimeZone == null || nomTimeZone.equals("") )
-			nomTimeZone  ="Pacific/Noumea";
+			nomTimeZone  ="Europe/Paris";
 
 		tz = NSTimeZone.timeZoneWithName(nomTimeZone,true);	// TODO : v�rifier s'il prend bien le TimeZone dans fichier de config !
 		NSTimeZone.setDefault(tz);
@@ -239,8 +242,7 @@ public class Application extends CktlWebApplication {
 			
 			NSLog.err.appendln("connection JDBC : username :"+ username + ", password :"+password);
 			
-			conn = DriverManager.getConnection
-			(jdbcUrlBase,username, password);
+			conn = DriverManager.getConnection(jdbcUrlBase,username, password);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1001,5 +1003,12 @@ public class Application extends CktlWebApplication {
  	public String urlImage(String path, WOContext ctx) {
  		return resourceManager().urlForResourceNamed(path, null, null, ctx.request());
  	}
+	
+	@Override
+	public void installPatches() {
+		super.installPatches();
+
+		ERXPatcher.setClassForName(Main.class, "Main");
+	}
 }
 

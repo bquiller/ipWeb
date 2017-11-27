@@ -6,7 +6,9 @@ import com.webobjects.eocontrol.*;
 import com.webobjects.foundation.*;
 import java.math.*;
 import java.util.*;
+import org.apache.log4j.Logger;
 
+@SuppressWarnings("all")
 public abstract class _ScolMaquetteRepartitionAp extends  EOGenericRecord {
 	public static final String ENTITY_NAME = "ScolMaquetteRepartitionAp";
 
@@ -17,7 +19,9 @@ public abstract class _ScolMaquetteRepartitionAp extends  EOGenericRecord {
 
 	// Relationships
 
-  public ScolMaquetteRepartitionAp localInstanceOfScolMaquetteRepartitionApIn(EOEditingContext editingContext) {
+  private static Logger LOG = Logger.getLogger(_ScolMaquetteRepartitionAp.class);
+
+  public ScolMaquetteRepartitionAp localInstanceIn(EOEditingContext editingContext) {
     ScolMaquetteRepartitionAp localInstance = (ScolMaquetteRepartitionAp)EOUtilities.localInstanceOfObject(editingContext, this);
     if (localInstance == null) {
       throw new IllegalStateException("You attempted to localInstance " + this + ", which has not yet committed.");
@@ -30,6 +34,9 @@ public abstract class _ScolMaquetteRepartitionAp extends  EOGenericRecord {
   }
 
   public void setFannKey(Integer value) {
+    if (_ScolMaquetteRepartitionAp.LOG.isDebugEnabled()) {
+    	_ScolMaquetteRepartitionAp.LOG.debug( "updating fannKey from " + fannKey() + " to " + value);
+    }
     takeStoredValueForKey(value, "fannKey");
   }
 
@@ -38,6 +45,9 @@ public abstract class _ScolMaquetteRepartitionAp extends  EOGenericRecord {
   }
 
   public void setMapKey(Integer value) {
+    if (_ScolMaquetteRepartitionAp.LOG.isDebugEnabled()) {
+    	_ScolMaquetteRepartitionAp.LOG.debug( "updating mapKey from " + mapKey() + " to " + value);
+    }
     takeStoredValueForKey(value, "mapKey");
   }
 
@@ -46,6 +56,9 @@ public abstract class _ScolMaquetteRepartitionAp extends  EOGenericRecord {
   }
 
   public void setMecKey(Integer value) {
+    if (_ScolMaquetteRepartitionAp.LOG.isDebugEnabled()) {
+    	_ScolMaquetteRepartitionAp.LOG.debug( "updating mecKey from " + mecKey() + " to " + value);
+    }
     takeStoredValueForKey(value, "mecKey");
   }
 
@@ -61,18 +74,18 @@ public abstract class _ScolMaquetteRepartitionAp extends  EOGenericRecord {
     return eo;
   }
 
-  public static NSArray fetchAllScolMaquetteRepartitionAps(EOEditingContext editingContext) {
+  public static NSArray<ScolMaquetteRepartitionAp> fetchAllScolMaquetteRepartitionAps(EOEditingContext editingContext) {
     return _ScolMaquetteRepartitionAp.fetchAllScolMaquetteRepartitionAps(editingContext, null);
   }
 
-  public static NSArray fetchAllScolMaquetteRepartitionAps(EOEditingContext editingContext, NSArray sortOrderings) {
+  public static NSArray<ScolMaquetteRepartitionAp> fetchAllScolMaquetteRepartitionAps(EOEditingContext editingContext, NSArray<EOSortOrdering> sortOrderings) {
     return _ScolMaquetteRepartitionAp.fetchScolMaquetteRepartitionAps(editingContext, null, sortOrderings);
   }
 
-  public static NSArray fetchScolMaquetteRepartitionAps(EOEditingContext editingContext, EOQualifier qualifier, NSArray sortOrderings) {
+  public static NSArray<ScolMaquetteRepartitionAp> fetchScolMaquetteRepartitionAps(EOEditingContext editingContext, EOQualifier qualifier, NSArray<EOSortOrdering> sortOrderings) {
     EOFetchSpecification fetchSpec = new EOFetchSpecification(_ScolMaquetteRepartitionAp.ENTITY_NAME, qualifier, sortOrderings);
     fetchSpec.setIsDeep(true);
-    NSArray eoObjects = (NSArray)editingContext.objectsWithFetchSpecification(fetchSpec);
+    NSArray<ScolMaquetteRepartitionAp> eoObjects = (NSArray<ScolMaquetteRepartitionAp>)editingContext.objectsWithFetchSpecification(fetchSpec);
     return eoObjects;
   }
 
@@ -81,7 +94,7 @@ public abstract class _ScolMaquetteRepartitionAp extends  EOGenericRecord {
   }
 
   public static ScolMaquetteRepartitionAp fetchScolMaquetteRepartitionAp(EOEditingContext editingContext, EOQualifier qualifier) {
-    NSArray eoObjects = _ScolMaquetteRepartitionAp.fetchScolMaquetteRepartitionAps(editingContext, qualifier, null);
+    NSArray<ScolMaquetteRepartitionAp> eoObjects = _ScolMaquetteRepartitionAp.fetchScolMaquetteRepartitionAps(editingContext, qualifier, null);
     ScolMaquetteRepartitionAp eoObject;
     int count = eoObjects.count();
     if (count == 0) {
@@ -108,7 +121,7 @@ public abstract class _ScolMaquetteRepartitionAp extends  EOGenericRecord {
     return eoObject;
   }
 
-  public static ScolMaquetteRepartitionAp localInstanceOfScolMaquetteRepartitionApIn(EOEditingContext editingContext, ScolMaquetteRepartitionAp eo) {
+  public static ScolMaquetteRepartitionAp localInstanceIn(EOEditingContext editingContext, ScolMaquetteRepartitionAp eo) {
     ScolMaquetteRepartitionAp localInstance = (eo == null) ? null : (ScolMaquetteRepartitionAp)EOUtilities.localInstanceOfObject(editingContext, eo);
     if (localInstance == null && eo != null) {
       throw new IllegalStateException("You attempted to localInstance " + eo + ", which has not yet committed.");

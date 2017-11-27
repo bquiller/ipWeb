@@ -91,6 +91,7 @@ public class RelationChoixEc {
 //  MODIF : on signale aussi sur les EC anciennement s�lectionn�es (on sait pas ce que l'�tudiant veut vraiment faire...) 
 
 	public boolean verifierRelation() throws Exception {
+		System.out.println("    dans verifierRelation");
 		if (compteNbreEcCoches()>1) {	// la relation n'est pas v�rifi�e !
 			dernierEcEnErreur = null;
 			String errMsg=null;
@@ -100,6 +101,7 @@ public class RelationChoixEc {
 				if (!ecCt.isEcBloque()) {	// MAJ msg d'erreur 
 					if (ecCt.getCaseCochee()) {	// cas d'erreur
 						dernierEcEnErreur = ecCt;
+						System.out.println("    dernierEcEnErreur : " + dernierEcEnErreur);
 						if (ecChoixBloque!= null) {	// un EC � choix est bloqu� avec une IP, l'autre choix est donc � supprimer !
 							errMsg = "Le choix de cet EC est impossible (déjà validé dans l'UE \""+ecChoixBloque.getCodeUePere()
 							+"\"). Décochez ce choix !";

@@ -6,7 +6,7 @@ import com.webobjects.eocontrol.EOEnterpriseObject;
 import com.webobjects.eocontrol.EOGenericRecord;
 
 @SuppressWarnings("serial")
-public class IpRelationChoixEc extends EOGenericRecord {
+public class IpRelationChoixEc extends _IpRelationChoixEc {
 
     public IpRelationChoixEc() {
         super();
@@ -32,8 +32,8 @@ public class IpRelationChoixEc extends EOGenericRecord {
     }
 */
 
-    public Number mrecKeyCible() {
-        return (Number)storedValueForKey("mrecKeyCible");
+    public Integer mrecKeyCible() {
+        return (Integer)storedValueForKey("mrecKeyCible");
     }
 
     public void setMrecKeyCible(Number value) {
@@ -48,8 +48,8 @@ public class IpRelationChoixEc extends EOGenericRecord {
         takeStoredValueForKey(value, "rceTypeRelation");
     }
 
-    public Number msemKey() {
-        return (Number)storedValueForKey("msemKey");
+    public Integer msemKey() {
+        return (Integer)storedValueForKey("msemKey");
     }
 
     public void setMsemKey(Number value) {

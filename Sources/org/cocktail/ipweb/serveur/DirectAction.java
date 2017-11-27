@@ -49,13 +49,16 @@ public class DirectAction extends CktlWebAction {
     }
 
     public WOActionResults defaultAction() {
-        return pageWithName("Main");
+        return  pageWithName("Main");
+        
     }
+
 
     //Methode pour le CAS
     
     //Tout ok
     public WOActionResults loginCasSuccessPage(String netId) {
+		System.out.println("in loginCasSuccessPage ...");
 		CktlUserInfoDB user = new CktlUserInfoDB(cktlApp.dataBus());
 		user.compteForLogin(netId,null,true);
 //		LRLog.trace("pwd = "+arg0.password);
@@ -97,29 +100,28 @@ public class DirectAction extends CktlWebAction {
 	 * @see fr.univlr.cri.webapp.CRIWebAction#loginCasFailurePage(java.lang.String, java.lang.String)
 	 */
 	public WOActionResults loginCasFailurePage(String errorMessage, String errorCode) {
+		System.out.println("in loginCasFailurePage ...");
 		// TODO Raccord de m�thode auto-g�n�r�
-		return null;
+        return pageWithName("Main");
 	}
 
 	/* (non-Javadoc)
 	 * @see fr.univlr.cri.webapp.CRIWebAction#loginNoCasPage()
 	 */
 	public WOActionResults loginNoCasPage() {
-		// TODO Raccord de m�thode auto-g�n�r�
-		return null;
+		System.out.println("in loginNoCasPage ...");
+        return pageWithName("Main");
 	}
 
 	@Override
 	public WOActionResults loginCasSuccessPage(String netid,
 			NSDictionary actionParams) {
-		// TODO Auto-generated method stub
-		return null;
+		return loginCasSuccessPage(netid);
 	}
 
 	@Override
 	public WOActionResults loginNoCasPage(NSDictionary actionParams) {
-		// TODO Auto-generated method stub
-		return null;
+		return loginNoCasPage();
 	}
 
 

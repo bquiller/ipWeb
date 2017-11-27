@@ -43,6 +43,10 @@ public class MenuBAckOffice extends CktlWebComponent {
 	    return menuCtrlr.estChoisi(Application.OM_PARAM_SEUIL);
 	}
 	
+	public boolean compChoisiParamLogique() {
+	    return menuCtrlr.estChoisi(Application.OM_PARAM_LOGIQUE);
+	}
+	
 	public boolean compChoisiParamUE() {
 	    return menuCtrlr.estChoisi(Application.OM_PARAM_UE);
 	}

@@ -6,7 +6,7 @@ import com.webobjects.eocontrol.EOGenericRecord;
 import com.webobjects.foundation.NSTimestamp;
 
 @SuppressWarnings("serial")
-public class EORepartCompte extends EOGenericRecord {
+public class EORepartCompte extends _EORepartCompte {
 
     public EORepartCompte() {
         super();

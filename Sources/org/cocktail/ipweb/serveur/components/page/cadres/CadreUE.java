@@ -55,7 +55,8 @@ public class CadreUE extends UncWebComponent {
     }
     
     public boolean ecDisabled() { 
-    	return !modeModif() || ecEnCours.ecPlein(); 
+    	System.out.println(!modeModif() +" "+ !ecEnCours.getCaseCochee() +" "+ ecEnCours.ecPlein());
+    	return !modeModif() || (!ecEnCours.getCaseCochee() && ecEnCours.ecPlein()); 
     }
    
     // les appels Javascripts pour afficher ou masquer les diff�rentes Zones (Span et DIV) en fonction

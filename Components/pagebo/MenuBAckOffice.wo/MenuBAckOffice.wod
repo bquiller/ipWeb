@@ -43,6 +43,10 @@ Conditional9: WOConditional {
 	condition = compChoisiParamSeuil;
 }
 
+Conditional12: WOConditional {
+	condition = compChoisiParamLogique;
+}
+
 Conditional10: WOConditional {
 	condition = compChoisiParamUE;
 }
@@ -130,6 +134,10 @@ Mod_listeInscDipl: Mod_listeInscDipl {
 
 Mod_seuil: Mod_seuil{
 }
+
+Mod_logique: Mod_logique{
+}
+
 Mod_fermeture: Mod_fermeture{
 }
 

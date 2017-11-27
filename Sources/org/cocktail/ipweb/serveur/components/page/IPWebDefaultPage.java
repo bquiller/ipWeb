@@ -8,7 +8,12 @@ import com.webobjects.appserver.WOContext;
 
 public class IPWebDefaultPage extends CktlWebPage{
 
-    public IPWebDefaultPage(WOContext context) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 166143733829640448L;
+
+	public IPWebDefaultPage(WOContext context) {
         super(context);
     }
 

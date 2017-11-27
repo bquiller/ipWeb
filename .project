@@ -3,7 +3,6 @@
 	<name>ipWeb</name>
 	<comment></comment>
 	<projects>
-		<project>ScolarixFwk2</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

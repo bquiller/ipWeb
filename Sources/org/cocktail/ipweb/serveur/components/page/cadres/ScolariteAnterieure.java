@@ -109,7 +109,7 @@ public class ScolariteAnterieure extends CktlWebComponent {
     	// TODO : paramétrer la VILLE !
     	// lance d'abord la proc stockée + fetch et retraitement des données pour édition du RN
     	NSData lesDatas = mySession().getReleveNotes().imprRN(rnEtudNumero, rnFannKey, rnFspnKey, rnIdiplAnneeSuivie, 
-    			rnMrsemKey, rnMsemKey, rnMsemOrdre, sessionExam,"Nouméa",diplome);
+    			rnMrsemKey, rnMsemKey, rnMsemOrdre, sessionExam,"Nîmes",diplome);
 
     	// On loggue cette action pour cet étudiant...
     	((Session)session()).logSortieRN(currentInscForm.idiplNumero(), rnEtudNumero, rnFannKey, rnMrsemKey, rnMsemOrdre);

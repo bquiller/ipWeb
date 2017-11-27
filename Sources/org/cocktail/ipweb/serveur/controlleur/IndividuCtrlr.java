@@ -405,7 +405,7 @@ public class IndividuCtrlr {
 			if (numeroTelEtudiant != null && numeroTelEtudiant.length()>0) {
 				eOTelEtud = new IpwPersonneTelephone();
 				ec.insertObject(eOTelEtud);
-				eOTelEtud.completeInit(ind.persId(),numeroTelEtudiant,"TEL","ETUD",dateCreate);
+				eOTelEtud.completeInit((Integer)ind.persId(),numeroTelEtudiant,"TEL","ETUD",dateCreate);
 				numeroTelEtudiant = eOTelEtud.noTelephone();
 			}
 		}

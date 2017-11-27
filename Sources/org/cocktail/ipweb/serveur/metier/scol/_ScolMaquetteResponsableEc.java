@@ -6,7 +6,9 @@ import com.webobjects.eocontrol.*;
 import com.webobjects.foundation.*;
 import java.math.*;
 import java.util.*;
+import org.apache.log4j.Logger;
 
+@SuppressWarnings("all")
 public abstract class _ScolMaquetteResponsableEc extends  EOGenericRecord {
 	public static final String ENTITY_NAME = "ScolMaquetteResponsableEc";
 
@@ -18,7 +20,9 @@ public abstract class _ScolMaquetteResponsableEc extends  EOGenericRecord {
 	// Relationships
 	public static final String INDIVIDU_KEY = "individu";
 
-  public ScolMaquetteResponsableEc localInstanceOfScolMaquetteResponsableEcIn(EOEditingContext editingContext) {
+  private static Logger LOG = Logger.getLogger(_ScolMaquetteResponsableEc.class);
+
+  public ScolMaquetteResponsableEc localInstanceIn(EOEditingContext editingContext) {
     ScolMaquetteResponsableEc localInstance = (ScolMaquetteResponsableEc)EOUtilities.localInstanceOfObject(editingContext, this);
     if (localInstance == null) {
       throw new IllegalStateException("You attempted to localInstance " + this + ", which has not yet committed.");
@@ -31,6 +35,9 @@ public abstract class _ScolMaquetteResponsableEc extends  EOGenericRecord {
   }
 
   public void setFannKey(Integer value) {
+    if (_ScolMaquetteResponsableEc.LOG.isDebugEnabled()) {
+    	_ScolMaquetteResponsableEc.LOG.debug( "updating fannKey from " + fannKey() + " to " + value);
+    }
     takeStoredValueForKey(value, "fannKey");
   }
 
@@ -39,6 +46,9 @@ public abstract class _ScolMaquetteResponsableEc extends  EOGenericRecord {
   }
 
   public void setMbecType(String value) {
+    if (_ScolMaquetteResponsableEc.LOG.isDebugEnabled()) {
+    	_ScolMaquetteResponsableEc.LOG.debug( "updating mbecType from " + mbecType() + " to " + value);
+    }
     takeStoredValueForKey(value, "mbecType");
   }
 
@@ -47,16 +57,22 @@ public abstract class _ScolMaquetteResponsableEc extends  EOGenericRecord {
   }
 
   public void setMecKey(Integer value) {
+    if (_ScolMaquetteResponsableEc.LOG.isDebugEnabled()) {
+    	_ScolMaquetteResponsableEc.LOG.debug( "updating mecKey from " + mecKey() + " to " + value);
+    }
     takeStoredValueForKey(value, "mecKey");
   }
 
-  public EOGenericRecord individu() {
-    return (EOGenericRecord)storedValueForKey("individu");
+  public org.cocktail.fwkcktlwebapp.common.metier.EOIndividuUlrPersId individu() {
+    return (org.cocktail.fwkcktlwebapp.common.metier.EOIndividuUlrPersId)storedValueForKey("individu");
   }
 
-  public void setIndividuRelationship(EOGenericRecord value) {
+  public void setIndividuRelationship(org.cocktail.fwkcktlwebapp.common.metier.EOIndividuUlrPersId value) {
+    if (_ScolMaquetteResponsableEc.LOG.isDebugEnabled()) {
+      _ScolMaquetteResponsableEc.LOG.debug("updating individu from " + individu() + " to " + value);
+    }
     if (value == null) {
-    	EOGenericRecord oldValue = individu();
+    	org.cocktail.fwkcktlwebapp.common.metier.EOIndividuUlrPersId oldValue = individu();
     	if (oldValue != null) {
     		removeObjectFromBothSidesOfRelationshipWithKey(oldValue, "individu");
       }
@@ -69,7 +85,7 @@ public abstract class _ScolMaquetteResponsableEc extends  EOGenericRecord {
   public static ScolMaquetteResponsableEc createScolMaquetteResponsableEc(EOEditingContext editingContext, Integer fannKey
 , String mbecType
 , Integer mecKey
-, EOGenericRecord individu) {
+, org.cocktail.fwkcktlwebapp.common.metier.EOIndividuUlrPersId individu) {
     ScolMaquetteResponsableEc eo = (ScolMaquetteResponsableEc) EOUtilities.createAndInsertInstance(editingContext, _ScolMaquetteResponsableEc.ENTITY_NAME);    
 		eo.setFannKey(fannKey);
 		eo.setMbecType(mbecType);
@@ -78,18 +94,18 @@ public abstract class _ScolMaquetteResponsableEc extends  EOGenericRecord {
     return eo;
   }
 
-  public static NSArray fetchAllScolMaquetteResponsableEcs(EOEditingContext editingContext) {
+  public static NSArray<ScolMaquetteResponsableEc> fetchAllScolMaquetteResponsableEcs(EOEditingContext editingContext) {
     return _ScolMaquetteResponsableEc.fetchAllScolMaquetteResponsableEcs(editingContext, null);
   }
 
-  public static NSArray fetchAllScolMaquetteResponsableEcs(EOEditingContext editingContext, NSArray sortOrderings) {
+  public static NSArray<ScolMaquetteResponsableEc> fetchAllScolMaquetteResponsableEcs(EOEditingContext editingContext, NSArray<EOSortOrdering> sortOrderings) {
     return _ScolMaquetteResponsableEc.fetchScolMaquetteResponsableEcs(editingContext, null, sortOrderings);
   }
 
-  public static NSArray fetchScolMaquetteResponsableEcs(EOEditingContext editingContext, EOQualifier qualifier, NSArray sortOrderings) {
+  public static NSArray<ScolMaquetteResponsableEc> fetchScolMaquetteResponsableEcs(EOEditingContext editingContext, EOQualifier qualifier, NSArray<EOSortOrdering> sortOrderings) {
     EOFetchSpecification fetchSpec = new EOFetchSpecification(_ScolMaquetteResponsableEc.ENTITY_NAME, qualifier, sortOrderings);
     fetchSpec.setIsDeep(true);
-    NSArray eoObjects = (NSArray)editingContext.objectsWithFetchSpecification(fetchSpec);
+    NSArray<ScolMaquetteResponsableEc> eoObjects = (NSArray<ScolMaquetteResponsableEc>)editingContext.objectsWithFetchSpecification(fetchSpec);
     return eoObjects;
   }
 
@@ -98,7 +114,7 @@ public abstract class _ScolMaquetteResponsableEc extends  EOGenericRecord {
   }
 
   public static ScolMaquetteResponsableEc fetchScolMaquetteResponsableEc(EOEditingContext editingContext, EOQualifier qualifier) {
-    NSArray eoObjects = _ScolMaquetteResponsableEc.fetchScolMaquetteResponsableEcs(editingContext, qualifier, null);
+    NSArray<ScolMaquetteResponsableEc> eoObjects = _ScolMaquetteResponsableEc.fetchScolMaquetteResponsableEcs(editingContext, qualifier, null);
     ScolMaquetteResponsableEc eoObject;
     int count = eoObjects.count();
     if (count == 0) {
@@ -125,7 +141,7 @@ public abstract class _ScolMaquetteResponsableEc extends  EOGenericRecord {
     return eoObject;
   }
 
-  public static ScolMaquetteResponsableEc localInstanceOfScolMaquetteResponsableEcIn(EOEditingContext editingContext, ScolMaquetteResponsableEc eo) {
+  public static ScolMaquetteResponsableEc localInstanceIn(EOEditingContext editingContext, ScolMaquetteResponsableEc eo) {
     ScolMaquetteResponsableEc localInstance = (eo == null) ? null : (ScolMaquetteResponsableEc)EOUtilities.localInstanceOfObject(editingContext, eo);
     if (localInstance == null && eo != null) {
       throw new IllegalStateException("You attempted to localInstance " + eo + ", which has not yet committed.");

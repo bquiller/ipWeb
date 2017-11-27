@@ -6,7 +6,9 @@ import com.webobjects.eocontrol.*;
 import com.webobjects.foundation.*;
 import java.math.*;
 import java.util.*;
+import org.apache.log4j.Logger;
 
+@SuppressWarnings("all")
 public abstract class _ScolMaquetteAp extends  EOGenericRecord {
 	public static final String ENTITY_NAME = "ScolMaquetteAp";
 
@@ -23,7 +25,9 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
 	public static final String SCOL_MAQUETTE_CHARGES_AP_KEY = "scolMaquetteChargesAp";
 	public static final String SCOL_MAQUETTE_REPARTITION_APS_KEY = "scolMaquetteRepartitionAps";
 
-  public ScolMaquetteAp localInstanceOfScolMaquetteApIn(EOEditingContext editingContext) {
+  private static Logger LOG = Logger.getLogger(_ScolMaquetteAp.class);
+
+  public ScolMaquetteAp localInstanceIn(EOEditingContext editingContext) {
     ScolMaquetteAp localInstance = (ScolMaquetteAp)EOUtilities.localInstanceOfObject(editingContext, this);
     if (localInstance == null) {
       throw new IllegalStateException("You attempted to localInstance " + this + ", which has not yet committed.");
@@ -36,6 +40,9 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
   }
 
   public void setFannKey(Integer value) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+    	_ScolMaquetteAp.LOG.debug( "updating fannKey from " + fannKey() + " to " + value);
+    }
     takeStoredValueForKey(value, "fannKey");
   }
 
@@ -44,6 +51,9 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
   }
 
   public void setMapGroupePrevu(Integer value) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+    	_ScolMaquetteAp.LOG.debug( "updating mapGroupePrevu from " + mapGroupePrevu() + " to " + value);
+    }
     takeStoredValueForKey(value, "mapGroupePrevu");
   }
 
@@ -52,6 +62,9 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
   }
 
   public void setMapGroupeReel(Integer value) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+    	_ScolMaquetteAp.LOG.debug( "updating mapGroupeReel from " + mapGroupeReel() + " to " + value);
+    }
     takeStoredValueForKey(value, "mapGroupeReel");
   }
 
@@ -60,6 +73,9 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
   }
 
   public void setMapLibelle(String value) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+    	_ScolMaquetteAp.LOG.debug( "updating mapLibelle from " + mapLibelle() + " to " + value);
+    }
     takeStoredValueForKey(value, "mapLibelle");
   }
 
@@ -68,6 +84,9 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
   }
 
   public void setMapSeuil(Integer value) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+    	_ScolMaquetteAp.LOG.debug( "updating mapSeuil from " + mapSeuil() + " to " + value);
+    }
     takeStoredValueForKey(value, "mapSeuil");
   }
 
@@ -76,6 +95,9 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
   }
 
   public void setMapValeur(java.math.BigDecimal value) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+    	_ScolMaquetteAp.LOG.debug( "updating mapValeur from " + mapValeur() + " to " + value);
+    }
     takeStoredValueForKey(value, "mapValeur");
   }
 
@@ -84,34 +106,43 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
   }
 
   public void setMhcoCode(String value) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+    	_ScolMaquetteAp.LOG.debug( "updating mhcoCode from " + mhcoCode() + " to " + value);
+    }
     takeStoredValueForKey(value, "mhcoCode");
   }
 
-  public NSArray scolMaquetteChargesAp() {
-    return (NSArray)storedValueForKey("scolMaquetteChargesAp");
+  public NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteChargesAp> scolMaquetteChargesAp() {
+    return (NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteChargesAp>)storedValueForKey("scolMaquetteChargesAp");
   }
 
-  public NSArray scolMaquetteChargesAp(EOQualifier qualifier) {
+  public NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteChargesAp> scolMaquetteChargesAp(EOQualifier qualifier) {
     return scolMaquetteChargesAp(qualifier, null);
   }
 
-  public NSArray scolMaquetteChargesAp(EOQualifier qualifier, NSArray sortOrderings) {
-    NSArray results;
+  public NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteChargesAp> scolMaquetteChargesAp(EOQualifier qualifier, NSArray<EOSortOrdering> sortOrderings) {
+    NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteChargesAp> results;
       results = scolMaquetteChargesAp();
       if (qualifier != null) {
-        results = (NSArray)EOQualifier.filteredArrayWithQualifier(results, qualifier);
+        results = (NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteChargesAp>)EOQualifier.filteredArrayWithQualifier(results, qualifier);
       }
       if (sortOrderings != null) {
-        results = (NSArray)EOSortOrdering.sortedArrayUsingKeyOrderArray(results, sortOrderings);
+        results = (NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteChargesAp>)EOSortOrdering.sortedArrayUsingKeyOrderArray(results, sortOrderings);
       }
     return results;
   }
   
   public void addToScolMaquetteChargesApRelationship(org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteChargesAp object) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+      _ScolMaquetteAp.LOG.debug("adding " + object + " to scolMaquetteChargesAp relationship");
+    }
     addObjectToBothSidesOfRelationshipWithKey(object, "scolMaquetteChargesAp");
   }
 
   public void removeFromScolMaquetteChargesApRelationship(org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteChargesAp object) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+      _ScolMaquetteAp.LOG.debug("removing " + object + " from scolMaquetteChargesAp relationship");
+    }
     removeObjectFromBothSidesOfRelationshipWithKey(object, "scolMaquetteChargesAp");
   }
 
@@ -135,31 +166,37 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
     }
   }
 
-  public NSArray scolMaquetteRepartitionAps() {
-    return (NSArray)storedValueForKey("scolMaquetteRepartitionAps");
+  public NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteRepartitionAp> scolMaquetteRepartitionAps() {
+    return (NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteRepartitionAp>)storedValueForKey("scolMaquetteRepartitionAps");
   }
 
-  public NSArray scolMaquetteRepartitionAps(EOQualifier qualifier) {
+  public NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteRepartitionAp> scolMaquetteRepartitionAps(EOQualifier qualifier) {
     return scolMaquetteRepartitionAps(qualifier, null);
   }
 
-  public NSArray scolMaquetteRepartitionAps(EOQualifier qualifier, NSArray sortOrderings) {
-    NSArray results;
+  public NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteRepartitionAp> scolMaquetteRepartitionAps(EOQualifier qualifier, NSArray<EOSortOrdering> sortOrderings) {
+    NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteRepartitionAp> results;
       results = scolMaquetteRepartitionAps();
       if (qualifier != null) {
-        results = (NSArray)EOQualifier.filteredArrayWithQualifier(results, qualifier);
+        results = (NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteRepartitionAp>)EOQualifier.filteredArrayWithQualifier(results, qualifier);
       }
       if (sortOrderings != null) {
-        results = (NSArray)EOSortOrdering.sortedArrayUsingKeyOrderArray(results, sortOrderings);
+        results = (NSArray<org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteRepartitionAp>)EOSortOrdering.sortedArrayUsingKeyOrderArray(results, sortOrderings);
       }
     return results;
   }
   
   public void addToScolMaquetteRepartitionApsRelationship(org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteRepartitionAp object) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+      _ScolMaquetteAp.LOG.debug("adding " + object + " to scolMaquetteRepartitionAps relationship");
+    }
     addObjectToBothSidesOfRelationshipWithKey(object, "scolMaquetteRepartitionAps");
   }
 
   public void removeFromScolMaquetteRepartitionApsRelationship(org.cocktail.ipweb.serveur.metier.scol.ScolMaquetteRepartitionAp object) {
+    if (_ScolMaquetteAp.LOG.isDebugEnabled()) {
+      _ScolMaquetteAp.LOG.debug("removing " + object + " from scolMaquetteRepartitionAps relationship");
+    }
     removeObjectFromBothSidesOfRelationshipWithKey(object, "scolMaquetteRepartitionAps");
   }
 
@@ -203,18 +240,18 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
     return eo;
   }
 
-  public static NSArray fetchAllScolMaquetteAps(EOEditingContext editingContext) {
+  public static NSArray<ScolMaquetteAp> fetchAllScolMaquetteAps(EOEditingContext editingContext) {
     return _ScolMaquetteAp.fetchAllScolMaquetteAps(editingContext, null);
   }
 
-  public static NSArray fetchAllScolMaquetteAps(EOEditingContext editingContext, NSArray sortOrderings) {
+  public static NSArray<ScolMaquetteAp> fetchAllScolMaquetteAps(EOEditingContext editingContext, NSArray<EOSortOrdering> sortOrderings) {
     return _ScolMaquetteAp.fetchScolMaquetteAps(editingContext, null, sortOrderings);
   }
 
-  public static NSArray fetchScolMaquetteAps(EOEditingContext editingContext, EOQualifier qualifier, NSArray sortOrderings) {
+  public static NSArray<ScolMaquetteAp> fetchScolMaquetteAps(EOEditingContext editingContext, EOQualifier qualifier, NSArray<EOSortOrdering> sortOrderings) {
     EOFetchSpecification fetchSpec = new EOFetchSpecification(_ScolMaquetteAp.ENTITY_NAME, qualifier, sortOrderings);
     fetchSpec.setIsDeep(true);
-    NSArray eoObjects = (NSArray)editingContext.objectsWithFetchSpecification(fetchSpec);
+    NSArray<ScolMaquetteAp> eoObjects = (NSArray<ScolMaquetteAp>)editingContext.objectsWithFetchSpecification(fetchSpec);
     return eoObjects;
   }
 
@@ -223,7 +260,7 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
   }
 
   public static ScolMaquetteAp fetchScolMaquetteAp(EOEditingContext editingContext, EOQualifier qualifier) {
-    NSArray eoObjects = _ScolMaquetteAp.fetchScolMaquetteAps(editingContext, qualifier, null);
+    NSArray<ScolMaquetteAp> eoObjects = _ScolMaquetteAp.fetchScolMaquetteAps(editingContext, qualifier, null);
     ScolMaquetteAp eoObject;
     int count = eoObjects.count();
     if (count == 0) {
@@ -250,7 +287,7 @@ public abstract class _ScolMaquetteAp extends  EOGenericRecord {
     return eoObject;
   }
 
-  public static ScolMaquetteAp localInstanceOfScolMaquetteApIn(EOEditingContext editingContext, ScolMaquetteAp eo) {
+  public static ScolMaquetteAp localInstanceIn(EOEditingContext editingContext, ScolMaquetteAp eo) {
     ScolMaquetteAp localInstance = (eo == null) ? null : (ScolMaquetteAp)EOUtilities.localInstanceOfObject(editingContext, eo);
     if (localInstance == null && eo != null) {
       throw new IllegalStateException("You attempted to localInstance " + eo + ", which has not yet committed.");

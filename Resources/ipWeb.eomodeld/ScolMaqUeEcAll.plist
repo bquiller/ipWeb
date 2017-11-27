@@ -18,7 +18,7 @@
             valueType = i; 
         }, 
         {
-            columnName = "FDSC_KEY"; 
+            columnName = "FDSC_CODE"; 
             externalType = VARCHAR2; 
             name = fdscCode; 
             valueClassName = NSString; 
@@ -132,6 +132,15 @@
             name = nbhTp; 
             valueClassName = NSNumber; 
             valueType = d; 
+        }, 
+        {
+            allowsNull = Y; 
+            definition = "toEcSeuil.seuil"; 
+            externalType = NUMBER; 
+            name = "toEcSeuil_seuil"; 
+            userInfo = {"_EntityModeler" = {documentation = EOGenericRecord; }; }; 
+            valueClassName = NSNumber; 
+            valueType = i; 
         }
     ); 
     attributesUsedForLocking = (mrecKey, mueKey); 
@@ -154,7 +163,9 @@
         nbhCm, 
         nbhTd, 
         nbhTp, 
-        scolMaqSemestreUe
+        scolMaqSemestreUe, 
+        toEcSeuil, 
+        "toEcSeuil_seuil"
     ); 
     externalName = "SCOL_MAQ_UE_EC_ALL"; 
     internalInfo = {
@@ -192,6 +203,12 @@
             joinSemantic = EOInnerJoin; 
             joins = ({destinationAttribute = mueKey; sourceAttribute = mueKey; }); 
             name = scolMaqSemestreUe; 
+        }, 
+        {
+            destination = IpUeEcSeuil; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = mrecKey; sourceAttribute = mrecKey; }); 
+            name = toEcSeuil; 
         }
     ); 
 }

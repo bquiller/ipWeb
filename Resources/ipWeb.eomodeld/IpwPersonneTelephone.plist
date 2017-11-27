@@ -4,7 +4,7 @@
             columnName = "D_CREATION"; 
             externalType = DATE; 
             name = dCreation; 
-            serverTimeZone = "Pacific/Noumea"; 
+            serverTimeZone = "Europe/Paris"; 
             valueClassName = NSCalendarDate; 
             valueType = T; 
         }, 
@@ -12,7 +12,7 @@
             columnName = "D_MODIFICATION"; 
             externalType = DATE; 
             name = dModification; 
-            serverTimeZone = "Pacific/Noumea"; 
+            serverTimeZone = "Europe/Paris"; 
             valueClassName = NSCalendarDate; 
             valueType = T; 
         }, 
