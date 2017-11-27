@@ -1,0 +1,68 @@
+group = "cocktail.application"
+project.ext.artifact = "ipWeb"
+project.ext.year = '2012'
+
+
+buildscript {
+  apply from: "$serviceBuildUrl/cocktail.buildscript.gradle?private_token=${gitlabToken}"
+  apply from: "$serviceBuildUrl/sonar.buildscript.gradle?private_token=${gitlabToken}"
+}
+
+apply plugin: 'cocktail'
+apply from: "$serviceBuildUrl/cocktail.gradle?private_token=${gitlabToken}"
+apply from: "$serviceBuildUrl/cocktail-application.main.gradle?private_token=${gitlabToken}"
+apply from: "$serviceBuildUrl/libraries.gradle?private_token=${gitlabToken}"
+apply from: "$serviceBuildUrl/libraries-wo-543.gradle?private_token=${gitlabToken}"
+apply from: "$serviceBuildUrl/libraries-wonder-550.gradle?private_token=${gitlabToken}"
+apply from: "$serviceBuildUrl/release.gradle?private_token=${gitlabToken}"
+apply from: "$serviceBuildUrl/cucumber.gradle?private_token=${gitlabToken}"
+apply from: "$serviceBuildUrl/sonar.application.gradle?private_token=${gitlabToken}"
+
+
+
+overrideVersion {
+    version = System.getenv()['version']
+}
+
+integTest {
+    systemProperties = System.getProperties()
+}
+
+
+configurations {
+//permet d'exclure des vieilles versions de jasperReports si elles sont récupérées dans des frameworks
+     all*.exclude group: 'jasperreports', module: 'jasperreports'
+}
+
+dependencies {
+	
+	compile libraries.bundles.wonder.core
+  compile libraries.wonder.ERPrototypes
+  compile libraries.wonder.ERJavaMail
+  compile libraries.wonder.WOLips
+  compile libraries.oracle.ojdbc5
+	
+  compile group: 'com.fonts', name: 'arial-fonts', version: '1.0.0'
+
+	// Pour le profiling uniquement
+	//compile "wonder.misc:ERProfiling:5.5.0.cktl"
+
+  compile "cocktail.fwk:FwkCktlAjaxWebExt:$fwkVersion"
+  compile "cocktail.fwk:FwkCktlDroitsUtils:$fwkVersion"
+  compile "cocktail.fwk:FwkCktlGRH:$fwkVersion"
+  compile "cocktail.fwk:FwkCktlGRHGuiAjax:$fwkVersion"
+  compile "cocktail.fwk:FwkCktlJefyAdmin:$fwkVersion"
+  compile "cocktail.fwk:FwkCktlPersonne:$fwkVersion"
+  compile "cocktail.fwk:FwkCktlPersonneGuiAjax:$fwkVersion"
+  compile "cocktail.fwk:FwkCktlScol:$fwkVersion"
+     
+  compile "cocktail.fwk:FwkCktlSync:$fwkVersion"
+  compile "cocktail.fwk:FwkCktlThemes:$fwkVersion"
+  compile "cocktail.fwk:FwkCktlWebApp:$fwkVersion"
+  compile "cocktail.fwk:FwkGspot:$fwkVersion"
+  compile "cocktail.fwk:FwkGspotGuiAjax:$fwkVersion"
+  
+  testCompile libraries.bundles.tests
+  testCompile "com.github.detro.ghostdriver:phantomjsdriver:1.0.4"
+  
+}

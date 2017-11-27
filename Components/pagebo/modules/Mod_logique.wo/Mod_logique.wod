@@ -1,0 +1,129 @@
+PopUpMultiDiplSemUe1: PopUpMultiDiplSemUe {
+	action = selectUE;
+	anneeSuivie = monCtLogique.anneeSuivie;
+	disabled = dialogueModifEnCours;
+	eoSelectionne = monCtLogique.eoDiplSelected;
+	fspnKey = monCtLogique.fspnKey;
+	mueKey = monCtLogique.mueKey;
+	typeSelection = 3;
+}
+
+Conditional1: WOConditional {
+	condition = isUeChoisi;
+}
+
+Form3: WOForm {
+}
+
+inputFormule: WOTextField {
+	value = formule;
+  	size = "50";
+  	maxlength = "100";
+}
+
+inputCommentaire: WOTextField {
+	value = commentaire;
+  	size = "50";
+  	maxlength = "100";
+}
+
+ajouterRelation: WOSubmitButton {
+	action = ajouterRelation;
+	value = "Ajouter";
+	disabled = dialogueModifEnCours;
+}
+
+String1: WOString {
+	value = monCtLogique.libCompletUeChoisie;
+}
+
+Conditional5: WOConditional {
+	condition = monCtLogique.isModifAutorisee;
+}
+Conditional6: ERXNonNullConditional {
+	condition = ecChoisie;
+}
+Form1: WOForm {
+}
+
+
+SubmitButton1: WOSubmitButton {
+	action = clickBtChoixDial;
+	value = texteBtChoixDial;
+	disabled = dialogueModifEnCours;
+}
+
+Conditional3: WOConditional {
+	condition = afficherDialGestionLogique;
+}
+
+Form2: WOForm {
+	action = choixEcDepartLogique;
+	name = nomFormWOBrowser;
+}
+Browser1: WOBrowser {
+	displayString = detailEcLogique;
+	escapeHTML = false;
+	item = ecEnCours;
+	list = listeEc;
+	size = 7;
+	onChange = fctSubmitChoix;
+	selections = ecChoisie;
+	disabled = dialogueModifEnCours;
+}
+
+Conditional4: WOConditional {
+	condition = afficherDialGestionLogique;
+	negate = true;
+}
+
+Repetition1: WORepetition {
+	item = ecEnCours;
+	list = listeEc;
+}
+
+Conditional10: WOConditional {
+	condition = debugEnCours;
+}
+
+String2: WOString {
+	value = ecEnCours.mecCode;	// VALID
+}
+
+Conditional2: WOConditional {
+	condition = monCtLogique.isModifAutorisee;
+}
+
+Hyperlink1: WOHyperlink {
+	action = gestionLogiqueAction;
+}
+String6: WOString {
+	value = ecEnCours.mecLibelle;	// VALID
+}
+
+Conditional9: WOConditional {
+	condition = monCtLogique.isModifAutorisee;
+	negate = true;
+}
+
+String7: WOString {
+	value = ecEnCours.mrecKey;	// VALID
+}
+
+String3: WOString {
+	value = ecEnCours.mecLibelle;	// VALID
+}
+
+Repetition2: WORepetition {
+	item = logiqueEnCours;
+	list = logiques;
+}
+
+String4: WOString {
+	value = logiqueEnCours.rceFormuleContrainte;
+}
+
+SupprimerRelation: WOSubmitButton {
+	action = supprimerRelation;
+	value = "Supprimer";
+}

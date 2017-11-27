@@ -1,0 +1,60 @@
+ <fieldset>
+ 	<legend><B>S&eacute;lection d'une UE&nbsp;poss&eacute;dant des EC&nbsp;&agrave; choix :</B></legend>
+ 	<WEBOBJECT NAME=PopUpMultiDiplSemUe1></WEBOBJECT>
+ </fieldset>
+ 
+ <WEBOBJECT NAME=Conditional1>
+ 	<fieldset>
+ 		<LEGEND><B>EC &agrave; choix de l'UE&nbsp;<FONT COLOR=#0000ff><WEBOBJECT NAME=String1></WEBOBJECT></FONT>
+ 			:</B></LEGEND>
+ 		<webobject name="Conditional5"><webobject name="Form1"><webobject name="SubmitButton1"></webobject></webobject></webobject>
+ 		<WEBOBJECT NAME=Conditional3>
+ 			<I>Choisissez un EC pour en voir la logique :</I>
+ 			<WEBOBJECT NAME=Form2>
+ 			  <table><tr><td>&nbsp;&nbsp;&nbsp;
+ 			  	<WEBOBJECT NAME=Browser1></WEBOBJECT></td><td>
+ 			    <webobject name="Conditional5"><webobject name = "Conditional6"><webobject name="Form1">
+			 		<LEGEND><B>Ajouter une logique pour les EC &agrave; choix de l'UE&nbsp;<FONT COLOR=#0000ff><WEBOBJECT NAME=String1></WEBOBJECT></FONT>
+			 			:</B></LEGEND>
+					<span><i>La formule se compose des MREC_KEY visible dans ScolPédagogie et d'opérateur booléen.<br/> 
+						Par exemple, pour forcer la langue en S2 de psycho à la langue prise en S1, il faut écrire (17354&18643)|(17355&18645).<br/>
+						Le commentaire est ce qui sera inscrit à l'étudiant si la logique n'est pas respectée ; dans notre exemple ce pourrait être "Si anglais au S1, anglais au S2 !".<br/>
+					</i></span>
+					<b>Formule : </b><webobject name = "inputFormule"></webobject><br/>
+					<b>Commentaire : </b><webobject name = "inputCommentaire"></webobject>
+					<webobject name = "ajouterRelation"></webobject>
+			    </webobject></webobject></webobject>
+			</td></tr></table></WEBOBJECT>
+ 		</WEBOBJECT>
+ 		<WEBOBJECT NAME=Conditional4>
+ 			<TABLE CELLPADDING=2 CELLSPACING=1 BORDER=1>
+ 				<TR>
+ 					<TH>Code EC</TH>
+ 					<TH>Infos EC</TH>
+ 					<TH>Logiques</TH>
+ 				</TR>
+ 				<WEBOBJECT NAME=Repetition1>
+ 					<TR>
+ 						<TD>
+ 							<FONT SIZE=2>
+ 								<WEBOBJECT NAME=String2></WEBOBJECT>
+ 								<webobject name="Conditional10">&nbsp;<font color="#930084">(<webobject name="String7"></webobject>)</font></webobject>
+ 							</FONT>
+ 						</TD>
+ 						<TD>
+ 							<webobject name="Conditional2">
+ 								<webobject name="Hyperlink1"><webobject name="String6"></webobject></webobject>
+ 							</webobject>
+ 							<FONT SIZE=2>
+ 								<webobject name="Conditional9"><WEBOBJECT NAME=String3></WEBOBJECT></webobject>
+ 							</FONT>
+ 						</TD>
+ 						<TD><FONT COLOR=#800080><FONT SIZE=2><WEBOBJECT NAME=Form3>
+ 							<webobject name = "Repetition2"><WEBOBJECT NAME=String4></WEBOBJECT><webobject name = "SupprimerRelation"></webobject><br/></webobject>
+ 						</WEBOBJECT></FONT></FONT>&nbsp;</TD>
+ 					</TR>
+ 				</WEBOBJECT>
+ 			</TABLE>
+ 		</WEBOBJECT>
+ 	</fieldset>
+ </WEBOBJECT>

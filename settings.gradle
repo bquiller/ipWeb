@@ -1,0 +1,2 @@
+// see http://mrhaki.blogspot.fr/2009/11/gradle-goodness-changing-project-name.html
+rootProject.name = 'ipWeb'
