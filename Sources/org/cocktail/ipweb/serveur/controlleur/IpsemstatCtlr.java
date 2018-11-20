@@ -29,6 +29,9 @@ public class IpsemstatCtlr {
 	
 	init();
 	needSave = false;
+	System.out.println("Construct IpsemstatCtlr :  idiplNumero : " + 	idiplNumero 
+				+ " msemKey : "  + msemKey + " fannKey : " + fannKey);
+	
     }
     
     private void init() {
@@ -99,6 +102,8 @@ public class IpsemstatCtlr {
     public void svgde() {
 	// Des changements doivent-ils �tre r�percut�s vers l'EC / La base ?
 	if (needSave) {
+		System.out.println("====================================> idiplNumero : " + 	idiplNumero 
+				+ " msemKey : "  + msemKey + " fannKey : " + fannKey);
 	    EOEditingContext ec = maSession.defaultEditingContext();
 	    ec.saveChanges();
 	    needSave = false;

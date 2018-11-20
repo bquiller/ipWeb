@@ -45,37 +45,37 @@ public class LogsIp extends UncWebComponent {
         cacheInscSem = new NSMutableDictionary();
 
         // s'enregistrer pour les notifs (chgt de semestre)
-        NSNotificationCenter.defaultCenter().addObserver(this,	// on doit me pr�venir moi-m�me !
-        	new NSSelector("changeSemestre",		// via cette m�thode
+        NSNotificationCenter.defaultCenter().addObserver(this,	// on doit me prévenir moi-même !
+        	new NSSelector("changeSemestre",		// via cette méthode
         	new Class [] {NSNotification.class}),		// argument obligatoire !!!
-        	"chgtSemestre",					// la signature de la notif qui m�plait
+        	"chgtSemestre",					// la signature de la notif
 			(Session)this.session());		// instance de celui qui la poste !
         
-        // appel par notification ne fonctionne pas � l'init... autre m�thode donc !
+        // appel par notification ne fonctionne pas à l'init... autre méthode donc !
         maSession = (Session)this.session();
     	chargerSemestre(maSession.getInscSemestreParDefaut());
     }
 
-//  ex. de m�thode invoqu�e par notification une fois enregistr� :
+//  ex. de méthode invoquée par notification une fois enregistré :
     public void changeSemestre(NSNotification laNotif) {
-    	// on va analyser ce qu'il y a � faire
+    	// on va analyser ce qu'il y a à faire
     	chargerSemestre(laNotif.userInfo());
     }
     
     private void chargerSemestre(NSDictionary userInfo) {
     	// init du semestre en cours !
-    	// TODO tester cas d'erreur = pas de semestre par d�faut !!!
+    	// TODO tester cas d'erreur = pas de semestre par défaut !!!
     	if (userInfo != null) {
 
     		inscForm = (InscFormationCtrlr)userInfo.objectForKey("InscFormCtrlr");
     		inscSem = chercherCtrlrSem(inscForm);
 
-    		// refresh des droits par rapport � ce nouveau diplome/ann�e...
+    		// refresh des droits par rapport à ce nouveau diplome/année...
     		String diplAnnee = (Integer)(inscSem.getMonSemestre()).valueForKey("fspnKey")
     		+"-"+(Integer)(inscSem.getMonSemestre()).valueForKey("anneeSuivie");
     		ctlFonctions.refreshDroitsFonctions(diplAnnee);
 
-    		// prevenir la session du ctlr de semestre en cours � pr�sent !
+    		// prevenir la session du ctlr de semestre en cours à présent !
     		maSession.setCtlrSemestreEnCours(inscSem);
 
     		// charger les logs correspondants...
@@ -91,7 +91,7 @@ public class LogsIp extends UncWebComponent {
     // Pour initialiser le controleur de formation pour le WO CadreParcours...
     public InscFormationCtrlr leCtlrForm() { return inscForm; }
 
-    // Mise en forme sp�ciale pour affichage CadreIP
+    // Mise en forme spéciale pour affichage CadreIP
     public String getParcours() {
 	String libParcours = getParcoursInscEnCours();
 	if (libParcours != null && libParcours.length() > 0)
@@ -99,7 +99,7 @@ public class LogsIp extends UncWebComponent {
 	return ("");
     }
     
-    // Le parcours auquel fait r�f�rence le semestre en cours (si parcours commun, renvoyer chaine vide)
+    // Le parcours auquel fait référence le semestre en cours (si parcours commun, renvoyer chaine vide)
     public String getParcoursInscEnCours() {
 	return inscForm.getLibelleParcoursEnCours();
     }

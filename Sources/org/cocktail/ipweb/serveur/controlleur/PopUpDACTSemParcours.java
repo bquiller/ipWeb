@@ -35,6 +35,7 @@ public class PopUpDACTSemParcours extends PopUpDataAccessCtrlr {
 		if (res != null) {
 			res = "sem."+res;
 			String resSuite = recupValCle("mparAbreviation");
+			// BRICE : commenter le if si on veut toujours afficher le parcours 
 			if (resSuite == null || resSuite.length() == 0) {
 				resSuite = recupValCle("mparLibelle");
 				res+= ", "+resSuite;

@@ -15,8 +15,8 @@ import org.cocktail.fwkcktlwebapp.server.CktlMailBus;
 import org.cocktail.fwkcktlwebapp.server.CktlResourceManager;
 import org.cocktail.fwkcktlwebapp.server.CktlWebApplication;
 import org.cocktail.fwkcktlwebapp.server.components.CktlAlertPage;
-import org.cocktail.ipweb.serveur.controlleur.ImprJasper;
 import org.cocktail.ipweb.serveur.components.Main;
+import org.cocktail.ipweb.serveur.controlleur.ImprJasper;
 
 import com.webobjects.appserver.WOComponent;
 import com.webobjects.appserver.WOContext;
@@ -42,8 +42,8 @@ import com.webobjects.foundation.NSTimestamp;
 import com.webobjects.foundation.NSTimestampFormatter;
 
 import er.extensions.appserver.ERXApplication;
-import er.extensions.foundation.ERXPatcher;
 import er.extensions.eof.ERXEC;
+import er.extensions.foundation.ERXPatcher;
 
 public class Application extends CktlWebApplication {
 
@@ -128,7 +128,7 @@ public class Application extends CktlWebApplication {
 
 	public String copyright()
 	{
-		String message = "&copy; 2006-2017 Universit\351 de N\356mes";
+		String message = "&copy; 2006-2018 Universit\351 de N\356mes";
 		
 		 if (debug()) 
 			message += "<BR>" + urlBase();

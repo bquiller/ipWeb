@@ -31,18 +31,26 @@ public class InscDiplAnneeCtrlr {
 
 
 	// on gère à présent 2 InscFormationCtrlr par insc° (1 par semestre)
-	private void initInscParcours(boolean preInscriptionEnCours) {
+	public void initInscParcours(boolean preInscriptionEnCours) {
 
 		NSMutableArray listeForm = new NSMutableArray();
 
 		int annee = ((Integer)inscriptionEtudiant.valueForKey("idiplAnneeSuivie")).intValue();
 
 		InscFormationCtrlr formCtSemI = new InscFormationCtrlr(maSession,this,annee * 2 -1, preInscriptionEnCours);
+		System.out.println("formCtSemI " + formCtSemI.valide());
 		if (formCtSemI.valide())
 			listeForm.addObject(formCtSemI);
-
-		InscFormationCtrlr formCtSemP = new InscFormationCtrlr(maSession,this,annee * 2, false);
+		// BRICE
+		else 
+			listeForm.addObject(formCtSemI);
+		
+		// InscFormationCtrlr formCtSemP = new InscFormationCtrlr(maSession,this,annee * 2, false);
+		InscFormationCtrlr formCtSemP = new InscFormationCtrlr(maSession,this,annee * 2, preInscriptionEnCours);
 		if (formCtSemP.valide())
+			listeForm.addObject(formCtSemP);
+		// BRICE
+		else 
 			listeForm.addObject(formCtSemP);
 
 		lesFormCtrlr = new NSArray(listeForm);

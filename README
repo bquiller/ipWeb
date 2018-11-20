@@ -1,0 +1,23 @@
+update IP_WEB.IP_DIPL_ENMODIF 
+set IP_DATES_DEBUT = sysdate - 1, IP_DATES_FIN = sysdate + 1
+where IP_DATES_DEBUT is not null
+;
+
+update IP_WEB.IP_DATES_OUVERTURE_DOM
+set IP_DATES_DEBUT_DOM =  sysdate - 1, IP_DATES_FIN_DOM = sysdate + 1
+where IP_DATES_DEBUT_DOM is not null
+;
+
+/* Pour passer les parcours en parcours commun
+update scolarite.scol_maquette_parcours 
+set MPAR_ABREVIATION = SUBSTR(MPAR_LIBELLE, 0, 19)
+where fspn_key=572
+;
+*/
+
+-- pour scolpéda
+update compte set cpt_passwd = crypt('test'), cpt_passwd_clair = 'test' where cpt_login='bquiller';
+
+commit;
+
+-- num étu san IP : 20172616 / 20162594

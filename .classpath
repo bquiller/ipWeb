@@ -39,7 +39,6 @@
 	<classpathentry kind="lib" path="C:/Apple/System/Library/Frameworks/woinject-1.2/lib/javassist-3.19.0-GA.jar"/>
 	<classpathentry kind="lib" path="C:/Apple/System/Library/Frameworks/woinject-1.2/lib/javax.inject-1.jar"/>
 	<classpathentry kind="lib" path="C:/Apple/System/Library/Frameworks/woinject-1.2/woinject-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/bquiller/Desktop/JavaWOExtensions-5.5.1.cktl.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/jasperreports-4.1.1.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/jasperreports-fonts-4.1.1.jar"/>
 	<classpathentry kind="lib" path="Libraries/JasperLib/jasperreports-fonts-arial.jar"/>

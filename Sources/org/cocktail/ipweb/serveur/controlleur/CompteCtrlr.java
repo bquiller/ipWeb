@@ -118,7 +118,8 @@ public class CompteCtrlr {
 			String mdpEncrypte="";
 			String[] str = mdpCripted.replace('$','#').split("#");
 			boolean res=false;
-			mdpEncrypte = org.cocktail.crypto.md5.MD5Crypt.crypt(mdp,str[2]);
+			// mdpEncrypte = org.cocktail.crypto.md5.MD5Crypt.crypt(mdp,str[2]);
+			mdpEncrypte = org.cocktail.fwkcktlwebapp.common.util._imports.MD5.md5crypt(mdp);
 			res = mdpCripted.equals(mdpEncrypte);
 			return res;
 		}

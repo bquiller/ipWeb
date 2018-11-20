@@ -178,8 +178,9 @@ public class StatDiplomeCtrlr {
 	}
 	
 	public float pourcentIpComplete() {
+		System.out.println("pourcentIpComplete - nbipc : " + nbIpCompletes + " / " + nbInscrits);
 	    if (nbIpCompletes>0)
-		return (((float)nbIpCompletes)/((float)nbInscrits))*100.0f;
+	    	return (((float)nbIpCompletes)/((float)nbInscrits))*100.0f;
 	    else return 0.0f;
 	}
 

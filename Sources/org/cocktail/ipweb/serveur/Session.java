@@ -168,7 +168,7 @@ public class Session extends CktlWebSession {
 
 	}
 
-	// URL vers fichier pdf d'explication pour les �tudiants....
+	// URL vers fichier pdf d'explication pour les étudiants....
 	public String urlNoticeAppli()
 	{
 		return monApp.urlImage("images/IP_WEB_doc_etudiant.pdf",this.context());
@@ -367,7 +367,7 @@ public class Session extends CktlWebSession {
 	}
 
 
-	// demande au niveau application de renvoyer un tableau de 2 dates (d�but et fin d'ins� aux IP Web) 
+	// demande au niveau application de renvoyer un tableau de 2 dates (début et fin d'insc aux IP Web) 
 	// en fonction du FSPN_KEY et du semestre...
 	// si cette association diplome/semestre n'existe pas, alors retourne null !
 	public NSTimestamp[] chercherDatesDiplSem(Integer fspnKey,Integer sem) {
@@ -384,9 +384,9 @@ public class Session extends CktlWebSession {
 	public boolean verifDatesDiplSem(Integer fspnKey, Integer msemOrdre){
 
 		// la modif des choix d'IP est possible ssi :
-		//	- les dates ne sont pas pass�es 
-		//		(!!! ATTENTION !!! date de fin forc�e � 23h59 pour inclure toute la journ�e !!!)
-		//	- le semestre en question n'a pas �t� obtenu (redoublant)
+		//	- les dates ne sont pas passées 
+		//		(!!! ATTENTION !!! date de fin forcée à 23h59 pour inclure toute la journée !!!)
+		//	- le semestre en question n'a pas été obtenu (redoublant)
 
 		boolean modifPossible = false;
 		boolean semIpWeb = false;
@@ -405,7 +405,7 @@ public class Session extends CktlWebSession {
 				NSTimestamp now = new NSTimestamp();
 				if (now.after(dates[0]) && now.before(dates[1])) {
 					modifPossible = true;
-					// quel est le degr� d'urgence ? 3 jours avant indiquer par un msg que �a urge !
+					// quel est le degré d'urgence ? 3 jours avant indiquer par un msg que ça urge !
 				}
 			}
 		}
@@ -413,17 +413,17 @@ public class Session extends CktlWebSession {
 	}
 
 
-	// notifier du changement de semestre demand� !
-	// ATTENTION : Il faut que le WoComp se soit enregistr� avant (marche pas pour l'init !!!)
+	// notifier du changement de semestre demandé !
+	// ATTENTION : Il faut que le WoComp se soit enregistré avant (marche pas pour l'init !!!)
 	public void changeSemestre(NSDictionary userInfo) {
-		//		ATTENTION ! Mettre � jour les donn�es de la session (idiplNumero...etc)
-		// TODO : � changer, pas propre (la session ne devrait avoir qu'un seul pointeur : le semestre en cours d'�dition)
+		//		ATTENTION ! Mettre à jour les données de la session (idiplNumero...etc)
+		// TODO : à changer, pas propre (la session ne devrait avoir qu'un seul pointeur : le semestre en cours d'édition)
 		initSemestreParDefaut(userInfo);
 
-		//		Envoyer une notification � tous les observateurs :
+		//		Envoyer une notification à tous les observateurs :
 		NSNotificationCenter.defaultCenter().postNotification(
-				"chgtSemestre",		// Voil� ce que je veux dire !!!!
-				this,					// C�est kiki poste ! C�est moi ki poste!
+				"chgtSemestre",		// Voilà ce que je veux dire !!!!
+				this,					// C'est kiki poste ! C'est moi ki poste!
 				userInfo);				// avec le dico !
 	}
 
@@ -462,9 +462,9 @@ public class Session extends CktlWebSession {
 	}
 
 
-	// TODO : � revoir !!
+	// TODO : à revoir !!
 	public void initSemestreParDefaut(NSDictionary userInfo) {
-		System.out.println("dans initSemestreParDefaut ");
+		System.out.println("dans initSemestreParDefaut " + userInfo);
 		if (userInfo != null) {
 			inscSemParDefaut = userInfo;
 			InscFormationCtrlr formCt = (InscFormationCtrlr)userInfo.objectForKey("InscFormCtrlr");
@@ -483,7 +483,7 @@ public class Session extends CktlWebSession {
 		return inscSemParDefaut;
 	}
 
-	// formatage d'un nombre Double : sans virgule si pas de partie d�cimale, vide si = 0.00
+	// formatage d'un nombre Double : sans virgule si pas de partie décimale, vide si = 0.00
 	public String formatteDouble(Double arg) {
 		int valEnt = arg.intValue();
 		if (arg.doubleValue() != valEnt) return arg.toString();
@@ -493,7 +493,7 @@ public class Session extends CktlWebSession {
 		}
 	}
 
-	// formatage d'un nombre double : sans virgule si pas de partie d�cimale, 0 ou vide si 0.00
+	// formatage d'un nombre double : sans virgule si pas de partie décimale, 0 ou vide si 0.00
 	public String formattedouble(double arg,boolean masqueZero) {
 		int valEnt = (int)arg;
 		if (arg != valEnt) return (new Double(arg)).toString();
@@ -522,7 +522,7 @@ public class Session extends CktlWebSession {
 		return (semCtEnCours!=null && semCtEnCours.modeModif()); }
 
 	public IpChoixEc ajouteChoixEc(Integer mrecKey,Integer msemKey,Integer mrueKey) {
-		// cr�ation d'un nouvel enreg. de choix d'EC
+		// création d'un nouvel enreg. de choix d'EC
 		//		IpChoixEc choixEc = new IpChoixEc();
 		//		monEc.insertObject(choixEc);
 
@@ -536,7 +536,7 @@ public class Session extends CktlWebSession {
 		choixEc.setCeDateChoix(new NSTimestamp());
 		choixEc.setFannKey(anneeUniv);
 		choixEc.setChoixIntegre("N");
-		// cr�ation d'un nouvel enregistrement de log...
+		// création d'un nouvel enregistrement de log...
 		ajouteLogChoix(mrecKey,msemKey,"A");
 
 		return choixEc;
@@ -552,7 +552,7 @@ public class Session extends CktlWebSession {
 
 		dataBus.deleteFromTable(null,"IpChoixEc",qualifier);
 
-		// cr�ation d'un nouvel enregistrement de log pour la suppression...
+		// création d'un nouvel enregistrement de log pour la suppression...
 		ajouteLogChoix(mrecKey,msemKey,"S");
 	}
 
@@ -570,7 +570,7 @@ public class Session extends CktlWebSession {
 		changementChoix= true;	// il y a au moins 1 choix qui change !
 	}
 
-	// appel de la proc�dure stock�e...
+	// appel de la procédure stockée...
 	public boolean integrerChoixIpSemestre(Integer fspnKey,Integer semOrdre,Integer fannKey,int etat) {
 		NSArray clefs = new NSArray(new Object[] {"10_fspnkey","20_msemordre","30_fannkey","40_etat"});
 		NSArray vals = new NSArray(new Object[] {fspnKey,semOrdre,fannKey,new Integer(etat)});
@@ -676,7 +676,7 @@ public class Session extends CktlWebSession {
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			monEc.invalidateAllObjects();	// force un refetch...
-			// id�alement, il faudrait aussi annuler les changements dans les objets controleurs... 
+			// idéalement, il faudrait aussi annuler les changements dans les objets controleurs... 
 			// A FAIRE !!!
 		}
 		return saveOk;
@@ -684,12 +684,12 @@ public class Session extends CktlWebSession {
 
 	public boolean changementChoix() { return changementChoix; }
 
-	// indique si un dialogue est engag� !
+	// indique si un dialogue est engagé !
 	public boolean dmec() {
 		return dialogueModal;	
 	}
 
-	// quand on veut d�marrer un dialogue modal : renvoit faux s'il y a d�j� un dialogue modal engag� !
+	// quand on veut démarrer un dialogue modal : renvoit faux s'il y a déjé un dialogue modal engagé !
 	public boolean demarreDM() {
 		if (dialogueModal) return false;
 		else {

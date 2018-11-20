@@ -1,9 +1,9 @@
 package org.cocktail.ipweb.serveur.controlleur;
 /*
- * Cr�� le 20 juil. 2006
+ * Créé le 20 juil. 2006
  *
- * Objectif G�rer les inscriptions �tudiantes,
- * => seulement les insc� administratives pour l'ann�e en cours...
+ * Objectif Gérer les inscriptions étudiantes,
+ * => seulement les insc administratives pour l'année en cours...
  */
 
 /**
@@ -31,7 +31,7 @@ import org.cocktail.scolarix.serveur.metier.eos.EOPreInscription;
 
 public class InscriptionCtrlr {
 
-	private EOGenericRecord etudiant;	// pointe vers enreg. �tudiant de l'individu en cours...
+	private EOGenericRecord etudiant;	// pointe vers enreg. étudiant de l'individu en cours...
 	/* ATTENTE
 	private EOPreEtudiant preEtudiant;
     */
@@ -50,7 +50,7 @@ public class InscriptionCtrlr {
 	 */
 	public InscriptionCtrlr(Session sess,IpwIndividuUlr monInd) {
 		super();
-		// lancer le chargement des inscriptions de l'individu en param�tre...
+		// lancer le chargement des inscriptions de l'individu en paramètre...
 		maSession = sess;
 //		anneeEnCours = sess.getAnneeEnCours();
 
@@ -71,7 +71,7 @@ public class InscriptionCtrlr {
 	// On vérifie si les données de ScolInscriptionEtudiant existent, sinon on les crée en fonction 
 	public InscriptionCtrlr(Session sess,EOPreEtudiant lePreEtudiant) {
 		super();
-		// lancer le chargement des inscriptions de l'individu en param�tre...
+		// lancer le chargement des inscriptions de l'individu en paramètre...
 		maSession = sess;
 		preEtudiant = lePreEtudiant;
 		
@@ -213,7 +213,7 @@ public class InscriptionCtrlr {
 	}
 	
 	private void chargerInscriptions(Integer etudNumero) {
-		//fetcher avec n� etudiant et ann�e en cours
+		//fetcher avec n etudiant et année en cours
 		NSArray bindings = new NSArray(new Object[] {etudNumero,
 				new Integer(maSession.getAnneeEnCours())});
     	
@@ -253,13 +253,13 @@ public class InscriptionCtrlr {
 		return inscriptionsCourantes;
 	}
 	
-	// avoir le semestre par d�faut (mrsemKey) et formation � traiter au lancement de l'appli... 
+	// avoir le semestre par défaut (mrsemKey) et formation à traiter au lancement de l'appli... 
 	// (sauf si le param est non nul = dans ce cas, ramener le InscFormationCtrlr correspondant, s'il existe)
 	public NSDictionary getSemParDefaut(Integer msemKey) {
 		int ordreICT,ordre = -100; 
 		InscFormationCtrlr inscCtPrio = null; 
 		if (inscriptionsCourantes != null && inscriptionsCourantes.count()>0) {
-			// Algo : parcourir toutes les insc� et choisir celle dont le semestre � la plus haute priorit�
+			// Algo : parcourir toutes les insc et choisir celle dont le semestre à la plus haute priorité
 
 			java.util.Enumeration e = lesDiplAnneeCtrlr.objectEnumerator();
 			
@@ -268,6 +268,8 @@ public class InscriptionCtrlr {
 				while (inscCtPrio==null && e.hasMoreElements()) {
 					InscDiplAnneeCtrlr courInscCt = (InscDiplAnneeCtrlr)e.nextElement();
 					inscCtPrio = courInscCt.getFormCtrlr(msemKey);
+
+					System.out.println("msemKey : " + msemKey+ " courInscCt : " + courInscCt.diplome());
 				}
 			}
 			// recherche par ordre de priorité
@@ -301,7 +303,7 @@ public class InscriptionCtrlr {
 	}
 
 	private void chargerToutesLesInscriptionsParAnnee(Integer etudNumero) {
-		// fetcher avec n� etudiant et ann�e en cours
+		// fetcher avec n etudiant et année en cours
 		NSArray bindings = new NSArray(new Object[] { etudNumero });
 		EOQualifier qualifier = EOQualifier.qualifierWithQualifierFormat(
 				"etudNumero = %@", bindings);

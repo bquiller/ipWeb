@@ -5,9 +5,11 @@ import org.cocktail.ipweb.serveur.Session;
 import org.cocktail.ipweb.serveur.components.onglets.FonctionsCtrlr;
 import org.cocktail.ipweb.serveur.controlleur.DownloadFic;
 import org.cocktail.ipweb.serveur.controlleur.IndividuCtrlr;
+import org.cocktail.ipweb.serveur.controlleur.InscDiplAnneeCtrlr;
 import org.cocktail.ipweb.serveur.controlleur.InscFormationCtrlr;
 import org.cocktail.ipweb.serveur.controlleur.InscSemestreCtrlr;
 import org.cocktail.ipweb.serveur.controlleur.InscUeCtrlr;
+import org.cocktail.ipweb.serveur.controlleur.InscriptionCtrlr;
 import org.cocktail.ipweb.serveur.controlleur.UncWebComponent;
 
 import com.webobjects.appserver.WOActionResults;
@@ -21,7 +23,7 @@ import com.webobjects.foundation.NSNotification;
 import com.webobjects.foundation.NSNotificationCenter;
 import com.webobjects.foundation.NSSelector;
 
-public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
+public class CadreIp extends UncWebComponent {		// on veut gérer des ancres...
 
 	// fonctions a gerer (pour le mode BackOffice)
 	private static String MODIF_IP_ETUD = "MODIF_IP_ETUD";
@@ -30,15 +32,15 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 
 	//	private Integer mrsemKey;
 	private Session maSession;
-	private InscFormationCtrlr inscForm;	// r�f�rence � la formation choisie par ailleurs
-	public InscSemestreCtrlr inscSem;		// objet controleur associ� (� initialiser et maj si besoin)
+	private InscFormationCtrlr inscForm;	// référence à la formation choisie par ailleurs
+	public InscSemestreCtrlr inscSem;		// objet controleur associé (à initialiser et maj si besoin)
 
 	public InscUeCtrlr unUeCtrlr;
 
 	private NSMutableDictionary cacheInscSem;		// systeme de cache pour stocker les ctrlr de semestres !
 
 	private boolean errDansLesIp;
-	private boolean dialogueParcoursDde;		// VRAI si on a demand� l'affichage d'un dialogue de choix du parcours ! 
+	private boolean dialogueParcoursDde;		// VRAI si on a demandé l'affichage d'un dialogue de choix du parcours ! 
 
 	public CadreIp(WOContext context) {
 		super(context);
@@ -46,13 +48,13 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 		cacheInscSem = new NSMutableDictionary();
 
 		// s'enregistrer pour les notifs (chgt de semestre)
-		NSNotificationCenter.defaultCenter().addObserver(this,	// on doit me pr�venir moi-m�me !
-				new NSSelector("changeSemestre",		// via cette m�thode
+		NSNotificationCenter.defaultCenter().addObserver(this,	// on doit me prévenir moi-même !
+				new NSSelector("changeSemestre",		// via cette méthode
 						new Class [] {NSNotification.class}),		// argument obligatoire !!!
-				"chgtSemestre",					// la signature de la notif qui m�plait
+				"chgtSemestre",					// la signature de la notif 
 				(Session)this.session());		// instance de celui qui la poste !
 
-		// appel par notification ne fonctionne pas � l'init... autre m�thode donc !
+		// appel par notification ne fonctionne pas à l'init... autre méthode donc !
 		maSession = (Session)this.session();
 		chargerSemestre(maSession.getInscSemestreParDefaut());
 	}
@@ -69,19 +71,19 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 	// Pour initialiser le controleur de formation pour le WO CadreParcours...
 	public InscFormationCtrlr leCtlrForm() { return inscForm; }
 
-	// Pour que le cadreUE ait une r�f�rence au bon controleur de semestre
+	// Pour que le cadreUE ait une référence au bon controleur de semestre
 	public InscSemestreCtrlr leCtlrSem() { return inscSem; }
 
-	//  ex. de m�thode invoqu�e par notification une fois enregistr� :
+	//  ex. de méthode invoquée par notification une fois enregistré :
 	public void changeSemestre(NSNotification laNotif) {
-		System.out.println("Call de changeSemestre ...");
-		// on va analyser ce qu'il y a � faire
+		System.out.println("Call de changeSemestre ... " + laNotif);
+		// on va analyser ce qu'il y a à faire
 		chargerSemestre(laNotif.userInfo());
 	}
 
 	//    public String decritEtatDialogueParcoursDde() {
-	//	if (dialogueParcoursDde) return "initi� par user !";
-	//	else return "PAS initi� par user !";
+	//	if (dialogueParcoursDde) return "initié par user !";
+	//	else return "PAS initié par user !";
 	//    }
 
 	// Appel depuis le sous-composant de gestion du dialogue de choix du parcours...
@@ -92,26 +94,32 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 	// Appel depuis le sous-composant de gestion du dialogue de choix du parcours...
 	public void termineDialogueEnCours() {
 		dialogueParcoursDde = false;
-		// on arr�te le dialogue modal...
+		// on arrète le dialogue modal...
 		((Session)session()).arreteDM();
 	}
 
-	// retourne l'info indiquant si le dialogue "choix d'un parcours" doit-�tre affich� 
-	// � la place de la maquette du semestre/Parcours...
+	// retourne l'info indiquant si le dialogue "choix d'un parcours" doit-être affiché 
+	// à la place de la maquette du semestre/Parcours...
 	// VRAI si : 
-	// 	- a) semestre � parcours, 
+	// 	- a) semestre à parcours, 
 	//	- b) pas de parcours choisi en dehors du parcours commun OU dde de chgt de parcours (click bouton)
 	public boolean afficheDialogueParcours() {
 		// Si c'est un enseignant qui consulte, renvoyer FALSE
-		if (maSession.estUnEnseignant()) return false;
+		if (maSession.estUnEnseignant()) {
+			System.out.println("Pas de choix de parcours car enseignant ...");
+			return false;
+		}
 		else {
+			// BRICE : retourner vrai pour les formations sans parcours communs ...
+			if (inscForm == null || inscSem == null) {
+				return true;
+			}
 			boolean affiche = inscForm.isChoixParcoursPossible() & (!inscSem.isParcSpeChoisi() | dialogueParcoursDde );
 			return affiche;
 		}
 	}
 
 	public boolean afficheBoutonOuvertureDialogueParcours() {
-		System.out.println("Dans afficheBoutonOuvertureDialogueParcours " + maSession.estUnEnseignant());
 		// Si c'est un enseignant qui consulte, renvoyer FALSE
 		if (maSession.estUnEnseignant()) return false;
 		else {
@@ -119,6 +127,8 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 			boolean a = inscForm.isChoixParcoursPossible();
 			boolean b = !afficheDialogueParcours();
 			boolean c = !inscSem.modeModif();
+			
+			System.out.println("A : " + a + " B " + b + " C " + c);
 
 			// TODO : hack Qick&Dirty à paramétrer...
 			// PO 2012 : à la demande de la Scol, on interdit aux étudiants de DEG en L1
@@ -130,6 +140,7 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 			boolean affiche = a & b & c;
 			//  		boolean affiche = inscForm.isChoixParcoursPossible() & !afficheDialogueParcours() 
 			//  		& !inscSem.modeModif();
+
 			return affiche;
 		}
 	}
@@ -146,7 +157,7 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 	private void chargerSemestre(NSDictionary userInfo) {
 		System.out.println("dans chargerSemestre, userInfo : " + userInfo);
 		// init du semestre en cours !
-		// TODO tester cas d'erreur = pas de semestre par d�faut !!!
+		// TODO tester cas d'erreur = pas de semestre par défaut !!!
 		if (userInfo != null) {
 			
 			errDansLesIp = false;
@@ -156,29 +167,29 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 
 			// en mode back-office :
 			if (inscSem != null && maSession.modeBackOffice()) {
-				// refresh des droits par rapport � ce nouveau diplome/ann�e...
+				// refresh des droits par rapport à ce nouveau diplome/année...
 				String diplAnnee = (Integer)(inscSem.getMonSemestre()).valueForKey("fspnKey")
 						+"-"+(Integer)(inscSem.getMonSemestre()).valueForKey("anneeSuivie");
 				ctlFonctions.refreshDroitsFonctions(diplAnnee);
 
-				// si pas possible de modifier les choix de l'�tudiant pour ce diplome (droits ScolPeda insuffisants)
+				// si pas possible de modifier les choix de l'étudiant pour ce diplome (droits ScolPeda insuffisants)
 				if (!ctlFonctions.getDroitsModification(MODIF_IP_ETUD))
 					inscSem.consultSeule(true);	// se mettre en mode consultation seulement !
 				else inscSem.consultSeule(false);
 			}
-			// pr�venir la session du ctlr de semestre en cours � pr�sent !
+			// prévenir la session du ctlr de semestre en cours à présent !
 			maSession.setCtlrSemestreEnCours(inscSem);
-			// puis envoyer une notif� aux CadreUE rattach�s pour qu'ils raffraichissent aussi !
+			// puis envoyer une notifé aux CadreUE rattachés pour qu'ils raffraichissent aussi !
 			//  		}
 			//  		catch (Exception e) {
 			//  		errDansLesIp = true;
 			//  		// TODO : envoie d'un mail au CRI !
 			//  		}
 
-			// AU d�part on ne lance pas le choix d'un parcours...
+			// AU départ on ne lance pas le choix d'un parcours...
 			dialogueParcoursDde = false;
 
-		}    	
+		} 
 	}
 
 	private InscSemestreCtrlr chercherCtrlrSem(InscFormationCtrlr inscForm) {
@@ -221,12 +232,12 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 		else return 0;
 	}
 
-	// Le parcours auquel fait r�f�rence le semestre en cours (si parcours commun, renvoyer chaine vide)
+	// Le parcours auquel fait référence le semestre en cours (si parcours commun, renvoyer chaine vide)
 	public String getParcoursInscEnCours() {
 		return inscForm.getLibelleParcoursEnCours();
 	}
 
-	// Mise en forme sp�ciale pour affichage CadreIP
+	// Mise en forme spéciale pour affichage CadreIP
 	public String getParcours() {
 		String libParcours = getParcoursInscEnCours();
 		if (libParcours != null && libParcours.length() > 0)
@@ -236,7 +247,22 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 
 
 	public boolean diplomeNonGere() {
-		if (inscForm == null || inscSem.getMonSemestre() ==null) return true;
+		// BRICE : s'il y a des parcours spe et pas de parcours communs, c'est un diplôme géré.
+		if (inscForm == null || inscSem == null || inscSem.getMonSemestre() ==null) {
+			InscDiplAnneeCtrlr an = (InscDiplAnneeCtrlr)maSession.getICEtudiant().
+					monCInsc().getLesDiplAnneeCtrlr().get(0);
+			an.initInscParcours(true);
+			if (inscForm == null) {
+				inscForm = (InscFormationCtrlr)an.getSemPrioritaire().get(1);
+				inscSem = inscForm.getInscSemCt();
+			}
+			System.out.println("inscSem " + inscSem);
+			dialogueParcoursDde = true;
+
+			return true;
+		}
+		// if (inscForm == null || inscSem.getMonSemestre() ==null) return true;
+		
 		return false;
 	}
 
@@ -264,14 +290,14 @@ public class CadreIp extends UncWebComponent {		// on veut g�rer des ancres...
 
 	public WOComponent validerModifBas() throws Exception {
 		validerModif();
-		if (getAnchor()==null) setAnchor("BAS"); // ne pas �craser la mise en �vidence d'une erreur...
+		if (getAnchor()==null) setAnchor("BAS"); // ne pas écraser la mise en évidence d'une erreur...
 		return null; 
 	}
 
 
 	public WOComponent validerModif() throws Exception {
 		if (!inscSem.validerModif(null)) {  // si toutes les modifs sont bien OK lancer la chaine de validations en cascades...
-			setAnchor(inscSem.getDerniereUeAvecErreur());	// sinon la v�rif s'est mal pass�e : se positionner sur la derni�re erreur survenue ! 
+			setAnchor(inscSem.getDerniereUeAvecErreur());	// sinon la vérif s'est mal passée : se positionner sur la dernière erreur survenue ! 
 		}
 		return null;
 	}

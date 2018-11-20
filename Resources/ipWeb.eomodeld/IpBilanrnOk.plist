@@ -32,4 +32,6 @@
     fetchSpecificationDictionary = {}; 
     name = IpBilanrnOk; 
     primaryKeyAttributes = (mrsemKey); 
+    restrictingQualifier = "fannKey <= to_char(sysdate,'yyyy')"; 
+    userInfo = {"_EntityModeler" = {partialEntity = DBATabColumns; }; }; 
 }

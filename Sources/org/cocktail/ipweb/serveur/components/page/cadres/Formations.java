@@ -130,6 +130,8 @@ public class Formations extends CktlWebComponent {
 			//	tournent en parall�le (applis Web)
 			// ne marche pas pour l'init par d�faut (cadre IP pas initialis� !)
 		} else {
+			// BRICE
+			//System.out.println("???????????????????? inscCt : " + inscCt);
 			((Session)this.session()).changeSemestre(null); // pour réinitialiser si pas de sem par défaut
 		}
 	}

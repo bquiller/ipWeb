@@ -69,7 +69,7 @@ public class InscSemestreCtrlr {
 
 	private boolean consultSeule;	// permet au mode Back-Office de bloquer les modifs si droits insuffisants	
 	/**
-	 * Objectif : g�rer le semestre pour lequel on veut g�rer les IP...
+	 * Objectif : gérer le semestre pour lequel on veut gérer les IP...
 	 * @throws Exception
 	 * 
 	 */
@@ -88,9 +88,9 @@ public class InscSemestreCtrlr {
 		lancerInits(); 
 	}
 
-	// 	Lancement tout au d�but puis avant chgt de parcours !
+	// 	Lancement tout au début puis avant chgt de parcours !
 	private void initsBefore() {
-		aucunChoixAFaire = false;	// par d�faut cet �tudiant peut faire des choix...
+		aucunChoixAFaire = false;	// par défaut cet étudiant peut faire des choix...
 	}
 
 	// Bascule confirmation/modification choix, avec svgde de l'état à chaque fois...
@@ -105,36 +105,37 @@ public class InscSemestreCtrlr {
 				inscFormCt.anneeUniv(), inscFormCt.mrsemKeyPS(), inscFormCt.getMsemOrdre(), confirmer);
 	}
 
-	// A lancer en cas de besoin (pr�Inits pas suffisantes pour r�pondre aux besoins de base OU s�lection du semestre)
+	// A lancer en cas de besoin (préInits pas suffisantes pour répondre aux besoins de base OU sélection du semestre)
 	private void lancerInits() 
 	{
 		int msemOrdre = (inscFormCt.getMsemOrdre()).intValue();
 		if (msemOrdre%2== 1) semImpair = new Integer(1);
 		else semImpair = new Integer(0);
 
-		// Gestion des parcours sp�cialis�s : fetcher la liste des parcours possibles pour ce dipl/semestre/annee
+		// Gestion des parcours spécialisés : fetcher la liste des parcours possibles pour ce dipl/semestre/annee
 		init();
-		parcoursSpecialiseAvecDispenses();	// v�rifier si ce semestre comporte un parcours sp�cialis� ou il y aurait des notes avec dispenses
+		parcoursSpecialiseAvecDispenses();	// vérifier si ce semestre comporte un parcours spécialisé ou il y aurait des notes avec dispenses
 	}
 
 
-	// Acces a l'EO du semestre (scolInsParcoursSemestre) de l'ext�rieur...
+	// Acces a l'EO du semestre (scolInsParcoursSemestre) de l'extérieur...
 	public EOGenericRecord getMonSemestre() { return monSemestre; }
 
-	// v�rifier si ce semestre comporte un parcours sp�cialis� 
+	// vérifier si ce semestre comporte un parcours spécialisé 
 	// ou il y aurait des notes avec dispenses (soit d'EC, soit d'UE)
 	private void parcoursSpecialiseAvecDispenses() {
 		boolean chgtDeParcoursPossible = true;
 
-		// Ce semestre presente t'il des parcours sp�cialis�s (plus d'un ?) ; un parcours est-il d�j� choisi ?
-		if (inscFormCt.getParcoursSpecialises() != null && inscFormCt.getParcoursSpecialises().count()>1 
+		// Ce semestre presente t'il des parcours spécialisés (plus d'un ?) ; un parcours est-il déjà choisi ?
+		// BRICE : ajout test null 
+		if (listeUeCt != null && inscFormCt.getParcoursSpecialises() != null && inscFormCt.getParcoursSpecialises().count()>1 
 				&& inscFormCt.existeInsParSpe()) {
 
-			// faire le tour des diff�rentes UE du parcours actuel ...
+			// faire le tour des différentes UE du parcours actuel ...
 			java.util.Enumeration e = listeUeCt.objectEnumerator();
 			while (chgtDeParcoursPossible && e.hasMoreElements()) {
 				InscUeCtrlr ueCt = (InscUeCtrlr)e.nextElement();
-				// si une UE faisant r�f�rence au parcours specialis� a une dispense...
+				// si une UE faisant référence au parcours specialisé a une dispense...
 				if (ueCt.ueAyantDispense(inscFormCt.msemKeyPP()))
 					chgtDeParcoursPossible = false;
 			}
@@ -165,7 +166,7 @@ public class InscSemestreCtrlr {
 
 
 
-	// appel� quand il y a eu chgt de parcours, pour faire un refresh (recharger maquette)
+	// appelé quand il y a eu chgt de parcours, pour faire un refresh (recharger maquette)
 	public void relanceInits(EOGenericRecord inscSemestre) {
 
 		monSemestre = inscSemestre;
@@ -182,9 +183,10 @@ public class InscSemestreCtrlr {
 	// Indique s'il y a une dispense complete du semestre :
 	public boolean isSemestreDejaObtenu() { return inscFormCt.semestreDejaObtenu(); }
 
-	// Indique si un parcours specialise a d�j� �t� choisi !
+	// Indique si un parcours specialise a déjà été choisi !
 	public boolean isParcSpeChoisi() { 
-		return (inscFormCt.existeInsParSpe());
+		// modif Brice 
+		return (inscFormCt.existeInsParSpe() | inscFormCt.getParcoursSelected() != null );
 	}
 
 	public String dateFinIPWebIncluse() {	// ip possibles jusqu'au...inclus !
@@ -195,7 +197,7 @@ public class InscSemestreCtrlr {
 		else return "";
 	}
 
-	public String dateDebutIPWeb() {	// ip possibles � partir du...inclus !
+	public String dateDebutIPWeb() {	// ip possibles à partir du...inclus !
 		if (modifPossible() || inscFormCt.dateDebutIP() != null) 
 			return maSession.monApp.tsFormat(inscFormCt.dateDebutIP());
 		else return "";
@@ -272,7 +274,7 @@ public class InscSemestreCtrlr {
 					nbUeIncompletes++;
 					derniereUeIncomplete = ueCt.getUeKey().toString();
 				}
-				cumECTS += ueCt.cumulEctsUe();	// cumul des points ECTS du dipl�me...
+				cumECTS += ueCt.cumulEctsUe();	// cumul des points ECTS du diplôme...
 				lesUeCt.addObject(ueCt);
 
 				if (ueCt.ueAvecChoix()) auMoinsUneUeAvecChoix = true; 
@@ -331,7 +333,7 @@ public class InscSemestreCtrlr {
 		while (enumerator.hasMoreElements()) {
 			sameCode = (NSArray)enumerator.nextElement();
 			if (sameCode != null && sameCode.count()>=2) {
-				// creer une relation d'exclusion entre au moins 2 EC ayant m�me mec_key...
+				// creer une relation d'exclusion entre au moins 2 EC ayant même mec_key...
 				relEc = new RelationChoixEc(sameCode);
 				listeRel.addObject(relEc);
 			}
@@ -408,7 +410,7 @@ public class InscSemestreCtrlr {
 			NSArray sortOrderings = new NSArray(new Object[] {mrecKey});
 			EOFetchSpecification fetchInscEc = new EOFetchSpecification("ScolInscriptionEc",
 					qualifier, sortOrderings);
-			fetchInscEc.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS d�j� fetch�s si besoin
+			fetchInscEc.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS déjà fetchés si besoin
 
 			NSArray<EOGenericRecord> inscEc = ec.objectsWithFetchSpecification(fetchInscEc);
 			
@@ -428,7 +430,7 @@ public class InscSemestreCtrlr {
 			EOQualifier qualifier2 = EOQualifier.qualifierWithQualifierFormat(
 					"idiplNumero = %@", bindings);
 			EOFetchSpecification fetchSpec = new EOFetchSpecification("IpChoixEc",qualifier2, sortOrderings);
-			fetchSpec.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS d�j� fetch�s si besoin
+			fetchSpec.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS déjà fetchés si besoin
 
 			NSArray<IpChoixEc> voeux = ec.objectsWithFetchSpecification(fetchSpec);
 			for (IpChoixEc voeu : voeux) {
@@ -467,7 +469,7 @@ public class InscSemestreCtrlr {
 		}
 		// FIN BRICE
 
-		// Pour tester : ajoute �valuation d'une contrainte sur les ec du semestre...
+		// Pour tester : ajoute évaluation d'une contrainte sur les ec du semestre...
 		//		String equationBooleenne = "(2519|2532)&(2519|2520)";
 		//		RelationChoixExpression relExp=new RelationChoixExpression(equationBooleenne,
 		//		(NSDictionary) dictEcSem,true);
@@ -509,14 +511,14 @@ public class InscSemestreCtrlr {
 		dictInscEc = inventaireDict(listeInscEc,"mrecKey");
 
 		fetchSpec = new EOFetchSpecification("IpChoixEc",qualifier, sortOrderings);
-		fetchSpec.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS d�j� fetch�s si besoin
+		fetchSpec.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS déjà fetchés si besoin
 
 		listeChoixEc = ec.objectsWithFetchSpecification(fetchSpec);
 		dictChoixEc = inventaireChoix(listeChoixEc,"mrecKey");
 
 	}
 	// charger globalement toutes les contraintes pour les EC de ce semestre...
-	// puis les int�grer aux relations � v�rifier sur les choix d'EC !
+	// puis les intégrer aux relations à vérifier sur les choix d'EC !
 	private NSArray chargerContraintesEc() {
 		System.out.println("Dans chargerContraintesEc");
 		NSArray bindings = new NSArray(new Object[] {getMsemKey(),inscFormCt.msemKeyPC()});
@@ -524,7 +526,7 @@ public class InscSemestreCtrlr {
 		// BRICE: on tente de charger toutes les contraintes pour voir ... suppression du qualifier
 		// EOFetchSpecification fetchSpec = new EOFetchSpecification("IpRelationChoixEc",qualifier, null);
 		EOFetchSpecification fetchSpec = new EOFetchSpecification("IpRelationChoixEc",null, null);
-		fetchSpec.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS d�j� fetch�s si besoin
+		fetchSpec.setRefreshesRefetchedObjects(true);	// fait en sorte de refetcher des EOS déjà fetchés si besoin
 		EOEditingContext ec = maSession.defaultEditingContext();
 
 		NSArray lesContraintes = ec.objectsWithFetchSpecification(fetchSpec);
@@ -533,7 +535,7 @@ public class InscSemestreCtrlr {
 	}
 
 
-	// cr�ation d'un dico � partir d'une liste, bas� sur une cl� donn�e
+	// création d'un dico à partir d'une liste, basé sur une clé donnée
 	private NSDictionary inventaireDict(NSArray listeEO,String chpCle) {
 		NSMutableDictionary dictTemp = new NSMutableDictionary();
 
@@ -541,13 +543,13 @@ public class InscSemestreCtrlr {
 		while (enumerator.hasMoreElements()) {
 			EOGenericRecord eo = (EOGenericRecord)enumerator.nextElement();
 			Object cle = eo.valueForKey(chpCle);
-			// TODO ; exception � traiter si cl� n'existe pas ! 
+			// TODO ; exception à traiter si clé n'existe pas ! 
 			dictTemp.setObjectForKey(eo,cle);
 		}
 		return new NSDictionary(dictTemp);
 	}
 
-	// cr�ation d'un dico � partir d'une liste, bas� sur une classe en particulier...
+	// création d'un dico à partir d'une liste, basé sur une classe en particulier...
 	private NSDictionary inventaireChoix(NSArray listeEO,String chpCle) {
 		NSMutableDictionary dictTemp = new NSMutableDictionary();
 
@@ -555,7 +557,7 @@ public class InscSemestreCtrlr {
 		while (enumerator.hasMoreElements()) {
 			IpChoixEc choix = (IpChoixEc)enumerator.nextElement();
 			Object cle = choix.valueForKey(chpCle);
-			// TODO ; exception � traiter si cl� n'existe pas ! 
+			// TODO ; exception à traiter si clé n'existe pas ! 
 			dictTemp.setObjectForKey(choix,cle);
 		}
 		return new NSDictionary(dictTemp);
@@ -608,11 +610,11 @@ public class InscSemestreCtrlr {
 		// return (dictInscEc.containsKey(mrecKey));
 	}
 
-	// constituer un dico des listes d'EC portant le m�me MEC_CODE pour les v�rifs � faire...
+	// constituer un dico des listes d'EC portant le même MEC_CODE pour les vérifs à faire...
 	private void ajouteEcDicoMecCode(InscEcCtrlr ecCT) {
 		NSMutableArray sameCode;
 		Integer mecKey = ecCT.getMecKey();
-		// y a t'il d�j� une EC enregistr�e avec ce mecCode ?
+		// y a t'il déjà une EC enregistrée avec ce mecCode ?
 		sameCode = (NSMutableArray)dictEcSameCode.objectForKey(mecKey);
 		if (sameCode == null) 
 			sameCode = new NSMutableArray(new Object[] {ecCT});
@@ -627,16 +629,16 @@ public class InscSemestreCtrlr {
 	}
 
 
-	// On passe en mode modif : si toutes les UE sont "masqu�es", faire un tour des UE pour d�masquer :
-	// - soit toutes les UE ou il manque des inscr� aux EC...
-	// - soit la derni�re UE ou il y a + d'ECTS pris que n�cessaire...
-	// - soit la derni�re UE ou il y a des choix � faire.
+	// On passe en mode modif : si toutes les UE sont "masquées", faire un tour des UE pour démasquer :
+	// - soit toutes les UE ou il manque des inscr aux EC...
+	// - soit la dernière UE ou il y a + d'ECTS pris que nécessaire...
+	// - soit la dernière UE ou il y a des choix à faire.
 	public void demanderModif(boolean global) {
 		maSession.demarreDM();
 		if (inscFormCt.modifPossible()) {
 			modeModif = true;
 
-			// m�thode globale � la page...
+			// méthode globale à la page...
 			if (global) {
 				boolean pasdUEincompletes = true;
 				boolean toutesLesUeMasquees = true;
@@ -649,7 +651,7 @@ public class InscSemestreCtrlr {
 					if (ueCt.ueAvecChoix()) {	// UE avec des choix
 						if (ueCt.ueDetaillee()) toutesLesUeMasquees = false;
 						if (ueCt.ueIncomplete()) {	// UE ou il manque des choix d'EC
-							//							if (pasdUEincompletes) ueCt.donnerFocus();	// donner le focus � la premi�re
+							//							if (pasdUEincompletes) ueCt.donnerFocus();	// donner le focus à la première
 							pasdUEincompletes = false;
 							ueCt.afficherDetails();
 						}
@@ -665,7 +667,7 @@ public class InscSemestreCtrlr {
 		}
 	}
 
-	// une fois la modif termin�e, "refermer" toutes les UE
+	// une fois la modif terminée, "refermer" toutes les UE
 	private void cleanUpUE() {
 		java.util.Enumeration enumerator = listeUeCt.objectEnumerator();
 		while (enumerator.hasMoreElements()) {
@@ -687,12 +689,12 @@ public class InscSemestreCtrlr {
 	}
 
 	public boolean verifierModif() {
-		// parcours de la liste des EC � choix non bloqu�...
-		// pour chacun lui demander de faire sa v�rif et ajuster ses codes erreurs...
+		// parcours de la liste des EC à choix non bloqué...
+		// pour chacun lui demander de faire sa vérif et ajuster ses codes erreurs...
 		boolean yaPasDeProb=true;
 		derniereUeAvecErreur="";
 
-		// RAZ g�n�ral des messages d'erreur
+		// RAZ général des messages d'erreur
 		java.util.Enumeration enumerator = listeEcCTaChoix.objectEnumerator();
 		while (enumerator.hasMoreElements()) {
 			InscEcCtrlr ecCT = (InscEcCtrlr)enumerator.nextElement();
@@ -714,8 +716,8 @@ public class InscSemestreCtrlr {
 			}
 		}
 
-		// �valuation des relations... ON S'ARRETE DES LA PREMIERE ERREUR POUR NE PAS EN METTRE PARTOUT
-		// (d�marche = faire corriger une erreur apr�s l'autre...)
+		// évaluation des relations... ON S'ARRETE DES LA PREMIERE ERREUR POUR NE PAS EN METTRE PARTOUT
+		// (démarche = faire corriger une erreur après l'autre...)
 		enumerator = lesRelationsEntreEc.objectEnumerator();
 		while (enumerator.hasMoreElements()) {
 			RelationChoixEc relEc = (RelationChoixEc)enumerator.nextElement();
@@ -733,7 +735,7 @@ public class InscSemestreCtrlr {
 			}
 		}
 		// si on arrive ici c'est que les relations sont OK...
-		// TODO : V�rifier qu'il n'y a pas trop d'EC pour chaque UE... 
+		// TODO : vérifier qu'il n'y a pas trop d'EC pour chaque UE... 
 
 		return yaPasDeProb;
 	}
@@ -742,8 +744,8 @@ public class InscSemestreCtrlr {
 
 	// annuler les modifs en cours...
 	public void annulerModif() {
-		// parcours de la liste des EC � choix non bloqu�...
-		// pour chacun lui demander de remettre � jour  son champ coch� en fonction de son �tat ant�rieur...
+		// parcours de la liste des EC à choix non bloqué...
+		// pour chacun lui demander de remettre à jour  son champ coché en fonction de son état antérieur...
 		Enumeration enumerator = listeEcCTaChoix.objectEnumerator();
 		while (enumerator.hasMoreElements()) {
 			InscEcCtrlr ecCT = (InscEcCtrlr)enumerator.nextElement();
@@ -758,10 +760,10 @@ public class InscSemestreCtrlr {
 
 	public boolean validerModif(InscUeCtrlr ueCtFocus) {
 		// On suppose que la modif est bien possible (on s'rait pas la sinon)
-		//--> phase de v�rif � faire d'abord et validation si tout est OK seulement !!!!
+		//--> phase de vérif à faire d'abord et validation si tout est OK seulement !!!!
 		if (!verifierModif()) return false;
 
-		// MAJ les choix d'EC � masquer si besoin... 
+		// MAJ les choix d'EC à masquer si besoin... 
 		java.util.Enumeration enumerator = lesRelationsEntreEc.objectEnumerator();
 		while (enumerator.hasMoreElements()) {
 			RelationChoixEc relEc = (RelationChoixEc)enumerator.nextElement();
@@ -769,15 +771,15 @@ public class InscSemestreCtrlr {
 				relEc.scannerChoixAMasquer();
 		}
 
-		// parcours de la liste des EC � choix non bloqu�...
-		// pour chacun lui demander de mettre � jour la base en fonction de la modif de son �tat par l'utilisateur
+		// parcours de la liste des EC à choix non bloqué...
+		// pour chacun lui demander de mettre à jour la base en fonction de la modif de son état par l'utilisateur
 		enumerator = listeEcCTaChoix.objectEnumerator();
 		while (enumerator.hasMoreElements()) {
 			InscEcCtrlr ecCT = (InscEcCtrlr)enumerator.nextElement();
 			ecCT.validerModif();
 		}
 
-		// demander � chaque UeCtrlr de raffraichir sa liste... sauf si aucune EC � choix dispo pour cette UE
+		// demander à chaque UeCtrlr de raffraichir sa liste... sauf si aucune EC à choix dispo pour cette UE
 		cumECTS = 0;
 
 		if (listeUeCt != null && listeUeCt.count()>0) {
@@ -785,7 +787,7 @@ public class InscSemestreCtrlr {
 			enumerator = listeUeCt.objectEnumerator();
 			while (enumerator.hasMoreElements()) {
 				InscUeCtrlr ueCt = (InscUeCtrlr)enumerator.nextElement();
-				cumECTS += ueCt.cumulEctsUe();	// cumul des points ECTS du dipl�me...
+				cumECTS += ueCt.cumulEctsUe();	// cumul des points ECTS du diplôme...
 				if (ueCt.ueAvecChoix()) {
 					ueCt.extraireListeEcIp();
 					if (ueCt.ueOuverte() && ueCt.compareCumulEcts()<0) {
@@ -799,7 +801,7 @@ public class InscSemestreCtrlr {
 		}
 
 		if (maSession.changementChoix()) {
-			// Mettre � jour les stats pour cet �tudiant + ce semestre...
+			// Mettre à jour les stats pour cet étudiant + ce semestre...
 			majIpSemStatUeEcts();
 		}
 
@@ -811,13 +813,13 @@ public class InscSemestreCtrlr {
 		return true;
 	}
 
-	// Mettre � jour ipSemStat et en particulier le nb d'UE ou il manque des choix, et le cumul de pt ECTS 
+	// Mettre à jour ipSemStat et en particulier le nb d'UE ou il manque des choix, et le cumul de pt ECTS 
 	private void majIpSemStatUeEcts()  {
 		inscFormCt.majIpSemStatUeEcts(cumECTS, nbUeIncompletes);
 	}
 
 
-	// message � afficher en haut du formulaire pour indiquer ce qui va pas (r�cap au niveau semestre)
+	// message à afficher en haut du formulaire pour indiquer ce qui va pas (récap au niveau semestre)
 	public String statutInscSemestre() {
 		if (nbUeIncompletes>0) return "Il reste des choix p&eacute;dagogiques &agrave; faire ";
 		else // return "Toutes les UE sont compl&egrave;tes.";
